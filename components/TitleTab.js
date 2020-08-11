@@ -1,5 +1,6 @@
 import React, { useState,useCallback } from 'react';
 import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
+import ProductList from '../../shopify-script-tag-app-master/components/ProductList';
 const TitleTab = () => {
 
   const rows = [
@@ -62,7 +63,7 @@ return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
         {/* <Card.Section title={tabs[selected].content}> */}
-        <DataTable
+        {/* <DataTable
           columnContentTypes={[
             'text',
             'numeric',
@@ -72,7 +73,8 @@ return (
           ]}
           headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
           rows={rows}
-        />
+        /> */}
+        <ProductList/>
         {/* </Card.Section> */}
     </Tabs>
   </Card>
