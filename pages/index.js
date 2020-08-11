@@ -8,7 +8,7 @@ class Index extends React.Component {
     return (
       <Page>
         {/* <Layout> */}
-        {/* <TitleTab/> */}
+        <TitleTab/>
           <div>
             <p>Sample app using React and Next.js</p>
           </div>
