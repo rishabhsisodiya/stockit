@@ -33,7 +33,7 @@ app.prepare().then(() => {
           secure: true,
           sameSite: 'none'
         });
-        // await getSubscriptionUrl(ctx, accessToken, shop);
+         //await getSubscriptionUrl(ctx, accessToken, shop);
       },
 
     }),
