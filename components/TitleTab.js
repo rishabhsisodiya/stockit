@@ -61,9 +61,8 @@ const TitleTab = () => {
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-        <Card.Section title={tabs[selected].content}>
-          <p>Tab {selected} selected</p>
-          <DataTable
+        {/* <Card.Section title={tabs[selected].content}> */}
+        <DataTable
           columnContentTypes={[
             'text',
             'numeric',
@@ -74,7 +73,7 @@ return (
           headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
           rows={rows}
         />
-        </Card.Section>
+        {/* </Card.Section> */}
     </Tabs>
   </Card>
 );  
