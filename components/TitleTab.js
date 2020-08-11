@@ -14,7 +14,7 @@ const TitleTab = () => {
       '$122,500.00',
     ],
     [
-      <Link url="https://www.example.com" key="mauve-cashmere-scarf">
+      <Link url="/products" key="mauve-cashmere-scarf">
         Mauve Cashmere Scarf
       </Link>,
       '$230.00',
@@ -23,7 +23,7 @@ const TitleTab = () => {
       '$19,090.00',
     ],
     [
-      <Link url="https://www.example.com" key="navy-merino-wool">
+      <Link url="/products" key="navy-merino-wool">
         Navy Merino Wool Blazer with khaki chinos and yellow belt
       </Link>,
       '$445.00',
