@@ -37,10 +37,10 @@ query getAllProducts{
 }
 `;
 
-function ProductList() {
+const ProductList = () => {
 
-  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: store.get('ids') } })
-
+const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID);
+console.log(data);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
