@@ -10,9 +10,7 @@ class Index extends React.Component {
         <Layout>
           <Layout.Section>
             <TitleTab/>
-            <div>
-              <p>Sample app using React and Next.js</p>
-            </div>
+            {/* <p>StockIt App using React and Next.js</p> */}
           </Layout.Section>
         </Layout>
       </Page>
