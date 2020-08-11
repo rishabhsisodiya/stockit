@@ -2,41 +2,79 @@ import React, { useState } from 'react';
 import {Card, Tabs} from '@shopify/polaris';
 
 const TitleTab = () => {
-    const [selected, setSelected] = useState(0);
+
+  const rows = [
+    [
+      <Link url="https://www.example.com" key="emerald-silk-gown">
+        Emerald Silk Gown
+      </Link>,
+      '$875.00',
+      124689,
+      140,
+      '$122,500.00',
+    ],
+    [
+      <Link url="https://www.example.com" key="mauve-cashmere-scarf">
+        Mauve Cashmere Scarf
+      </Link>,
+      '$230.00',
+      124533,
+      83,
+      '$19,090.00',
+    ],
+    [
+      <Link url="https://www.example.com" key="navy-merino-wool">
+        Navy Merino Wool Blazer with khaki chinos and yellow belt
+      </Link>,
+      '$445.00',
+      124518,
+      32,
+      '$14,240.00',
+    ],
+  ];
+
+  const [selected, setSelected] = useState(0);
    
-    const handleTabChange = () => {
-       console.log("Worked");
-    }
+    const handleTabChange = useCallback(
+      (selectedTabIndex) => setSelected(selectedTabIndex),
+      [],
+    );
       
     const tabs = [
         {
-        id: 'all-customers',
+        id: 'All',
         content: 'All',  
-        accessibilityLabel: 'All customers',  
-        panelID: 'all-customers-content',  
+        accessibilityLabel: 'All',  
+        panelID: 'All',  
         },  
         {  
-        id: 'accepts-marketing',  
-        content: 'Accepts marketing',  
-        panelID: 'accepts-marketing-content',  
+        id: 'Sales',  
+        content: 'Sales',  
+        panelID: 'sales',  
         },  
         {  
-        id: 'repeat-customers',  
-        content: 'Repeat customers',  
-        panelID: 'repeat-customers-content',  
+        id: 'Suit',  
+        content: 'Suit',  
+        panelID: 'Suit',  
         },  
-        {  
-        id: 'prospects',  
-        content: 'Prospects',  
-        panelID: 'prospects-content',  
-        },
     ];
 
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
         <Card.Section title={tabs[selected].content}>
-            <p>Tab {selected} selected</p>
+          <p>Tab {selected} selected</p>
+          <DataTable
+          columnContentTypes={[
+            'text',
+            'numeric',
+            'numeric',
+            'numeric',
+            'numeric',
+          ]}
+          headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
+          rows={rows}
+        />
         </Card.Section>
     </Tabs>
   </Card>
