@@ -1,6 +1,6 @@
 import React, { useState,useCallback } from 'react';
 import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
-import ProductList from '../../shopify-script-tag-app-master/components/ProductList';
+import ProductList from './ProductList';
 const TitleTab = () => {
 
   const rows = [
