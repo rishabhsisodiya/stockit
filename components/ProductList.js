@@ -40,8 +40,9 @@ query getAllProducts{
 const ProductList = () => {
 
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID);
-// console.log(data);
-console.table(data.products.edges)
+console.log(data);
+// console.table()
+console.log(data.node);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
@@ -52,7 +53,7 @@ console.table(data.products.edges)
         <ResourceList
           showHeader
           resourceName={{ singular: 'Product', plural: 'Products' }}
-          items={data.nodes}
+          items={data.products.edges.node}
           renderItem={item => {
             // const media = (
             //   <Thumbnail
