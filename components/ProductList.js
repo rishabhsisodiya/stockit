@@ -3,32 +3,38 @@ import { useQuery } from '@apollo/react-hooks';
 import { Card, Button, ResourceList, Stack, TextStyle, Thumbnail } from '@shopify/polaris';
 import store from 'store-js';
 
+
 const GET_PRODUCTS_BY_ID = gql`
-  query getProducts($ids: [ID!]!) {
-    nodes(ids: $ids) {
-      ... on Product {
+query getAllProducts{
+  products(first:50){
+    edges{
+      cursor
+      node{
         title
         handle
         id
-        images(first: 1) {
-          edges {
-            node {
+        images(first:1){
+          edges{
+            node{
               originalSrc
               altText
             }
           }
         }
-        variants(first: 1) {
-          edges {
-            node {
+        variants(first:1){
+          edges{
+            node{
               price
               id
+              inventoryQuantity
+              sku
             }
-          }
+          }         
         }
       }
     }
-  }
+  } 
+}
 `;
 
 function ProductList() {
@@ -58,6 +64,7 @@ function ProductList() {
               />
             );
             const price = item.variants.edges[0].node.price;
+            const quantity = item.variants.edges[0].node.inventoryQuantity;
             return (
               <ResourceList.Item
                 id={item.id}
@@ -74,6 +81,9 @@ function ProductList() {
                   </Stack.Item>
                   <Stack.Item>
                     <p>${price}</p>
+                  </Stack.Item>
+                  <Stack.Item>
+                    <p>{quantity}</p>
                   </Stack.Item>
                 </Stack>
               </ResourceList.Item>
