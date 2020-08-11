@@ -40,7 +40,8 @@ query getAllProducts{
 const ProductList = () => {
 
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID);
-console.log(data);
+// console.log(data);
+console.table(data.products.edges)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
@@ -53,16 +54,16 @@ console.log(data);
           resourceName={{ singular: 'Product', plural: 'Products' }}
           items={data.nodes}
           renderItem={item => {
-            const media = (
-              <Thumbnail
-                source={
-                  item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
-                }
-                alt={
-                  item.images.edges[0] ? item.images.edges[0].altText : ''
-                }
-              />
-            );
+            // const media = (
+            //   <Thumbnail
+            //     source={
+            //       item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
+            //     }
+            //     alt={
+            //       item.images.edges[0] ? item.images.edges[0].altText : ''
+            //     }
+            //   />
+            // );
             const price = item.variants.edges[0].node.price;
             const quantity = item.variants.edges[0].node.inventoryQuantity;
             return (
