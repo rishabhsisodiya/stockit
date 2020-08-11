@@ -77,7 +77,7 @@ return (
         
         {/* </Card.Section> */}
     </Tabs>
-    <ProductList/>
+    {/* <ProductList/> */}
   </Card>
 );  
 
