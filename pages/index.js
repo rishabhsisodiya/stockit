@@ -7,12 +7,14 @@ class Index extends React.Component {
   render() {
     return (
       <Page>
-        {/* <Layout> */}
-        <TitleTab/>
-          <div>
-            <p>Sample app using React and Next.js</p>
-          </div>
-        {/* </Layout> */}
+        <Layout>
+          <Layout.Section>
+            <TitleTab/>
+            <div>
+              <p>Sample app using React and Next.js</p>
+            </div>
+          </Layout.Section>
+        </Layout>
       </Page>
     );
   }
