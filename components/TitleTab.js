@@ -1,6 +1,5 @@
 import React, { useState,useCallback } from 'react';
-import {Card, Tabs, DataTable} from '@shopify/polaris';
-import Link from 'next/link';
+import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
 const TitleTab = () => {
 
   const rows = [
