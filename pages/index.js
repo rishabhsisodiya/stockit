@@ -8,12 +8,13 @@ class Index extends React.Component {
   render() {
     return (
       <Page>
-        <Layout>
+        <ProductList/>
+        {/* <Layout>
           <Layout.Section>
             <TitleTab/>
             <ProductList/>
           </Layout.Section>
-        </Layout>
+        </Layout> */}
       </Page>
     );
   }
