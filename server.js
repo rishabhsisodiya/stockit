@@ -33,7 +33,8 @@ app.prepare().then(() => {
           secure: true,
           sameSite: 'none'
         });
-         //await getSubscriptionUrl(ctx, accessToken, shop);
+        ctx.redirect('/');
+        //  await getSubscriptionUrl(ctx, accessToken, shop);
       },
 
     }),
