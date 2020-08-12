@@ -2,6 +2,7 @@ import React, { useState,useCallback } from 'react';
 import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
 import ProductList from './ProductList';
 import TestProductList from './TestList';
+import Sandbox from './sandbox';
 const TitleTab = () => {
 
   const rows = [
@@ -75,7 +76,8 @@ return (
           headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
           rows={rows}
         /> */}
-        <TestProductList/>
+        {/* <TestProductList/> */}
+        <Sandbox/>
         {/* </Card.Section> */}
     </Tabs>
     {/* <ProductList/> */}
