@@ -67,13 +67,13 @@ function TestProductList() {
       );
       const price = item.variants.edges[0].node.price;
       return (
-        <ResourceList.Item
+        <ResourceItem
           id={item.id}
           media={media}
           accessibilityLabel={`View details for ${item.title}`}
         >
           <Stack>
-            <Stack.Item fill>
+            <Stack.Item>
               <h3>
                 <TextStyle variation='strong'>
                   {item.title}
@@ -83,8 +83,18 @@ function TestProductList() {
             <Stack.Item>
               <p>${price}</p>
             </Stack.Item>
+            <Stack.Item>
+              <p>5</p>
+            </Stack.Item>
+            <Stack.Item>
+              <TextField
+                label="Quantity"
+                type="number"
+                value={value}
+              />
+            </Stack.Item>
           </Stack>
-        </ResourceList.Item>
+        </ResourceItem>
       );
   }
 
