@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, { useState,useCallback} from 'react';
-import {Avatar, Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading, Subheading} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox} from '@shopify/polaris';
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
@@ -38,7 +38,14 @@ function TestProductList() {
   
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
-
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const handleChange = useCallback((newChecked) => {
+    
+    setChecked(newChecked);
+    // let ids=newChecked? items.map(item=>item.id) : [];
+    // setSelectedItems(ids);
+  }, []);
   //CheckBox selectable
   // const [selectedItems, setSelectedItems] = useState([]);
   // Handle Quantityy field
@@ -47,73 +54,82 @@ function TestProductList() {
 
 
   return (
-    <>
-      <Card>
-        <Heading>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Edit Quantity</p>
-        </Heading>
-        
-        <ResourceList
-          resourceName={{ singular: 'Product', plural: 'Products' }}
-          items={data.nodes}
-          renderItem={renderItem}
-        />
-      </Card>
-    </>
+    <div>
+      {/* <Card> */}
+      <Heading>
+        <ResourceItem>
+          <Stack>
+            <Stack.Item>
+              <Checkbox checked={checked} onChange={handleChange} />
+            </Stack.Item>
+            <Stack.Item>Title</Stack.Item>
+            <Stack.Item>Availabilty</Stack.Item>
+            <Stack.Item>Price</Stack.Item>
+            <Stack.Item>Edit Availabilty</Stack.Item>
+          </Stack>
+        </ResourceItem>
+      </Heading>
+      <ResourceList
+        resourceName={{ singular: 'Product', plural: 'Products' }}
+        items={data.nodes}
+        renderItem={renderItem}
+        selectedItems={selectedItems}
+        onSelectionChange={setSelectedItems}
+        selectable
+        showHeader={false}
+      />
+      {/* </Card> */}
+    </div>
   )
 
   function renderItem(item) {
-      const media = (
-        <Thumbnail
-          source={
-            item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
-          }
-          alt={
-            item.images.edges[0] ? item.images.edges[0].altText : ''
-          }
-        />
-      );
-      const price = item.variants.edges[0].node.price;
-      return (
-        <ResourceItem
-          verticalAlignment="center"
-          id={item.id}
-          media={media}
-          accessibilityLabel={`View details for ${item.title}`}
-        >
-          <Stack>
-            <Stack.Item>
-              <h3>
-                <TextStyle variation='strong'>
-                  {item.title}
-                </TextStyle>
-              </h3>
-            </Stack.Item>
-            <Stack.Item>
-              <p>${price}</p>
-            </Stack.Item>
-            <Stack.Item>
-              <p>5</p>
-            </Stack.Item>
-            <Stack.Item>
-              <TextField
-                type="number"
-                value="5"
-                // value={value}
-                // onChange={handleChange}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button>Save</Button>
-            </Stack.Item>
-          </Stack>
-        </ResourceItem>  
-      );
+    const media = (
+      <Thumbnail
+        source={
+          item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
+        }
+        alt={
+          item.images.edges[0] ? item.images.edges[0].altText : ''
+        }
+      />
+    );
+    const price = item.variants.edges[0].node.price;
+    return (
+      <ResourceItem
+        verticalAlignment="center"
+        id={item.id}
+        media={media}
+        accessibilityLabel={`View details for ${item.title}`}
+      >
+        <Stack>
+          <Stack.Item>
+            <h3>
+              <TextStyle variation='strong'>
+                {item.title}
+              </TextStyle>
+            </h3>
+          </Stack.Item>
+          <Stack.Item>
+            <p>${price}</p>
+          </Stack.Item>
+          <Stack.Item>
+            <p>5</p>
+          </Stack.Item>
+          <Stack.Item>
+            <TextField
+              type="number"
+              value="5"
+              // value={value}
+              // onChange={handleChange}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button>Save</Button>
+          </Stack.Item>
+        </Stack>
+      </ResourceItem>  
+    );
   }
-
 }
 
 export default TestProductList;

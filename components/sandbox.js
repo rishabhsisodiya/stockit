@@ -32,7 +32,7 @@ function Sandbox() {
       location: "Los Angeles, USA"
     }
   ];
-  console.log(selectedItems)
+//   console.log(selectedItems)
   return (
     <div>
       <Heading>

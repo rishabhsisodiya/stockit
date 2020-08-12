@@ -76,8 +76,8 @@ return (
           headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
           rows={rows}
         /> */}
-        {/* <TestProductList/> */}
-        <Sandbox/>
+        <TestProductList/>
+        {/* <Sandbox/> */}
         {/* </Card.Section> */}
     </Tabs>
     {/* <ProductList/> */}
