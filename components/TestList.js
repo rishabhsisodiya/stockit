@@ -49,6 +49,13 @@ function TestProductList() {
   return (
     <>
       <Card>
+        <Heading>
+          <p>Title</p>
+          <p>Price</p>
+          <p>Quantity</p>
+          <p>Edit Quantity</p>
+        </Heading>
+        
         <ResourceList
           resourceName={{ singular: 'Product', plural: 'Products' }}
           items={data.nodes}
@@ -71,13 +78,6 @@ function TestProductList() {
       );
       const price = item.variants.edges[0].node.price;
       return (
-      <div> 
-        <Heading>
-          <Subheading>Title</Subheading>
-          <Subheading>Price</Subheading>
-          <Subheading>Quantity</Subheading>
-          <Subheading>Edit Quantity</Subheading>
-        </Heading>
         <ResourceItem
           verticalAlignment="center"
           id={item.id}
@@ -110,8 +110,7 @@ function TestProductList() {
               <Button>Save</Button>
             </Stack.Item>
           </Stack>
-        </ResourceItem>
-      </div>  
+        </ResourceItem>  
       );
   }
 
