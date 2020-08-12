@@ -38,6 +38,7 @@ function TestProductList() {
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
 
+  const value='1';
   //CheckBox selectable
   // const [selectedItems, setSelectedItems] = useState([]);
   // Handle Quantityy field
@@ -93,7 +94,7 @@ function TestProductList() {
             <Stack.Item>
               <TextField
                 type="number"
-                value="5"
+                value={value}
                 // value={value}
                 // onChange={handleChange}
               />
