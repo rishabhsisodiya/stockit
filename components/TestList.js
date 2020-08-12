@@ -73,6 +73,7 @@ function TestProductList() {
       const price = item.variants.edges[0].node.price;
       return (
         <ResourceItem
+          verticalAlignment="center"
           id={item.id}
           media={media}
           accessibilityLabel={`View details for ${item.title}`}
