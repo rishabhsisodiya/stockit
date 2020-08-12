@@ -71,6 +71,7 @@ function TestProductList() {
       );
       const price = item.variants.edges[0].node.price;
       return (
+      <div> 
         <Heading>
           <Subheading>Title</Subheading>
           <Subheading>Price</Subheading>
@@ -110,6 +111,7 @@ function TestProductList() {
             </Stack.Item>
           </Stack>
         </ResourceItem>
+      </div>  
       );
   }
 
