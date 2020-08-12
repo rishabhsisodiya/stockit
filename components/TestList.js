@@ -72,7 +72,7 @@ function TestProductList() {
           items={data.nodes}
           renderItem={renderItem}
           selectedItems={selectedItems}
-          nSelectionChange={setSelectedItems}
+          SelectionChange={setSelectedItems}
           selectable
           promotedBulkActions={promotedBulkActions}
           bulkActions={bulkActions}
