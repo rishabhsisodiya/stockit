@@ -41,9 +41,9 @@ function TestProductList() {
   //CheckBox selectable
   // const [selectedItems, setSelectedItems] = useState([]);
   // Handle Quantityy field
-  const [value, setValue] = useState('1');
+  // const [value, setValue] = useState('1');
 
-  const handleChange = useCallback((newValue) => setValue(newValue), []);
+  // const handleChange = useCallback((newValue) => setValue(newValue), []);
 
 
   return (
@@ -94,8 +94,9 @@ function TestProductList() {
               <TextField
                 label="Quantity"
                 type="number"
-                value={value}
-                onChange={handleChange}
+                value="5"
+                // value={value}
+                // onChange={handleChange}
               />
             </Stack.Item>
           </Stack>
