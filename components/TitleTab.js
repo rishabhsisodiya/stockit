@@ -1,6 +1,7 @@
 import React, { useState,useCallback } from 'react';
 import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
 import ProductList from './ProductList';
+import TestProductList from './TestList';
 const TitleTab = () => {
 
   const rows = [
@@ -74,7 +75,7 @@ return (
           headings={['Product', 'Price', 'SKU Number', 'Quantity', 'Net sales']}
           rows={rows}
         /> */}
-        
+        <TestProductList/>
         {/* </Card.Section> */}
     </Tabs>
     {/* <ProductList/> */}
