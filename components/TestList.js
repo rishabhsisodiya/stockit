@@ -38,7 +38,6 @@ function TestProductList() {
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
 
-  const value='1';
   //CheckBox selectable
   // const [selectedItems, setSelectedItems] = useState([]);
   // Handle Quantityy field
@@ -77,7 +76,7 @@ function TestProductList() {
           media={media}
           accessibilityLabel={`View details for ${item.title}`}
         >
-          <Stack distribution="fillEvenly">
+          <Stack>
             <Stack.Item>
               <h3>
                 <TextStyle variation='strong'>
@@ -93,8 +92,9 @@ function TestProductList() {
             </Stack.Item>
             <Stack.Item>
               <TextField
+                label="Quantity"
                 type="number"
-                value={value}
+                value="5"
                 // value={value}
                 // onChange={handleChange}
               />
