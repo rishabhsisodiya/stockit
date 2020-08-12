@@ -32,8 +32,8 @@ const GET_PRODUCTS_BY_ID = gql`
 `;
 
 function TestProductList() {
-
-  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: store.get('ids') } })
+  
+  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
 
 
   if (loading) return <div>Loading...</div>
