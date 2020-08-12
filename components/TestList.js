@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { Card, Button, ResourceList, Stack, TextStyle, Thumbnail } from '@shopify/polaris';
-import store from 'store-js';
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
@@ -34,7 +33,7 @@ const GET_PRODUCTS_BY_ID = gql`
 function TestProductList() {
   
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
-
+  const [selectedItems, setSelectedItems] = useState([]);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
