@@ -72,7 +72,7 @@ function TestProductList() {
           media={media}
           accessibilityLabel={`View details for ${item.title}`}
         >
-          <Stack>
+          {/* <Stack>
             <Stack.Item fill>
               <h3>
                 <TextStyle variation='strong'>
@@ -83,7 +83,7 @@ function TestProductList() {
             <Stack.Item>
               <p>${price}</p>
             </Stack.Item>
-          </Stack>
+          </Stack> */}
         </ResourceList.Item>
       );
   }
