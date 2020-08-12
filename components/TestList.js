@@ -76,7 +76,7 @@ function TestProductList() {
           media={media}
           accessibilityLabel={`View details for ${item.title}`}
         >
-          <Stack>
+          <Stack distribution="fillEvenly">
             <Stack.Item>
               <h3>
                 <TextStyle variation='strong'>
@@ -92,7 +92,6 @@ function TestProductList() {
             </Stack.Item>
             <Stack.Item>
               <TextField
-                label="Quantity"
                 type="number"
                 value="5"
                 // value={value}
