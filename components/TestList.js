@@ -43,10 +43,12 @@ function TestProductList() {
     <>
       <Card>
         <ResourceList
-          showHeader
           resourceName={{ singular: 'Product', plural: 'Products' }}
           items={data.nodes}
           renderItem={renderItem}
+          selectedItems={selectedItems}
+          nSelectionChange={setSelectedItems}
+          selectable
         />
       </Card>
     </>
