@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 import React, {useCallback, useState} from 'react';
-import {Avatar, Button, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
+import {Avatar, Button, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
@@ -34,11 +34,35 @@ const GET_PRODUCTS_BY_ID = gql`
 function TestProductList() {
   
   const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
-  //CheckBox selectable
-  const [selectedItems, setSelectedItems] = useState([]);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
+
+  //CheckBox selectable
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  //Bulk Options
+  const promotedBulkActions = [
+    {
+      content: 'Edit customers',
+      onAction: () => console.log('Todo: implement bulk edit'),
+    },
+  ];
+
+  const bulkActions = [
+    {
+      content: 'Add tags',
+      onAction: () => console.log('Todo: implement bulk add tags'),
+    },
+    {
+      content: 'Remove tags',
+      onAction: () => console.log('Todo: implement bulk remove tags'),
+    },
+    {
+      content: 'Delete customers',
+      onAction: () => console.log('Todo: implement bulk delete'),
+    },
+  ];
 
   return (
     <>
@@ -50,6 +74,8 @@ function TestProductList() {
           selectedItems={selectedItems}
           nSelectionChange={setSelectedItems}
           selectable
+          promotedBulkActions={promotedBulkActions}
+          bulkActions={bulkActions}
         />
       </Card>
     </>
