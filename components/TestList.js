@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, { useState,useCallback} from 'react';
-import {Avatar, Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
+import {Avatar, Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading, Subheading} from '@shopify/polaris';
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
@@ -71,6 +71,12 @@ function TestProductList() {
       );
       const price = item.variants.edges[0].node.price;
       return (
+        <Heading>
+          <Subheading>Title</Subheading>
+          <Subheading>Price</Subheading>
+          <Subheading>Quantity</Subheading>
+          <Subheading>Edit Quantity</Subheading>
+        </Heading>
         <ResourceItem
           verticalAlignment="center"
           id={item.id}
