@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
-import React, { useState} from 'react';
+import React, { useState,useCallback} from 'react';
 import {Avatar, Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
 
 const GET_PRODUCTS_BY_ID = gql`
@@ -40,6 +40,10 @@ function TestProductList() {
 
   //CheckBox selectable
   // const [selectedItems, setSelectedItems] = useState([]);
+  // Handle Quantityy field
+  const [value, setValue] = useState('1');
+
+  const handleChange = useCallback((newValue) => setValue(newValue), []);
 
 
   return (
@@ -91,6 +95,7 @@ function TestProductList() {
                 label="Quantity"
                 type="number"
                 value={value}
+                onChange={handleChange}
               />
             </Stack.Item>
           </Stack>
