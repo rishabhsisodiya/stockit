@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { useQuery} from '@apollo/react-hooks';
+import { useQuery} from '@apollo/client';
 import React, { useState,useCallback} from 'react';
 import {Avatar, Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
 
