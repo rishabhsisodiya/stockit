@@ -93,12 +93,12 @@ function TestProductList() {
             </Stack.Item>
             <Stack.Item>
               <TextField
-                label="Quantity"
                 type="number"
                 value="5"
                 // value={value}
                 // onChange={handleChange}
               />
+              <Button>Save</Button>
             </Stack.Item>
           </Stack>
         </ResourceItem>
