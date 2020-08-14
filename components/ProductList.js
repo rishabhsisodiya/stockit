@@ -4,8 +4,35 @@ import { useQuery} from '@apollo/react-hooks';
 import React, {useCallback, useState} from 'react';
 import {Avatar, Button, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle} from '@shopify/polaris';
 
-
 const GET_PRODUCTS_BY_ID = gql`
+  query getProducts($ids: [ID!]!) {
+    nodes(ids: $ids) {
+      ... on Product {
+        title
+        handle
+        id
+        images(first: 1) {
+          edges {
+            node {
+              originalSrc
+              altText
+            }
+          }
+        }
+        variants(first: 1) {
+          edges {
+            node {
+              price
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const GET_All_PRODUCTS = gql`
 query getAllProducts{
   products(first:50){
     edges{
@@ -40,8 +67,8 @@ query getAllProducts{
 
 const ProductList = () => {
 
-const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID);
-
+// const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
+const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
 const [selectedItems, setSelectedItems] = useState([]);
   const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
   const [taggedWith, setTaggedWith] = useState('VIP');

@@ -32,22 +32,14 @@ const TitleTab = () => {
         },  
     ];
 const tabSelected= selected;
+
+console.log(tabSelected);
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-
-      {/* if (tabelected == 0) {
-        <ProductList/>
-      }
-      if (selected == 1) {
-        <TestProductList />
-      } */}
-       <ProductList/> 
-        {/* <TestProductList/> */}
-        {/* <Sandbox/> */}
-        {/* </Card.Section> */}
+      <ProductList/>
+      
     </Tabs>
-    {/* <ProductList/> */}
   </Card>
 );  
 
