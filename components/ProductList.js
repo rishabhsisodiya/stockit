@@ -41,12 +41,6 @@ query getAllProducts{
 const ProductList = () => {
 
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID);
-console.log(data);
-// console.table()
-// console.log(data.node);
-
-if (loading) return <div>Loading...</div>
-if (error) return <div>{error.message}</div>
 
 const [selectedItems, setSelectedItems] = useState([]);
   const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
@@ -152,6 +146,12 @@ const [selectedItems, setSelectedItems] = useState([]);
       </div>
     </Filters>
   );
+  console.log(data);
+// console.table()
+// console.log(data.node);
+
+if (loading) return <div>Loading...</div>
+if (error) return <div>{error.message}</div>
 
   return (
     <Card>
