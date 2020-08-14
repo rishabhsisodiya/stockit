@@ -31,15 +31,16 @@ const TitleTab = () => {
         panelID: 'Suit',  
         },  
     ];
-
+const tabSelected= selected;
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-      {/* if (selected == 0) {
+
+      {/* if (tabelected == 0) {
         <ProductList/>
       }
       if (selected == 1) {
-        <Products />
+        <TestProductList />
       } */}
        <ProductList/> 
         {/* <TestProductList/> */}

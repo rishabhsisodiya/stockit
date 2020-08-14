@@ -146,18 +146,16 @@ const [selectedItems, setSelectedItems] = useState([]);
       </div>
     </Filters>
   );
-  console.log(data);
-// console.table()
-// console.log(data.node);
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
+console.log(data)
 
   return (
     <Card>
       <ResourceList
         resourceName={resourceName}
-        items={items}
+        items={data.nodes}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -178,25 +176,51 @@ if (error) return <div>{error.message}</div>
   );
 
   function renderItem(item) {
-    const {id, url, name, location, latestOrderUrl} = item;
-    const media = <Avatar customer size="medium" name={name} />;
-    const shortcutActions = latestOrderUrl
-      ? [{content: 'View latest order', url: latestOrderUrl}]
-      : null;
+    const media = (
+      <Thumbnail
+        source={
+          item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
+        }
+        alt={
+          item.images.edges[0] ? item.images.edges[0].altText : ''
+        }
+      />
+    );
+    const price = item.variants.edges[0].node.price;
     return (
       <ResourceItem
-        id={id}
-        url={url}
+        verticalAlignment="center"
+        id={item.id}
         media={media}
-        accessibilityLabel={`View details for ${name}`}
-        shortcutActions={shortcutActions}
-        persistActions
+        accessibilityLabel={`View details for ${item.title}`}
       >
-        <h3>
-          <TextStyle variation="strong">{name}</TextStyle>
-        </h3>
-        <div>{location}</div>
-      </ResourceItem>
+        <Stack>
+          <Stack.Item>
+            <h3>
+              <TextStyle variation='strong'>
+                {item.title}
+              </TextStyle>
+            </h3>
+          </Stack.Item>
+          <Stack.Item>
+            <p>${price}</p>
+          </Stack.Item>
+          <Stack.Item>
+            <p>5</p>
+          </Stack.Item>
+          <Stack.Item>
+            <TextField
+              type="number"
+              value="5"
+              // value={value}
+              // onChange={handleChange}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button>Save</Button>
+          </Stack.Item>
+        </Stack>
+      </ResourceItem>  
     );
   }
 
