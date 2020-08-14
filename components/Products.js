@@ -1,10 +1,47 @@
 import React, {useCallback, useState} from 'react';
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
 import {Button, Card, TextField, ChoiceList, DataTable, Filters} from '@shopify/polaris';
 
+const GET_PRODUCTS_BY_ID = gql`
+  query getProducts($ids: [ID!]!) {
+    nodes(ids: $ids) {
+      ... on Product {
+        title
+        handle
+        id
+        images(first: 1) {
+          edges {
+            node {
+              originalSrc
+              altText
+            }
+          }
+        }
+        variants(first: 1) {
+          edges {
+            node {
+              price
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+
 export default function Products() {
-  const [availability, setAvailability] = useState(null);
-  const [productType, setProductType] = useState(null);
-  const [taggedWith, setTaggedWith] = useState(null);
+
+const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
+  
+if (loading) return <div>Loading...</div>
+if (error) return <div>{error.message}</div>
+console.log(data)
+const [availability, setAvailability] = useState(null);
+const [productType, setProductType] = useState(null);
+const [taggedWith, setTaggedWith] = useState(null);
   const [queryValue, setQueryValue] = useState(null);
 
   const handleAvailabilityChange = useCallback(
