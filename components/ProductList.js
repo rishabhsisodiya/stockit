@@ -67,8 +67,8 @@ query getAllProducts{
 
 const ProductList = () => {
 
-const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
-console.log('All products:',newdata)
+// const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
+// console.log('All products:',newdata)
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
 const [selectedItems, setSelectedItems] = useState([]);
   const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
