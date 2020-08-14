@@ -54,7 +54,7 @@ function TestProductList() {
 
 
   return (
-    <div>
+    <div style={{wordWrap:"break-word"}}>
       {/* <Card> */}
       <Heading>
         <ResourceItem>

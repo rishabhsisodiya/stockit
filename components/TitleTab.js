@@ -35,13 +35,13 @@ const TitleTab = () => {
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-      if (selected == 0) {
+      {/* if (selected == 0) {
         <ProductList/>
       }
       if (selected == 1) {
         <Products />
-      }
-        
+      } */}
+       <ProductList/> 
         {/* <TestProductList/> */}
         {/* <Sandbox/> */}
         {/* </Card.Section> */}
