@@ -93,15 +93,15 @@ function App() {
     }
   ];
 
-  const appliedFilters = !isEmpty(taggedWith)
-    ? [
-        {
-          key: "taggedWith",
-          label: disambiguateLabel("taggedWith", taggedWith),
-          onRemove: handleTaggedWithRemove
-        }
-      ]
-    : [];
+  // const appliedFilters = !isEmpty(taggedWith)
+  //   ? [
+  //       {
+  //         key: "taggedWith",
+  //         label: disambiguateLabel("taggedWith", taggedWith),
+  //         onRemove: handleTaggedWithRemove
+  //       }
+  //     ]
+  //   : [];
 
   const filterControl = (
     <Filters
@@ -119,7 +119,7 @@ function App() {
   );
   return (
     <Card>
-      <Card.Section>
+      {/* <ResourceList.Item>
         <Heading>
           <Stack>
             <div>
@@ -132,7 +132,7 @@ function App() {
             <div>Edit Availabilty</div>
           </Stack>
         </Heading>
-      </Card.Section>
+      </ResourceList.Item> */}
       <ResourceList
         resourceName={{ singular: "customer", plural: "customers" }}
         items={items}
@@ -165,6 +165,7 @@ function App() {
         url={url}
         media={media}
         accessibilityLabel={`View details for ${name}`}
+        
       >
         <Stack>
           <h3>
@@ -182,22 +183,24 @@ function App() {
     );
   }
 
-  function disambiguateLabel(key, value) {
-    switch (key) {
-      case "taggedWith":
-        return `Tagged with ${value}`;
-      default:
-        return value;
-    }
-  }
+  // For the Applied Filter
+  // function disambiguateLabel(key, value) {
+  //   switch (key) {
+  //     case "taggedWith":
+  //       return `Tagged with ${value}`;
+  //     default:
+  //       return value;
+  //   }
+  // }
 
-  function isEmpty(value) {
-    if (Array.isArray(value)) {
-      return value.length === 0;
-    } else {
-      return value === "" || value == null;
-    }
-  }
+  // function isEmpty(value) {
+  //   if (Array.isArray(value)) {
+  //     return value.length === 0;
+  //   } else {
+  //     return value === "" || value == null;
+  //   }
+  // }
+
 }
 
 export default App;
