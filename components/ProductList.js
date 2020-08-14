@@ -67,12 +67,16 @@ query getAllProducts{
 
 const ProductList = () => {
 
-// const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
+const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
+console.log('All products:',newdata)
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
 const [selectedItems, setSelectedItems] = useState([]);
   const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
   const [taggedWith, setTaggedWith] = useState('VIP');
   const [queryValue, setQueryValue] = useState(null);
+  //Edit Quantity Handler
+  const [quantityValue, setQuantiyValue] = useState(0);
+  const handleQuantiyChange = useCallback((newValue) => setQuantiyValue(newValue), []);
 
   const handleTaggedWithChange = useCallback(
     (value) => setTaggedWith(value),
@@ -90,26 +94,26 @@ const [selectedItems, setSelectedItems] = useState([]);
   }, [handleQueryValueRemove, handleTaggedWithRemove]);
 
   const resourceName = {
-    singular: 'customer',
-    plural: 'customers',
+    singular: 'product',
+    plural: 'products',
   };
 
-  const items = [
-    {
-      id: 341,
-      url: 'customers/341',
-      name: 'Mae Jemison',
-      location: 'Decatur, USA',
-      latestOrderUrl: 'orders/1456',
-    },
-    {
-      id: 256,
-      url: 'customers/256',
-      name: 'Ellen Ochoa',
-      location: 'Los Angeles, USA',
-      latestOrderUrl: 'orders/1457',
-    },
-  ];
+  // const items = [
+  //   {
+  //     id: 341,
+  //     url: 'customers/341',
+  //     name: 'Mae Jemison',
+  //     location: 'Decatur, USA',
+  //     latestOrderUrl: 'orders/1456',
+  //   },
+  //   {
+  //     id: 256,
+  //     url: 'customers/256',
+  //     name: 'Ellen Ochoa',
+  //     location: 'Los Angeles, USA',
+  //     latestOrderUrl: 'orders/1457',
+  //   },
+  // ];
 
   const promotedBulkActions = [
     {
@@ -163,7 +167,7 @@ const [selectedItems, setSelectedItems] = useState([]);
     <Filters
       queryValue={queryValue}
       filters={filters}
-      appliedFilters={appliedFilters}
+      // appliedFilters={appliedFilters}
       onQueryChange={handleQueryValueChange}
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleClearAll}
@@ -221,7 +225,7 @@ console.log(data)
         media={media}
         accessibilityLabel={`View details for ${item.title}`}
       >
-        <Stack>
+        <Stack alignment="fill">
           <Stack.Item>
             <h3>
               <TextStyle variation='strong'>
@@ -238,9 +242,9 @@ console.log(data)
           <Stack.Item>
             <TextField
               type="number"
-              value="5"
-              // value={value}
-              // onChange={handleChange}
+              // value="5"
+              value={quantityValue}
+              onChange={handleQuantiyChange}
             />
           </Stack.Item>
           <Stack.Item>
