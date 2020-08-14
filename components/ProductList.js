@@ -225,7 +225,7 @@ console.log(data)
         media={media}
         accessibilityLabel={`View details for ${item.title}`}
       >
-        <Stack alignment="fill">
+        <Stack distribution="fillEvenly">
           <Stack.Item>
             <h3>
               <TextStyle variation='strong'>
@@ -242,7 +242,6 @@ console.log(data)
           <Stack.Item>
             <TextField
               type="number"
-              // value="5"
               value={quantityValue}
               onChange={handleQuantiyChange}
             />
