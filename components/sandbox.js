@@ -167,7 +167,7 @@ function App() {
         accessibilityLabel={`View details for ${name}`}
         
       >
-        <Stack>
+        {/* <Stack>
           <h3>
             <TextStyle variation="strong">{name}</TextStyle>
           </h3>
@@ -178,7 +178,23 @@ function App() {
           <div>
             <Button>Save</Button>
           </div>
-        </Stack>
+        </Stack> */}
+        <dl style={{gridTemplateRows:"none"}}>
+          <div>
+            <dd><h3>
+              <TextStyle variation="strong">{name}</TextStyle>
+            </h3></dd>
+          </div>
+          <div>
+            <dd>{location}</dd>
+          </div>
+          <div>
+            <dd><TextField type="number" /></dd>
+          </div>
+          <div>
+            <dd><Button>Save</Button></dd>
+          </div>
+        </dl>
       </ResourceItem>
     );
   }

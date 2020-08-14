@@ -3,6 +3,7 @@ import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
 import ProductList from './ProductList';
 import TestProductList from './TestList';
 import Sandbox from './sandbox';
+import Products from './Products';
 const TitleTab = () => {
 
   const [selected, setSelected] = useState(0);
@@ -34,8 +35,9 @@ const TitleTab = () => {
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
+        <Products />
         {/* <TestProductList/> */}
-        <Sandbox/>
+        {/* <Sandbox/> */}
         {/* </Card.Section> */}
     </Tabs>
     {/* <ProductList/> */}
