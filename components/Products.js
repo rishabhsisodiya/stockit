@@ -36,35 +36,33 @@ export default function Products() {
 
 const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
   
-if (loading) return <div>Loading...</div>
-if (error) return <div>{error.message}</div>
-console.log(data)
+
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
-  const [queryValue, setQueryValue] = useState(null);
+const [queryValue, setQueryValue] = useState(null);
 
-  const handleAvailabilityChange = useCallback(
+const handleAvailabilityChange = useCallback(
     (value) => setAvailability(value),
     [],
-  );
-  const handleProductTypeChange = useCallback(
+);
+const handleProductTypeChange = useCallback(
     (value) => setProductType(value),
     [],
-  );
-  const handleTaggedWithChange = useCallback(
+);
+const handleTaggedWithChange = useCallback(
     (value) => setTaggedWith(value),
     [],
-  );
-  const handleFiltersQueryChange = useCallback(
-    (value) => setQueryValue(value),
+);
+const handleFiltersQueryChange = useCallback(
+   (value) => setQueryValue(value),
     [],
-  );
-  const handleAvailabilityRemove = useCallback(() => setAvailability(null), []);
-  const handleProductTypeRemove = useCallback(() => setProductType(null), []);
-  const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
-  const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
-  const handleFiltersClearAll = useCallback(() => {
+);
+const handleAvailabilityRemove = useCallback(() => setAvailability(null), []);
+const handleProductTypeRemove = useCallback(() => setProductType(null), []);
+const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
+const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
+const handleFiltersClearAll = useCallback(() => {
     handleAvailabilityRemove();
     handleProductTypeRemove();
     handleTaggedWithRemove();
@@ -76,7 +74,11 @@ const [taggedWith, setTaggedWith] = useState(null);
     handleTaggedWithRemove,
   ]);
 
-  const filters = [
+// According to rules of hook you should not call useState after your component returns something.
+if (loading) return <div>Loading...</div>
+if (error) return <div>{error.message}</div>
+console.log(data)
+const filters = [
     {
       key: 'availability',
       label: 'Availability',
