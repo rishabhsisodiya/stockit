@@ -1,7 +1,7 @@
 import { TextField, Button } from "@shopify/polaris";
 import React, {useCallback, useState} from 'react';
 
-const EditQuantity = () => {
+const EditQuantity = (props) => {
     const [value, setvalue] = useState(props.quantity);
     const handleChange = useCallback(
         (newValue) => {
