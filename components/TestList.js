@@ -215,7 +215,7 @@ console.log(data)
             <p>{inventoryQuantity}</p>
           </div>
           <div style={{width:"40%"}}>
-            <EditQuantity quantity={quantity}/>
+            <EditQuantity quantity={inventoryQuantity}/>
           </div>
         </div>
       </ResourceItem>  
