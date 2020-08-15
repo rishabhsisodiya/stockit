@@ -5,34 +5,6 @@ import React, {useCallback, useState} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
-const GET_PRODUCTS_BY_ID = gql`
-  query getProducts($ids: [ID!]!) {
-    nodes(ids: $ids) {
-      ... on Product {
-        title
-        handle
-        id
-        images(first: 1) {
-          edges {
-            node {
-              originalSrc
-              altText
-            }
-          }
-        }
-        variants(first: 1) {
-          edges {
-            node {
-              price
-              id
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 const GET_All_PRODUCTS = gql`
 query getAllProducts{
   products(first:50){
@@ -70,7 +42,7 @@ const ProductList = () => {
 
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
-const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
+const { loading, error, data } = useQuery(GET_All_PRODUCTS);
 const [selectedItems, setSelectedItems] = useState([]);
   const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
   const [taggedWith, setTaggedWith] = useState('VIP');
@@ -187,7 +159,7 @@ console.log(data)
     <Card>
       <ResourceList
         resourceName={resourceName}
-        items={data.nodes}
+        items={data.products.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -211,36 +183,39 @@ console.log(data)
     const media = (
       <Thumbnail
         source={
-          item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
+          item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
         }
         alt={
-          item.images.edges[0] ? item.images.edges[0].altText : ''
+          item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
         }
       />
     );
-    const price = item.variants.edges[0].node.price;
-    const quantity= 5;
+    const price = item.node.variants.edges[0].node.price;
+    const sku = item.node.variants.edges[0].node.sku;
+    console.log(sku);
+    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
+    console.log(inventoryQuantity);
     const style={width:"20%"};
     return (
       <ResourceItem
         verticalAlignment="center"
-        id={item.id}
+        id={item.node.id}
         media={media}
-        accessibilityLabel={`View details for ${item.title}`}
+        accessibilityLabel={`View details for ${item.node.title}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-          <Link url={item.id}>{item.title}</Link>
+          <Link url={item.node.id}>{item.node.title}</Link>
           </div>
           <div style={{width:"20%"}}>
-            <p>${price}</p>
+            <p>${sku}</p>
           </div>
           <div style={{width:"10%"}}>
-            <p>{quantity}</p>
+            <p>{inventoryQuantity}</p>
           </div>
           <div style={{width:"40%"}}>
-            <EditQuantity quantity={quantity}/>
+            <EditQuantity quantity={inventoryQuantity}/>
           </div>
         </div>
       </ResourceItem>  
