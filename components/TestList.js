@@ -271,7 +271,7 @@ const resourceName = {
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-          <Link url={productPreviewUrl}>{item.node.title}</Link>
+          <a href={productPreviewUrl} target="_blank">{item.node.title}</a>
           </div>
           <div style={{width:"20%"}}>
             <p>${sku}</p>
