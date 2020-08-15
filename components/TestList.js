@@ -14,6 +14,7 @@ query getAllProducts{
         title
         handle
         id
+        onlineStoreUrl
         images(first:1){
           edges{
             node{
@@ -191,7 +192,7 @@ console.log(data)
       />
     );
     const variantId=item.node.variants.edges[0].node.id;
-    const productUrl="/admin"+variantId.split("//shopify")[1];
+    const productUrl=item.node.onlineStoreUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
