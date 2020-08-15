@@ -15,6 +15,7 @@ query getAllProducts{
         handle
         id
         onlineStoreUrl
+        onlineStorePreviewUrl
         images(first:1){
           edges{
             node{
@@ -193,6 +194,7 @@ console.log(data)
     );
     const variantId=item.node.variants.edges[0].node.id;
     const productUrl=item.node.onlineStoreUrl;
+    const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
@@ -207,7 +209,7 @@ console.log(data)
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-          <Link url={productUrl}>{item.node.title}</Link>
+          <Link url={productPreviewUrl}>{item.node.title}</Link>
           </div>
           <div style={{width:"20%"}}>
             <p>${sku}</p>
