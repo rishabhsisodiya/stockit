@@ -4,40 +4,43 @@ import { useQuery } from '@apollo/react-hooks';
 import React, { useState,useCallback} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox} from '@shopify/polaris';
 
-const GET_PRODUCTS_BY_ID = gql`
-  query getProducts($ids: [ID!]!) {
-    nodes(ids: $ids) {
-      ... on Product {
+const GET_All_PRODUCTS = gql`
+query getAllProducts{
+  products(first:50){
+    edges{
+      cursor
+      node{
         title
         handle
         id
-        images(first: 1) {
-          edges {
-            node {
+        images(first:1){
+          edges{
+            node{
               originalSrc
               altText
             }
           }
         }
-        variants(first: 1) {
-          edges {
-            node {
+        variants(first:1){
+          edges{
+            node{
               price
               id
+              inventoryQuantity
+              sku
             }
-          }
+          }         
         }
       }
     }
-  }
+  } 
+}
 `;
 
 function TestProductList() {
   
-  const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
+  const { loading, error, data } = useQuery(GET_All_PRODUCTS);
   
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>{error.message}</div>
   const [selectedItems, setSelectedItems] = useState([]);
   const [checked, setChecked] = useState(false);
   const handleChange = useCallback((newChecked) => {
@@ -51,10 +54,12 @@ function TestProductList() {
   // Handle Quantityy field
   // const [value, setValue] = useState('1');
   // const handleChange = useCallback((newValue) => setValue(newValue), []);
-
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+  console.log("TestList:",data)
 
   return (
-    <div style={{wordWrap:"break-word"}}>
+    <div style={{display:"flex"}}>
       {/* <Card> */}
       <Heading>
         <ResourceItem>
@@ -71,7 +76,7 @@ function TestProductList() {
       </Heading>
       <ResourceList
         resourceName={{ singular: 'Product', plural: 'Products' }}
-        items={data.nodes}
+        items={data.products.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -83,29 +88,39 @@ function TestProductList() {
   )
 
   function renderItem(item) {
-    const media = (
-      <Thumbnail
-        source={
-          item.images.edges[0] ? item.images.edges[0].node.originalSrc : ''
-        }
-        alt={
-          item.images.edges[0] ? item.images.edges[0].altText : ''
-        }
-      />
-    );
-    const price = item.variants.edges[0].node.price;
+    // const media = (
+    //   <Thumbnail
+    //     source={
+    //       item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
+    //     }
+    //     alt={
+    //       item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
+    //     }
+    //   />
+    // );
+    const itemId=item.node.id;
+    console.log(itemId);
+    const media = <Avatar customer size="medium" name={itemId} />;
+
+    const price = item.node.variants.edges[0].node.price;
+    console.log(price);
+    const sku = item.node.variants.edges[0].node.sku;
+    console.log(sku);
+    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
+    console.log(inventoryQuantity);
+    
     return (
       <ResourceItem
         verticalAlignment="center"
-        id={item.id}
+        id={itemId}
         media={media}
-        accessibilityLabel={`View details for ${item.title}`}
+        accessibilityLabel={`View details for ${item.node.title}`}
       >
         <Stack>
           <Stack.Item>
             <h3>
               <TextStyle variation='strong'>
-                {item.title}
+                {item.node.title}
               </TextStyle>
             </h3>
           </Stack.Item>
@@ -113,7 +128,7 @@ function TestProductList() {
             <p>${price}</p>
           </Stack.Item>
           <Stack.Item>
-            <p>5</p>
+            <p>{inventoryQuantity}</p>
           </Stack.Item>
           <Stack.Item>
             <TextField

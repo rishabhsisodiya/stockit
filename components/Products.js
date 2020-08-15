@@ -39,7 +39,7 @@ query getAllProducts{
 
 export default function Products() {
 
-const { loading, error, data } = useQuery(GET_All_PRODUCTS)
+const { loading, error, data } = useQuery(GET_All_PRODUCTS);
   
 
 const [availability, setAvailability] = useState(null);
@@ -189,23 +189,13 @@ const filters = [
             'Net quantity',
             'Net sales',
           ]}
-          rows={[
-            ['Emerald Silk Gown', '$875.00', 124689, 140, '$122,500.00'],
-            ['Mauve Cashmere Scarf', '$230.00', 124533, 83, '$19,090.00'],
-            [
-              'Navy Merino Wool Blazer with khaki chinos and yellow belt',
-              '$445.00',
-              124518,
-              32,
-              '$14,240.00',
-            ],
-          ]}
+          rows={[data.products.edges]}
           totals={['', '', '', 255, '$155,830.00']}
         />
       </Card>
     </div>
   );
-
+// data.products.edges for items
   function disambiguateLabel(key, value) {
     switch (key) {
       case 'taggedWith':
