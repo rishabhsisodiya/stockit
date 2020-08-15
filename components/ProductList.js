@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
-import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
 const GET_PRODUCTS_BY_ID = gql`
@@ -228,13 +228,10 @@ console.log(data)
         media={media}
         accessibilityLabel={`View details for ${item.title}`}
       >
+        {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-            <h3>
-              <TextStyle variation='strong'>
-                {item.title}
-              </TextStyle>
-            </h3>
+          <Link url={item.id}>{item.title}</Link>
           </div>
           <div style={{width:"20%"}}>
             <p>${price}</p>
