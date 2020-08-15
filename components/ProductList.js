@@ -3,6 +3,7 @@ import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox} from '@shopify/polaris';
+import EditQuantity from './EditQuantity';
 
 const GET_PRODUCTS_BY_ID = gql`
   query getProducts($ids: [ID!]!) {
@@ -218,6 +219,7 @@ console.log(data)
       />
     );
     const price = item.variants.edges[0].node.price;
+    const quantity= 5;
     return (
       <ResourceItem
         verticalAlignment="center"
@@ -237,17 +239,10 @@ console.log(data)
             <p>${price}</p>
           </Stack.Item>
           <Stack.Item>
-            <p>5</p>
+            <p>{quantity}</p>
           </Stack.Item>
           <Stack.Item>
-            <TextField
-              type="number"
-              value={quantityValue}
-              onChange={handleQuantiyChange}
-            />
-          </Stack.Item>
-          <Stack.Item>
-            <Button>Save</Button>
+            <EditQuantity quantity={quantity}/>
           </Stack.Item>
         </Stack>
       </ResourceItem>  
