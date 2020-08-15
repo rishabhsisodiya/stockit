@@ -5,8 +5,12 @@ import React, {useCallback, useState} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
+//variants s xs m l
 const GET_All_PRODUCTS = gql`
 query getAllProducts{
+  shop{
+    url
+  }
   products(first:50){
     edges{
       cursor
@@ -254,8 +258,12 @@ const resourceName = {
         }
       />
     );
-    const variantId=item.node.variants.edges[0].node.id;
-    const productUrl=item.node.onlineStoreUrl;
+    const variantId=item.node.variants.edges[0].node.id.split("//shopify")[1];
+    const productId=item.node.id.split("//shopify")[1];
+    const shopUrl=data.shop.url;
+    console.log(shopUrl+'/'+productId+'/'+variantId);
+    // const productVariantUrl=shopUrl+item.node.i
+    
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
