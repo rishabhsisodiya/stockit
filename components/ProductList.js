@@ -220,6 +220,7 @@ console.log(data)
     );
     const price = item.variants.edges[0].node.price;
     const quantity= 5;
+    const style={width:"20%"};
     return (
       <ResourceItem
         verticalAlignment="center"
@@ -227,24 +228,24 @@ console.log(data)
         media={media}
         accessibilityLabel={`View details for ${item.title}`}
       >
-        <Stack distribution="fillEvenly">
-          <Stack.Item>
+        <div style={{display:"flex"}}>
+          <div style={style}>
             <h3>
               <TextStyle variation='strong'>
                 {item.title}
               </TextStyle>
             </h3>
-          </Stack.Item>
-          <Stack.Item>
+          </div>
+          <div style={style}>
             <p>${price}</p>
-          </Stack.Item>
-          <Stack.Item>
+          </div>
+          <div style={style}>
             <p>{quantity}</p>
-          </Stack.Item>
-          <Stack.Item>
+          </div>
+          <div style={{width:"40%"}}>
             <EditQuantity quantity={quantity}/>
-          </Stack.Item>
-        </Stack>
+          </div>
+        </div>
       </ResourceItem>  
     );
   }

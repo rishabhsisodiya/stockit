@@ -11,7 +11,7 @@ const EditQuantity = (props) => {
     )
 
     return (
-        <div>
+        <div> 
             <TextField
               type="number"
               value={value}
