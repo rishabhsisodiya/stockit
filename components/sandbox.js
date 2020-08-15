@@ -1,222 +1,150 @@
-import React, { useState, useCallback } from "react";
-import {
-  Stack,
-  Card,
-  Button,
-  TextField,
-  Avatar,
-  TextStyle,
-  Heading,
-  ResourceList,
-  ResourceItem,
-  Checkbox,
-  Filters
-} from "@shopify/polaris";
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+// import {useQuery,gql} from '@apollo/client';
+import React, { useState,useCallback} from 'react';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox} from '@shopify/polaris';
 
-function App() {
-  const items = [
-    {
-      id: 341,
-      url: "customers/341",
-      name: "Mae Jemison",
-      location: "Decatur, USA"
-    },
-    {
-      id: 256,
-      url: "customers/256",
-      name: "Ellen Ochoa",
-      location: "Los Angeles, USA"
+const GET_All_PRODUCTS = gql`
+query getAllProducts{
+  products(first:50){
+    edges{
+      cursor
+      node{
+        title
+        handle
+        id
+        images(first:1){
+          edges{
+            node{
+              originalSrc
+              altText
+            }
+          }
+        }
+        variants(first:1){
+          edges{
+            node{
+              price
+              id
+              inventoryQuantity
+              sku
+            }
+          }         
+        }
+      }
     }
-  ];
-  const [sortValue, setSortValue] = useState("DATE_MODIFIED_DESC");
+  } 
+}
+`;
+
+function sandbox() {
+  
+  const { loading, error, data } = useQuery(GET_All_PRODUCTS);
+  
   const [selectedItems, setSelectedItems] = useState([]);
   const [checked, setChecked] = useState(false);
-  const handleChange = useCallback(
-    (newChecked) => {
-      setChecked(newChecked);
-      let ids = newChecked ? items.map((item) => item.id) : [];
+  const handleChange = useCallback((newChecked) => {
+    
+    setChecked(newChecked);
+    // let ids=newChecked? items.map(item=>item.id) : [];
+    // setSelectedItems(ids);
+  }, []);
+  //CheckBox selectable
+  // const [selectedItems, setSelectedItems] = useState([]);
+  // Handle Quantityy field
+  // const [value, setValue] = useState('1');
+  // const handleChange = useCallback((newValue) => setValue(newValue), []);
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+  console.log("TestList:",data)
 
-      setSelectedItems(ids);
-    },
-    [items]
-  );
-  const promotedBulkActions = [
-    {
-      content: "Edit customers",
-      onAction: () => console.log("Todo: implement bulk edit")
-    }
-  ];
-
-  const bulkActions = [
-    {
-      content: "Add tags",
-      onAction: () => console.log("Todo: implement bulk add tags")
-    },
-    {
-      content: "Remove tags",
-      onAction: () => console.log("Todo: implement bulk remove tags")
-    },
-    {
-      content: "Delete customers",
-      onAction: () => console.log("Todo: implement bulk delete")
-    }
-  ];
-
-  //Filters
-  const [taggedWith, setTaggedWith] = useState("VIP");
-  const [queryValue, setQueryValue] = useState(null);
-
-  const handleTaggedWithChange = useCallback(
-    (value) => setTaggedWith(value),
-    []
-  );
-  const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
-  const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
-  const handleClearAll = useCallback(() => {
-    handleTaggedWithRemove();
-    handleQueryValueRemove();
-  }, [handleQueryValueRemove, handleTaggedWithRemove]);
-
-  const filters = [
-    {
-      key: "taggedWith",
-      label: "Tagged with",
-      filter: (
-        <TextField
-          label="Tagged with"
-          value={taggedWith}
-          onChange={handleTaggedWithChange}
-          labelHidden
-        />
-      ),
-      shortcut: true
-    }
-  ];
-
-  // const appliedFilters = !isEmpty(taggedWith)
-  //   ? [
-  //       {
-  //         key: "taggedWith",
-  //         label: disambiguateLabel("taggedWith", taggedWith),
-  //         onRemove: handleTaggedWithRemove
-  //       }
-  //     ]
-  //   : [];
-
-  const filterControl = (
-    <Filters
-      queryValue={queryValue}
-      filters={filters}
-      // appliedFilters={appliedFilters}
-      onQueryChange={setQueryValue}
-      onQueryClear={handleQueryValueRemove}
-      onClearAll={handleClearAll}
-    >
-      {/* <div style={{paddingLeft: '8px'}}>
-        <Button onClick={() => console.log('New filter saved')}>Save</Button>
-      </div> */}
-    </Filters>
-  );
   return (
-    <Card>
-      {/* <ResourceList.Item>
-        <Heading>
+    <div style={{display:"flex"}}>
+      {/* <Card> */}
+      <Heading>
+        <ResourceItem>
           <Stack>
-            <div>
+            <Stack.Item>
               <Checkbox checked={checked} onChange={handleChange} />
-            </div>
-            <div></div>
-            <div>Title</div>
-            <div>Availabilty</div>
-            <div>Price</div>
-            <div>Edit Availabilty</div>
+            </Stack.Item>
+            <Stack.Item>Title</Stack.Item>
+            <Stack.Item>Availabilty</Stack.Item>
+            <Stack.Item>Price</Stack.Item>
+            <Stack.Item>Edit Availabilty</Stack.Item>
           </Stack>
-        </Heading>
-      </ResourceList.Item> */}
+        </ResourceItem>
+      </Heading>
       <ResourceList
-        resourceName={{ singular: "customer", plural: "customers" }}
-        items={items}
+        resourceName={{ singular: 'Product', plural: 'Products' }}
+        items={data.products.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
         selectable
-        promotedBulkActions={promotedBulkActions}
-        bulkActions={bulkActions}
-        sortValue={sortValue}
-        sortOptions={[
-          { label: "Newest update", value: "DATE_MODIFIED_DESC" },
-          { label: "Oldest update", value: "DATE_MODIFIED_ASC" }
-        ]}
-        onSortChange={(selected) => {
-          setSortValue(selected);
-          console.log(`Sort option changed to ${selected}.`);
-        }}
-        filterControl={filterControl}
+        showHeader={false}
       />
-    </Card>
-  );
-  function renderItem(item) {
-    const { id, url, name, location } = item;
-    const media = <Avatar customer size="medium" name={name} />;
+      {/* </Card> */}
+    </div>
+  )
 
+  function renderItem(item) {
+    // const media = (
+    //   <Thumbnail
+    //     source={
+    //       item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
+    //     }
+    //     alt={
+    //       item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
+    //     }
+    //   />
+    // );
+    const itemId=item.node.id;
+    console.log(itemId);
+    const media = <Avatar customer size="medium" name={itemId} />;
+
+    const price = item.node.variants.edges[0].node.price;
+    console.log(price);
+    const sku = item.node.variants.edges[0].node.sku;
+    console.log(sku);
+    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
+    console.log(inventoryQuantity);
+    
     return (
       <ResourceItem
-        id={id}
-        url={url}
+        verticalAlignment="center"
+        id={itemId}
         media={media}
-        accessibilityLabel={`View details for ${name}`}
-        
+        accessibilityLabel={`View details for ${item.node.title}`}
       >
-        {/* <Stack>
-          <h3>
-            <TextStyle variation="strong">{name}</TextStyle>
-          </h3>
-          <div>{location}</div>
-          <div>
-            <TextField type="number" />
-          </div>
-          <div>
+        <Stack>
+          <Stack.Item>
+            <h3>
+              <TextStyle variation='strong'>
+                {item.node.title}
+              </TextStyle>
+            </h3>
+          </Stack.Item>
+          <Stack.Item>
+            <p>${price}</p>
+          </Stack.Item>
+          <Stack.Item>
+            <p>{inventoryQuantity}</p>
+          </Stack.Item>
+          <Stack.Item>
+            <TextField
+              type="number"
+              value="5"
+              // value={value}
+              // onChange={handleChange}
+            />
+          </Stack.Item>
+          <Stack.Item>
             <Button>Save</Button>
-          </div>
-        </Stack> */}
-        <dl style={{gridTemplateRows:"none"}}>
-          <div>
-            <dd><h3>
-              <TextStyle variation="strong">{name}</TextStyle>
-            </h3></dd>
-          </div>
-          <div>
-            <dd>{location}</dd>
-          </div>
-          <div>
-            <dd><TextField type="number" /></dd>
-          </div>
-          <div>
-            <dd><Button>Save</Button></dd>
-          </div>
-        </dl>
-      </ResourceItem>
+          </Stack.Item>
+        </Stack>
+      </ResourceItem>  
     );
   }
-
-  // For the Applied Filter
-  // function disambiguateLabel(key, value) {
-  //   switch (key) {
-  //     case "taggedWith":
-  //       return `Tagged with ${value}`;
-  //     default:
-  //       return value;
-  //   }
-  // }
-
-  // function isEmpty(value) {
-  //   if (Array.isArray(value)) {
-  //     return value.length === 0;
-  //   } else {
-  //     return value === "" || value == null;
-  //   }
-  // }
-
 }
 
-export default App;
+export default sandbox;
