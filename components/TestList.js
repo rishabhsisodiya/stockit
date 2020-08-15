@@ -258,11 +258,12 @@ const resourceName = {
         }
       />
     );
-    const variantId=item.node.variants.edges[0].node.id.split("//shopify")[1];
-    const productId=item.node.id.split("//shopify")[1];
+    //products/4876015698055/variants/34518453813383
+    const productId=item.node.id.split("//shopify/Product")[1];
+    const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
     const shopUrl=data.shop.url;
-    console.log(shopUrl+'/'+productId+'/'+variantId);
-    // const productVariantUrl=shopUrl+item.node.i
+    console.log(shopUrl+''+productId+''+variantId);
+    const productVariantUrl=shopUrl+'products'+productId+'variants'+variantId;
     
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
@@ -279,7 +280,7 @@ const resourceName = {
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-          <a href={productPreviewUrl} target="_blank">{item.node.title}</a>
+          <a href={productVariantUrl} target="_blank">{item.node.title}</a>
           </div>
           <div style={{width:"20%"}}>
             <p>${sku}</p>
