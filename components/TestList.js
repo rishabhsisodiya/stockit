@@ -191,7 +191,7 @@ console.log(data)
       />
     );
     const variantId=item.node.variants.edges[0].node.id;
-    const productUrl="https://ambraee-dev1.myshopify.com/admin"+variantId.split("//shopify")[1];
+    const productUrl="/admin"+variantId.split("//shopify")[1];
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
