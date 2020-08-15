@@ -212,7 +212,7 @@ console.log(data)
             <p>${sku}</p>
           </div>
           <div style={{width:"10%"}}>
-            <p>{inventoryQuantiy}</p>
+            <p>{inventoryQuantity}</p>
           </div>
           <div style={{width:"40%"}}>
             <EditQuantity quantity={quantity}/>
