@@ -258,12 +258,13 @@ const resourceName = {
         }
       />
     );
-    //products/4876015698055/variants/34518453813383
+    //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
+    // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
+    // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
     const productId=item.node.id.split("//shopify/Product")[1];
     const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
     const shopUrl=data.shop.url;
-    console.log(shopUrl+''+productId+''+variantId);
-    const productVariantUrl=shopUrl+'products'+productId+'variants'+variantId;
+    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
     
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
