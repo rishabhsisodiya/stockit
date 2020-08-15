@@ -2,11 +2,15 @@ import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
-import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
+//variants s xs m l
 const GET_All_PRODUCTS = gql`
 query getAllProducts{
+  shop{
+    url
+  }
   products(first:50){
     edges{
       cursor
@@ -46,32 +50,43 @@ const ProductList = () => {
 // console.log('All products:',newdata)
 const { loading, error, data } = useQuery(GET_All_PRODUCTS);
 const [selectedItems, setSelectedItems] = useState([]);
-  const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
-  const [taggedWith, setTaggedWith] = useState('VIP');
-  const [queryValue, setQueryValue] = useState(null);
-  //Edit Quantity Handler
-  const [quantityValue, setQuantiyValue] = useState(0);
-  const handleQuantiyChange = useCallback((newValue) => setQuantiyValue(newValue), []);
+const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
+const [availability, setAvailability] = useState(null);
+const [productType, setProductType] = useState(null);
+const [taggedWith, setTaggedWith] = useState(null);
+const [queryValue, setQueryValue] = useState(null);
 
-  const handleTaggedWithChange = useCallback(
+const handleAvailabilityChange = useCallback(
+    (value) => setAvailability(value),
+    [],
+);
+const handleProductTypeChange = useCallback(
+    (value) => setProductType(value),
+    [],
+);
+const handleTaggedWithChange = useCallback(
     (value) => setTaggedWith(value),
     [],
-  );
-  const handleQueryValueChange = useCallback(
-    (value) => setQueryValue(value),
+);
+const handleFiltersQueryChange = useCallback(
+   (value) => setQueryValue(value),
     [],
-  );
-  const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
-  const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
-  const handleClearAll = useCallback(() => {
+);
+const handleAvailabilityRemove = useCallback(() => setAvailability(null), []);
+const handleProductTypeRemove = useCallback(() => setProductType(null), []);
+const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
+const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
+const handleFiltersClearAll = useCallback(() => {
+    handleAvailabilityRemove();
+    handleProductTypeRemove();
     handleTaggedWithRemove();
     handleQueryValueRemove();
-  }, [handleQueryValueRemove, handleTaggedWithRemove]);
-
-  const resourceName = {
-    singular: 'product',
-    plural: 'products',
-  };
+  }, [
+    handleAvailabilityRemove,
+    handleQueryValueRemove,
+    handleProductTypeRemove,
+    handleTaggedWithRemove,
+  ]);
 
   // const items = [
   //   {
@@ -89,6 +104,94 @@ const [selectedItems, setSelectedItems] = useState([]);
   //     latestOrderUrl: 'orders/1457',
   //   },
   // ];
+  const filters = [
+    {
+      key: 'availability',
+      label: 'Availability',
+      filter: (
+        <ChoiceList
+          title="Availability"
+          titleHidden
+          choices={[
+            {label: 'Online Store', value: 'Online Store'},
+            {label: 'Point of Sale', value: 'Point of Sale'},
+            {label: 'Buy Button', value: 'Buy Button'},
+          ]}
+          selected={availability || []}
+          onChange={handleAvailabilityChange}
+          allowMultiple
+        />
+      ),
+      shortcut: true,
+    },
+    {
+      key: 'productType',
+      label: 'Product type',
+      filter: (
+        <ChoiceList
+          title="Product type"
+          titleHidden
+          choices={[
+            {label: 'T-Shirt', value: 'T-Shirt'},
+            {label: 'Accessory', value: 'Accessory'},
+            {label: 'Gift card', value: 'Gift card'},
+          ]}
+          selected={productType || []}
+          onChange={handleProductTypeChange}
+          allowMultiple
+        />
+      ),
+    },
+    {
+      key: 'taggedWith',
+      label: 'Tagged with',
+      filter: (
+        <TextField
+          label="Tagged with"
+          value={taggedWith}
+          onChange={handleTaggedWithChange}
+          labelHidden
+        />
+      ),
+    },
+  ];
+
+  const appliedFilters = [];
+  if (!isEmpty(availability)) {
+    const key = 'availability';
+    appliedFilters.push({
+      key,
+      label: disambiguateLabel(key, availability),
+      onRemove: handleAvailabilityRemove,
+    });
+  }
+  if (!isEmpty(productType)) {
+    const key = 'productType';
+    appliedFilters.push({
+      key,
+      label: disambiguateLabel(key, productType),
+      onRemove: handleProductTypeRemove,
+    });
+  }
+  if (!isEmpty(taggedWith)) {
+    const key = 'taggedWith';
+    appliedFilters.push({
+      key,
+      label: disambiguateLabel(key, taggedWith),
+      onRemove: handleTaggedWithRemove,
+    });
+  }
+
+  const filterControl = (
+    <Filters
+      queryValue={queryValue}
+      filters={filters}
+      appliedFilters={appliedFilters}
+      onQueryChange={handleFiltersQueryChange}
+      onQueryClear={handleQueryValueRemove}
+      onClearAll={handleFiltersClearAll}
+    />
+  );
 
   const promotedBulkActions = [
     {
@@ -112,50 +215,13 @@ const [selectedItems, setSelectedItems] = useState([]);
     },
   ];
 
-  const filters = [
-    {
-      key: 'taggedWith',
-      label: 'Tagged with',
-      filter: (
-        <TextField
-          label="Tagged with"
-          value={taggedWith}
-          onChange={handleTaggedWithChange}
-          labelHidden
-        />
-      ),
-      shortcut: true,
-    },
-  ];
-
-  const appliedFilters = !isEmpty(taggedWith)
-    ? [
-        {
-          key: 'taggedWith',
-          label: disambiguateLabel('taggedWith', taggedWith),
-          onRemove: handleTaggedWithRemove,
-        },
-      ]
-    : [];
-
-  const filterControl = (
-    <Filters
-      queryValue={queryValue}
-      filters={filters}
-      // appliedFilters={appliedFilters}
-      onQueryChange={handleQueryValueChange}
-      onQueryClear={handleQueryValueRemove}
-      onClearAll={handleClearAll}
-    >
-      <div style={{paddingLeft: '8px'}}>
-        <Button onClick={() => console.log('New filter saved')}>Save</Button>
-      </div>
-    </Filters>
-  );
-
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 console.log(data)
+const resourceName = {
+  singular: 'product',
+  plural: 'products',
+};
 
   return (
     <Card>
@@ -192,8 +258,14 @@ console.log(data)
         }
       />
     );
-    const variantId=item.node.variants.edges[0].node.id;
-    const productUrl=item.node.onlineStoreUrl;
+    //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
+    // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
+    // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
+    const productId=item.node.id.split("//shopify/Product")[1];
+    const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
+    const shopUrl=data.shop.url;
+    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
+    
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
@@ -209,7 +281,7 @@ console.log(data)
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={{display:"flex"}}>
           <div style={{width:"30%"}}>
-          <Link url={productPreviewUrl}>{item.node.title}</Link>
+          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none"}}>{item.node.title}</a>
           </div>
           <div style={{width:"20%"}}>
             <p>${sku}</p>
@@ -229,6 +301,10 @@ console.log(data)
     switch (key) {
       case 'taggedWith':
         return `Tagged with ${value}`;
+      case 'availability':
+        return value.map((val) => `Available on ${val}`).join(', ');
+      case 'productType':
+        return value.join(', ');
       default:
         return value;
     }
