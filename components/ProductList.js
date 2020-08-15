@@ -229,17 +229,17 @@ console.log(data)
         accessibilityLabel={`View details for ${item.title}`}
       >
         <div style={{display:"flex"}}>
-          <div style={style}>
+          <div style={{width:"30%"}}>
             <h3>
               <TextStyle variation='strong'>
                 {item.title}
               </TextStyle>
             </h3>
           </div>
-          <div style={style}>
+          <div style={{width:"20%"}}>
             <p>${price}</p>
           </div>
-          <div style={style}>
+          <div style={{width:"10%"}}>
             <p>{quantity}</p>
           </div>
           <div style={{width:"40%"}}>

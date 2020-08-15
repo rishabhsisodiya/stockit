@@ -11,7 +11,7 @@ const EditQuantity = (props) => {
     )
 
     return (
-        <div> 
+        <div style={{display:"flex"}}> 
             <TextField
               type="number"
               value={value}
