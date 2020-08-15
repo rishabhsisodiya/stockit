@@ -3,38 +3,43 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import {Button, Card, TextField, ChoiceList, DataTable, Filters} from '@shopify/polaris';
 
-const GET_PRODUCTS_BY_ID = gql`
-  query getProducts($ids: [ID!]!) {
-    nodes(ids: $ids) {
-      ... on Product {
+const GET_All_PRODUCTS = gql`
+query getAllProducts{
+  products(first:50){
+    edges{
+      cursor
+      node{
         title
         handle
         id
-        images(first: 1) {
-          edges {
-            node {
+        images(first:1){
+          edges{
+            node{
               originalSrc
               altText
             }
           }
         }
-        variants(first: 1) {
-          edges {
-            node {
+        variants(first:1){
+          edges{
+            node{
               price
               id
+              inventoryQuantity
+              sku
             }
-          }
+          }         
         }
       }
     }
-  }
+  } 
+}
 `;
 
 
 export default function Products() {
 
-const { loading, error, data } = useQuery(GET_PRODUCTS_BY_ID, { variables: { ids: ["gid://shopify/Product/4876009144455","gid://shopify/Product/4876009603207","gid://shopify/Product/4876010684551"] } })
+const { loading, error, data } = useQuery(GET_All_PRODUCTS)
   
 
 const [availability, setAvailability] = useState(null);

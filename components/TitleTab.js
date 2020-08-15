@@ -35,7 +35,9 @@ const TitleTab = () => {
 if (selected==1) {
   tabSelected=<TestProductList/>
 }
-console.log(tabSelected);
+if (selected==2) {
+  tabSelected=<Products/>
+}
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
