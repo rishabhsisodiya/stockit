@@ -183,7 +183,7 @@ console.log(data)
     const media = (
       <Thumbnail
         source={
-          item.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
+          item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
         }
         alt={
           item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
