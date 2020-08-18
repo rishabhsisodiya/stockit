@@ -1,4 +1,19 @@
-products: {…}
+"inventoryItem": {
+                      "id": "gid://shopify/InventoryItem/35503779676295"
+                    }
+
+{
+  "input": {
+    "id": "gid://shopify/ProductVariant/33637684772999",
+    "inventoryQuantities":  {
+      "availableQuantity": 10,
+      "locationId": "gid://shopify/Location/44303220871"
+    }
+  }
+}
+
+
+////products: {…}
 ​​
 __typename: "ProductConnection"
 ​​
