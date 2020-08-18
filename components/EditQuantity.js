@@ -15,7 +15,7 @@ query getVariantByID($id: ID!) {
   }
 `;
 
-const GET_INVENTORY_LEVELS_BY_ID= gpl`
+const GET_INVENTORY_LEVELS_BY_ID = gql`
 query getInventoryItemByID($id: ID!) {
     inventoryItem(id: $id) {
       id
