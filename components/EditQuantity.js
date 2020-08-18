@@ -33,8 +33,9 @@ query getInventoryItemByID($id: ID!) {
 
 const EditQuantity = (props) => {
     const { inventloading, inventerror, inventoryItemdata } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    console.log(inventoryItemdata)
     console.log(inventoryItemdata.inventoryItem.id)
-    const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: inventoryItemdata.inventoryItem.id } });
+    // const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: inventoryItemdata.inventoryItem.id } });
     // console.log('inventoryleveldata:',inventoryLevelsdata);
     // console.log('Inventory',inventoryItemdata.inventoryItem.id);
     const [value, setvalue] = useState(props.quantity);
