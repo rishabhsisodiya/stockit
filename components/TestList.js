@@ -34,9 +34,7 @@ query getAllProducts{
               id
               inventoryQuantity
               sku
-              inventoryItem {
-                id
-              }
+              
             }
           }         
         }
@@ -280,7 +278,7 @@ const resourceName = {
         accessibilityLabel={`View details for ${item.node.title}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
-        <div style={{display:"grid",gridTemplateRows:"30% 20% 10% 40%" }}>
+        <div style={{display:"grid",gridTemplateColumns:"30% 20% 10% 40%" }}>
           <div>
           <Link url={productVariantUrl}>{item.node.title}</Link>
           {/* <a href={productVariantUrl} target="_blank" style={{textDecoration:"none"}}>{item.node.title}</a> */}
