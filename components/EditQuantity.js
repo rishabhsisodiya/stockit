@@ -33,6 +33,9 @@ query getInventoryItemByID($id: ID!) {
 
 const EditQuantity = (props) => {
     const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    const getInventoryLevel = (data) => {
+        console.log(data.productVariant.inventoryItem.id);
+    }
     // console.log(props.variantId);
     // const inventoryID = data.productVariant;
     // console.log(inventoryID);
@@ -51,6 +54,7 @@ const EditQuantity = (props) => {
     if (error) return <div>{error.message}</div>
     return (
         <div style={{display:"flex"}}>
+            {getInventoryLevel(data)}
             {data.productVariant.inventoryItem.id} 
             <TextField
               type="number"
