@@ -51,7 +51,7 @@ const EditQuantity = (props) => {
     if (error) return <div>{error.message}</div>
     return (
         <div style={{display:"flex"}}>
-            {data.productVariant} 
+            {data.productVariant.inventoryItem.id} 
             <TextField
               type="number"
               value={value}
