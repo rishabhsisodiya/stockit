@@ -16,6 +16,7 @@ query getVariantByID($id: ID!) {
 `;
 
 const EditQuantity = (props) => {
+    console.log(props.variantId);
     const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{"id":props.variantId});
     console.log(data);
     const [value, setvalue] = useState(props.quantity);
@@ -25,7 +26,8 @@ const EditQuantity = (props) => {
         },
         [],
     )
-
+    if (loading) return <div>Loading...</div>
+    if (error) return <div>{error.message}</div>
     return (
         <div style={{display:"flex"}}> 
             <TextField
