@@ -49,7 +49,8 @@ const ProductList = () => {
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
 const { loading, error, data } = useQuery(GET_All_PRODUCTS);
-console.log(data.shop.url);
+const shopUrl=data.shop.url;
+console.log(shopUrl);
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
 const [availability, setAvailability] = useState(null);
