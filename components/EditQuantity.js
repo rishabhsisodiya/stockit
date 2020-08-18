@@ -4,7 +4,7 @@ import { TextField, Button } from "@shopify/polaris";
 import React, {useCallback, useState} from 'react';
 
 const GET_INVENTORY_ITEM_BY_ID = gql`
-query getVariantByID($id: [ID!]!) {
+query getVariantByID($id: ID!) {
     productVariant(id: $id) {
       id
       title
@@ -16,7 +16,6 @@ query getVariantByID($id: [ID!]!) {
 `;
 
 const EditQuantity = (props) => {
-    console.log(props.variantId);
     const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     console.log(data);
     const [value, setvalue] = useState(props.quantity);
