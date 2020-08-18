@@ -265,6 +265,7 @@ const resourceName = {
     const productId=item.node.id.split("//shopify/Product")[1];
     const variantId=item.node.variants.edges[0].node.id;
     const shopUrl=data.shop.url;
+    console.log(shopUrl);
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
