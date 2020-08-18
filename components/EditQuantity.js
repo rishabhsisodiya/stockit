@@ -32,16 +32,12 @@ query getInventoryItemByID($id: ID!) {
 `;
 
 const EditQuantity = (props) => {
-    const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
-    const getInventoryLevel = (data) => {
-        console.log(data.productVariant.inventoryItem.id);
-    }
-    // console.log(props.variantId);
-    // const inventoryID = data.productVariant;
-    // console.log(inventoryID);
-    // console.log(inventoryItemdata.inventoryItem.id)
-    // const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: inventoryItemdata.inventoryItem.id } });
-    // console.log('inventoryleveldata:',inventoryLevelsdata);
+    const { oloading, oerror, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    // const getInventoryLevel = (data) => {
+    //     console.log(data.productVariant.inventoryItem.id);
+    // }
+    const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: data.productVariant.inventoryItem.id } });
+    console.log('inventoryleveldata:',inventoryLevelsdata);
     // console.log('Inventory',inventoryItemdata.inventoryItem.id);
     const [value, setvalue] = useState(props.quantity);
     const handleChange = useCallback(
@@ -54,8 +50,8 @@ const EditQuantity = (props) => {
     if (error) return <div>{error.message}</div>
     return (
         <div style={{display:"flex"}}>
-            {getInventoryLevel(data)}
-            {data.productVariant.inventoryItem.id} 
+            {/* {getInventoryLevel(data)} */}
+            {/* {data.productVariant.inventoryItem.id} */}
             <TextField
               type="number"
               value={value}
