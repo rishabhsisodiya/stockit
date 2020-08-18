@@ -34,7 +34,9 @@ query getAllProducts{
               id
               inventoryQuantity
               sku
-              
+              inventoryItem {
+                id
+              }
             }
           }         
         }
@@ -269,7 +271,7 @@ const resourceName = {
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
-    const style={};
+    const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%"};
     return (
       <ResourceItem
         verticalAlignment="center"
@@ -278,9 +280,9 @@ const resourceName = {
         accessibilityLabel={`View details for ${item.node.title}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
-        <div style={{display:"grid",gridTemplateColumns:"30% 20% 10% 40%" }}>
+        <div style={style}>
           <div>
-          <Link url={productVariantUrl}>{item.node.title}</Link>
+          <Link url={productVariantUrl} external>{item.node.title}</Link>
           {/* <a href={productVariantUrl} target="_blank" style={{textDecoration:"none"}}>{item.node.title}</a> */}
           </div>
           <div>
