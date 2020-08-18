@@ -17,7 +17,7 @@ query getVariantByID($id: ID!) {
 
 const EditQuantity = (props) => {
     const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
-    console.log(error);
+    console.log('Inventory',data);
     const [value, setvalue] = useState(props.quantity);
     const handleChange = useCallback(
         (newValue) => {
