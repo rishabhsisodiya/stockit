@@ -271,7 +271,7 @@ const resourceName = {
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
-    const style={width:"20%"};
+    const style={};
     return (
       <ResourceItem
         verticalAlignment="center"
@@ -280,18 +280,18 @@ const resourceName = {
         accessibilityLabel={`View details for ${item.node.title}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
-        <div style={{display:"flex"}}>
-          <div style={{width:"30%"}}>
-          <Link url={productVariantUrl} external>{item.node.title}</Link>
+        <div style={{display:"grid",gridTemplateRows:"30% 20% 10% 40%" }}>
+          <div>
+          <Link url={productVariantUrl}>{item.node.title}</Link>
           {/* <a href={productVariantUrl} target="_blank" style={{textDecoration:"none"}}>{item.node.title}</a> */}
           </div>
-          <div style={{width:"20%"}}>
+          <div>
             <p>${sku}</p>
           </div>
-          <div style={{width:"10%"}}>
+          <div>
             <p>{inventoryQuantity}</p>
           </div>
-          <div style={{width:"40%"}}>
+          <div>
             <EditQuantity quantity={inventoryQuantity}/>
           </div>
         </div>
