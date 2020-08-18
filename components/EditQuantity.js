@@ -15,9 +15,27 @@ query getVariantByID($id: ID!) {
   }
 `;
 
+const GET_INVENTORY_LEVELS_BY_ID= gpl`
+query getInventoryItemByID($id: ID!) {
+    inventoryItem(id: $id) {
+      id
+      inventoryLevels (first:1) {
+        edges {
+          node {
+            id
+            available
+          }
+        }
+      }
+    }
+  }
+`;
+
 const EditQuantity = (props) => {
-    const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
-    console.log('Inventory',data);
+    const { inventloading, inventerror, inventoryItemdata } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: inventoryItemdata.inventoryItem.id } });
+    console.log('inventoryleveldata:',inventoryLevelsdata);
+    // console.log('Inventory',inventoryItemdata.inventoryItem.id);
     const [value, setvalue] = useState(props.quantity);
     const handleChange = useCallback(
         (newValue) => {
