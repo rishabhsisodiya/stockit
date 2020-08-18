@@ -291,7 +291,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity quantity={inventoryQuantity}/>
+            <EditQuantity quantity={inventoryQuantity} variantId={variantId}/>
           </div>
         </div>
       </ResourceItem>  
