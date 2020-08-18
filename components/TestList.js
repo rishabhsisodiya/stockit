@@ -19,7 +19,6 @@ query getAllProducts{
         handle
         id
         onlineStoreUrl
-        onlineStorePreviewUrl
         images(first:1){
           edges{
             node{
@@ -35,6 +34,9 @@ query getAllProducts{
               id
               inventoryQuantity
               sku
+              inventoryItem {
+                id
+              }
             }
           }         
         }
@@ -265,8 +267,7 @@ const resourceName = {
     const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
-    
-    const productPreviewUrl=item.node.onlineStorePreviewUrl;
+    // const inventoryId=item.node.variants.edges[0].node.inventoryItem.id;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
