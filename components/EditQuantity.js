@@ -38,7 +38,6 @@ const EditQuantity = (props) => {
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
-    console.log('con..');
     const [value, setvalue] = useState('');
     const handleChange = useCallback(
         (newValue) => {
@@ -55,12 +54,13 @@ const EditQuantity = (props) => {
         availableDelta:parseInt(value)
       } 
     } })
+    setvalue('');
   };
 
-  // if (loading) return <div>Loading...</div>
-  if (merror) return <div>Error in mutatiton :{merror.message}</div>
-  if (mdata) return <div>data {mdata}</div>
-  console.log('all done....',mdata);
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
+  // if (mdata) return <div>data {mdata}</div>
+  // console.log('all done....'+mdata+'---'+merror);
     return (
         <div style={{display:"flex"}}>
             <TextField
