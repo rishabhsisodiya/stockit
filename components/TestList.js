@@ -294,40 +294,45 @@ const resourceName = {
     const productId=item.node.id.split("//shopify/Product")[1];
     item.node.variants.edges.map(
       (variantItem) => {
-          console.log(variantItem.node.title);
+        const variantTitle= variantItem.node.title?variantItem.node.title:'';
+        const variantId=variantItem.node.id.split("//shopify/ProductVariant")[1];
+        const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
+        const inventoryItemId= variantItem.node.inventoryItem.id;
+        const price = variantItem.node.price;
+        const sku = variantItem.node.sku;
+        const inventoryQuantity = variantItem.node.inventoryQuantity;
+        const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
+        return (
+          <ResourceItem
+            verticalAlignment="center"
+            id={item.node.id}
+            media={media}
+            accessibilityLabel={`View details for ${item.node.title}`}
+          >
+            {/* thumbnail done , product title with product link, SKU , quantity  */}
+            <div style={style}>
+              <div>
+              <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+                {item.node.title}
+                {variantTitle}
+              </a>
+              </div>
+              <div>
+                <p>${sku}</p>
+              </div>
+              <div> 
+                <p>{inventoryQuantity}</p>
+              </div>
+              <div>
+                <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
+              </div>
+            </div>
+          </ResourceItem>  
+        );    
       }
     );
-    const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
-    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
-    const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
-    const price = item.node.variants.edges[0].node.price;
-    const sku = item.node.variants.edges[0].node.sku;
-    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
-    const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
-    return (
-      <ResourceItem
-        verticalAlignment="center"
-        id={item.node.id}
-        media={media}
-        accessibilityLabel={`View details for ${item.node.title}`}
-      >
-        {/* thumbnail done , product title with product link, SKU , quantity  */}
-        <div style={style}>
-          <div>
-          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.node.title}</a>
-          </div>
-          <div>
-            <p>${sku}</p>
-          </div>
-          <div> 
-            <p>{inventoryQuantity}</p>
-          </div>
-          <div>
-            <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
-          </div>
-        </div>
-      </ResourceItem>  
-    );
+    
+    
   }
 
   function disambiguateLabel(key, value) {
