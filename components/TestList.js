@@ -58,6 +58,7 @@ const TestProductList = () => {
 console.log('TestProductList rendering..');
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
+const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
@@ -260,13 +261,14 @@ const resourceName = {
         <Pagination
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
-            console.log('Previous');
-            setCursor(data.products.edges[49].cursor);
+            console.log('Previous',firstCursor);
+            setCursor(firstCursor);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
+            setFirstCursor(data.products.edges[0].cursor)
             setCursor(data.products.edges[49].cursor);
             refetch();
           }}
