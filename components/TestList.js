@@ -292,7 +292,7 @@ const resourceName = {
     );
     const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
-    item.node.variants.edges.map(
+    return item.node.variants.edges.map(
       (variantItem) => {
         const variantTitle= variantItem.node.title?variantItem.node.title:'';
         const variantId=variantItem.node.id.split("//shopify/ProductVariant")[1];
@@ -309,7 +309,6 @@ const resourceName = {
             media={media}
             accessibilityLabel={`View details for ${item.node.title}`}
           >
-            {/* thumbnail done , product title with product link, SKU , quantity  */}
             <div style={style}>
               <div>
               <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
