@@ -91,22 +91,7 @@ const handleFiltersClearAll = useCallback(() => {
     handleTaggedWithRemove,
   ]);
 
-  // const items = [
-  //   {
-  //     id: 341,
-  //     url: 'customers/341',
-  //     name: 'Mae Jemison',
-  //     location: 'Decatur, USA',
-  //     latestOrderUrl: 'orders/1456',
-  //   },
-  //   {
-  //     id: 256,
-  //     url: 'customers/256',
-  //     name: 'Ellen Ochoa',
-  //     location: 'Los Angeles, USA',
-  //     latestOrderUrl: 'orders/1457',
-  //   },
-  // ];
+  
   const filters = [
     {
       key: 'availability',
@@ -295,7 +280,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity quantity={inventoryQuantity} inventoryId={inventoryItemId}/>
+            <EditQuantity inventoryId={inventoryItemId} callback={this.renderItem}/>
           </div>
         </div>
       </ResourceItem>  

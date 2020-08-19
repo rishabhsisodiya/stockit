@@ -46,8 +46,6 @@ const EditQuantity = (props) => {
         [],
     )
     const updateHandler = () => {
-      console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
-      console.log('value:',value);
       addQuantity({ variables: { 
       inventoryAdjustQuantityInput: {
         inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
@@ -55,12 +53,11 @@ const EditQuantity = (props) => {
       } 
     } })
     setvalue('');
+    props.callback();
   };
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
-  // if (mdata) return <div>data {mdata}</div>
-  // console.log('all done....'+mdata+'---'+merror);
     return (
         <div style={{display:"flex"}}>
             <TextField
