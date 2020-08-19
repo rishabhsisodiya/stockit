@@ -34,6 +34,7 @@ mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAd
 `;
 
 const EditQuantity = (props) => {
+  console.log('Edit rendering');
     // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);

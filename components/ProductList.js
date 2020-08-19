@@ -52,7 +52,8 @@ const ProductList = () => {
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
 console.log('ProductList rendering..');
-const { loading, error, data } = useQuery(GET_All_PRODUCTS);
+//refetch for loading new data after updating quantity
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS);
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
@@ -63,7 +64,10 @@ const [queryValue, setQueryValue] = useState(null);
 
 //Toast after updating quantity
 const [active, setActive] = useState(false);
-const toggleActive = useCallback(() => setActive((active) => !active), []);
+const toggleActive = useCallback(() => {
+  setActive((active) => !active)
+  refetch() 
+}, []);
 
 const toastMarkup = active ? (
   <Toast
