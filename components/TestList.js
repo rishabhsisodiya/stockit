@@ -310,10 +310,12 @@ const resourceName = {
             accessibilityLabel={`View details for ${item.node.title}`}
           >
             <div style={style}>
-              <div>
+              <div style={{display:"flex",flexDirection:"column"}}>
               <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-                <span>{item.node.title}</span>
-                <span>{variantTitle}</span>
+                {item.node.title}
+              </a>
+              <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+                {variantTitle}
               </a>
               </div>
               <div>
