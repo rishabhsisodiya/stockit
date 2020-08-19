@@ -268,7 +268,7 @@ const resourceName = {
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
-            if (hasPrevious) {
+            if (data.products.pageInfo.hasPreviousPage) {
               setFirstCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
