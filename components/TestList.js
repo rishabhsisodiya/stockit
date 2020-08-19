@@ -23,7 +23,6 @@ query getAllProducts($numProducts: Int!, $cursor: String){
         handle
         id
         onlineStoreUrl
-        onlineStorePreviewUrl
         images(first:1){
           edges{
             node{
@@ -35,6 +34,7 @@ query getAllProducts($numProducts: Int!, $cursor: String){
         variants(first:6){
           edges{
             node{
+              title
               price
               id
               inventoryQuantity
@@ -290,16 +290,16 @@ const resourceName = {
         }
       />
     );
-    //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
-    // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
-    // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
-    const productId=item.node.id.split("//shopify/Product")[1];
-    const variantId=item.node.variants.edges[0].node.id;
     const shopUrl=data.shop.url;
-    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
+    const productId=item.node.id.split("//shopify/Product")[1];
+    item.node.variants.edges.map(
+      (variantItem) => {
+          console.log(variantItem.node.title);
+      }
+    );
+    const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
+    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
-    // console.log(inventoryItemId);
-    const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
