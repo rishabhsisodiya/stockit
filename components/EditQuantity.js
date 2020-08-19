@@ -46,6 +46,7 @@ const EditQuantity = (props) => {
         },
         [],
     )
+    console.log('setvalue pass..');
     const updateHandler = () => {
       console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
       console.log('value:',value);
@@ -56,21 +57,19 @@ const EditQuantity = (props) => {
       } 
     } })
   };
+  console.log('handler pass..');
 
   // if (loading) return <div>Loading...</div>
   if (merror) return <div>Error in mutatiton :{merror.message}</div>
   if (mdata) return <div>data {mdata}</div>
-  // if (mdata) return <div>{mdata}</div>
+  console.log('all done....');
     return (
         <div style={{display:"flex"}}>
-            {/* {getInventoryLevel(data)} */}
-            {/* {data.productVariant.inventoryItem.id} */}
             <TextField
               type="number"
               value={value}
               onChange={handleChange}
               placeholder="Add to available quantity"
-              
             />
             <Button onClick={updateHandler}>Add</Button>
         </div>
