@@ -3,7 +3,7 @@ import TitleTab from '../components/TitleTab';
 import ProductList from '../components/ProductList';
 
 class Index extends React.Component {
-
+// Frame for displaying toast
   render() {
     return (
       <Frame>

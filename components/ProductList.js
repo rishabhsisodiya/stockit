@@ -51,7 +51,9 @@ const ProductList = () => {
 
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
+console.log('ProductList rendering..');
 const { loading, error, data } = useQuery(GET_All_PRODUCTS);
+console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
 const [availability, setAvailability] = useState(null);
@@ -217,7 +219,6 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-console.log(data)
 const resourceName = {
   singular: 'product',
   plural: 'products',
