@@ -58,7 +58,7 @@ const EditQuantity = (props) => {
   };
 
   // if (loading) return <div>Loading...</div>
-  if (error) return <div>{error.message}</div>
+  if (merror) return <div>{merror.message}</div>
   // if (mdata) return <div>{mdata}</div>
     return (
         <div style={{display:"flex"}}>
