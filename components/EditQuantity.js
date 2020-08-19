@@ -19,7 +19,7 @@ query getInventoryItemByID($id: ID!) {
   }
 `;
 
-const UPDATE_QUANTITY = gpl`
+const UPDATE_QUANTITY = gql`
 mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAdjustQuantityInput!) {
   inventoryAdjustQuantity(input: $inventoryAdjustQuantityInput) {
     inventoryLevel {
