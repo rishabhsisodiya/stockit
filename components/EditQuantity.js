@@ -48,6 +48,7 @@ const EditQuantity = (props) => {
     )
     const updateHandler = () => {
       console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
+      console.log('value:',value);
     //   addQuantity({ variables: { 
     //   inventoryAdjustQuantityInput: {
     //     inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
