@@ -294,7 +294,7 @@ const resourceName = {
     const productId=item.node.id.split("//shopify/Product")[1];
     return item.node.variants.edges.map(
       (variantItem) => {
-        const variantTitle= variantItem.node.title?variantItem.node.title:'';
+        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
         const variantId=variantItem.node.id.split("//shopify/ProductVariant")[1];
         const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
         const inventoryItemId= variantItem.node.inventoryItem.id;
