@@ -4,6 +4,7 @@ import { useQuery} from '@apollo/react-hooks';
 import React, {useCallback, useState} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
+import { Toast } from '@shopify/polaris/dist/types/latest/src/components/Frame/components';
 
 //variants s xs m l
 const GET_All_PRODUCTS = gql`
@@ -58,6 +59,18 @@ const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
+
+//Toast after updating quantity
+const [active, setActive] = useState(false);
+const toggleActive = useCallback(() => setActive((active) => !active), []);
+
+const toastMarkup = active ? (
+  <Toast
+    content="Inventory Updated!"
+    onDismiss={toggleActive}
+    duration={10000}
+  />
+  ) : null;
 
 const handleAvailabilityChange = useCallback(
     (value) => setAvailability(value),
@@ -213,6 +226,7 @@ const resourceName = {
 
   return (
     <Card>
+      {toastMarkup}
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}
@@ -291,7 +305,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity inventoryId={inventoryItemId} callback={renderItem}/>
+            <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
           </div>
         </div>
       </ResourceItem>  

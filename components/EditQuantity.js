@@ -53,21 +53,9 @@ const EditQuantity = (props) => {
       } 
     } })
     setvalue('');
-    toggleActive;
-    console.log('done');
+    props.callback();
   };
-  const [active, setActive] = useState(false);
-
-  const toggleActive = useCallback(() => setActive((active) => !active), []);
-
-  const toastMarkup = active ? (
-    <Toast
-      content="Inventory Updated!"
-      duration={10000}
-      onDismiss={toggleActive}
-    />
-  ) : null;
-
+  
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
     return (
@@ -79,7 +67,6 @@ const EditQuantity = (props) => {
               placeholder="Add to available quantity"
             />
             <Button onClick={updateHandler} primary>Add</Button>
-            {toastMarkup}
         </div>
     );
 
