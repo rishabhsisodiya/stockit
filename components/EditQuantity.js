@@ -53,8 +53,23 @@ const EditQuantity = (props) => {
       } 
     } })
     setvalue('');
-    props.callback();
+    toggleActive;
   };
+  const [active, setActive] = useState(false);
+
+  const toggleActive = useCallback(() => setActive((active) => !active), []);
+
+  const toastMarkup = active ? (
+    <Toast
+      content="Image deleted"
+      action={{
+        content: 'Undo',
+        onAction: () => {},
+      }}
+      duration={10000}
+      onDismiss={toggleActive}
+    />
+  ) : null;
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>{error.message}</div>
@@ -66,7 +81,8 @@ const EditQuantity = (props) => {
               onChange={handleChange}
               placeholder="Add to available quantity"
             />
-            <Button onClick={updateHandler}>Add</Button>
+            <Button onClick={updateHandler} primary>Add</Button>
+            {toastMarkup}
         </div>
     );
 
