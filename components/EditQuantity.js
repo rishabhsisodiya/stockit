@@ -36,6 +36,7 @@ mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAd
 const EditQuantity = (props) => {
     // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
+    const { addQuantity, data } = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
     console.log(data);
     const [value, setvalue] = useState(props.quantity);
@@ -45,36 +46,38 @@ const EditQuantity = (props) => {
         },
         [],
     )
-    const updateHandler = () => {
-//       //{
-//   "inventoryAdjustQuantityInput" : {
-//     "inventoryLevelId": "gid://shopify/InventoryLevel/6485147690?inventory_item_id=12250274365496",
-//     "availableDelta": 1
-//   }
-// }
-      console.log(value);
-      const inventoryLevelId = data.inventoryItem.inventoryLevels.edges[0].node.id;
-      const { loading, error, data } = useMutation(UPDATE_QUANTITY,{ variables: { 
-        inventoryAdjustQuantityInput: {
-          inventoryLevelId:inventoryLevelId,
-          availableDelta:value
-        } 
-      } });
-      console.log(data);
-    }
+    const updateHandler = (value,data) => addQuantity({ variables: { 
+      inventoryAdjustQuantityInput: {
+        inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
+        availableDelta:value
+      } 
+    } });
+// //       //{
+// //   "inventoryAdjustQuantityInput" : {
+// //     "inventoryLevelId": "gid://shopify/InventoryLevel/6485147690?inventory_item_id=12250274365496",
+// //     "availableDelta": 1
+// //   }
+// // }
+//       console.log(value);
+//       const inventoryLevelId = data.inventoryItem.inventoryLevels.edges[0].node.id;
+//       console.log(inventoryLevelId);
+     
+//       console.log(data);
+//     }
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
     return (
         <div style={{display:"flex"}}>
             {/* {getInventoryLevel(data)} */}
             {/* {data.productVariant.inventoryItem.id} */}
-            <TextField
+            <input
               type="number"
               value={value}
               onChange={handleChange}
-              placeholder="Add"
+              placeholder="Add to available quantity"
+              
             />
-            <Button onClick={updateHandler}>Add</Button>
+            <Button onClick={updateHandler.bind(this)}>Add</Button>
         </div>
     );
 
