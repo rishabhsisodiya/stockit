@@ -32,7 +32,7 @@ query getAllProducts($numProducts: Int!, $cursor: String){
             }
           }
         }
-        variants(first:1){
+        variants(first:6){
           edges{
             node{
               price
