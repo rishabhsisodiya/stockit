@@ -7,11 +7,15 @@ import EditQuantity from './EditQuantity';
 
 //variants s xs m l
 const GET_All_PRODUCTS = gql`
-query getAllProducts{
+query getAllProducts($numProducts: Int!, $cursor: String){
   shop{
     url
   }
-  products(first:50){
+  products(first: $numProducts, after: $cursor){
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
     edges{
       cursor
       node{
@@ -53,7 +57,9 @@ const ProductList = () => {
 // console.log('All products:',newdata)
 console.log('ProductList rendering..');
 //refetch for loading new data after updating quantity
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS);
+const [cursor,setCursor] = useState(null);
+const [firstCursor,setFirstCursor] = useState(null);
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
@@ -253,13 +259,20 @@ const resourceName = {
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
-          hasPrevious
+          hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
+            setCursor(firstCursor);
+            refetch();
           }}
-          hasNext
+          hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
+            if (data.products.pageInfo.hasPreviousPage) {
+              setFirstCursor(data.products.edges[0].cursor)
+            }
+            setCursor(data.products.edges[49].cursor);
+            refetch();
           }}
         />
       </div> 
