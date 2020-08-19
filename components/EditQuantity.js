@@ -38,7 +38,7 @@ const EditQuantity = (props) => {
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
-    console.log(mdata);
+    // console.log(mdata);
     const [value, setvalue] = useState('');
     const handleChange = useCallback(
         (newValue) => {
@@ -47,7 +47,7 @@ const EditQuantity = (props) => {
         [],
     )
     const updateHandler = (value,data) => {
-      console.log(data.inventoryItem.inventoryLevels.edges[0].node.id);
+      console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
       addQuantity({ variables: { 
       inventoryAdjustQuantityInput: {
         inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
