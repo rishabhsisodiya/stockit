@@ -32,13 +32,14 @@ query getInventoryItemByID($id: ID!) {
 `;
 
 const EditQuantity = (props) => {
-    const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
+    const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     // const id=data.productVariant.inventoryItem.id;
     console.log(data);
     // const getInventoryLevel = (data) => {
     //     console.log(data.productVariant.inventoryItem.id);
     // }
-    // const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: data.productVariant.inventoryItem.id } });
+    // const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     // console.log('inventoryleveldata:',inventoryLevelsdata);
     // console.log('Inventory',inventoryItemdata.inventoryItem.id);
     const [value, setvalue] = useState(props.quantity);

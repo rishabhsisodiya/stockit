@@ -270,7 +270,7 @@ const resourceName = {
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
-    console.log(inventoryItemId);
+    // console.log(inventoryItemId);
     const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
@@ -295,7 +295,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity quantity={inventoryQuantity} variantId={variantId}/>
+            <EditQuantity quantity={inventoryQuantity} inventoryId={inventoryItemId}/>
           </div>
         </div>
       </ResourceItem>  
