@@ -46,12 +46,15 @@ const EditQuantity = (props) => {
         },
         [],
     )
-    const updateHandler = (value,data) => addQuantity({ variables: { 
+    const updateHandler = (value,data) => {
+      console.log(data.inventoryItem.inventoryLevels.edges[0].node.id);
+      addQuantity({ variables: { 
       inventoryAdjustQuantityInput: {
         inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
         availableDelta:value
       } 
-    } });
+    } })
+  };
 // //       //{
 // //   "inventoryAdjustQuantityInput" : {
 // //     "inventoryLevelId": "gid://shopify/InventoryLevel/6485147690?inventory_item_id=12250274365496",
@@ -66,6 +69,7 @@ const EditQuantity = (props) => {
 //     }
     if (mloading) return <div>Loading...</div>
     if (merror) return <div>{merror.message}</div>
+  // if (mdata) return <div>{mdata}</div>
     return (
         <div style={{display:"flex"}}>
             {/* {getInventoryLevel(data)} */}
@@ -77,7 +81,7 @@ const EditQuantity = (props) => {
               placeholder="Add to available quantity"
               
             />
-            <Button onClick={updateHandler.bind(this)}>Add</Button>
+            <Button onClick={(value, data)=> updateHandler(value,data)}>Add</Button>
         </div>
     );
 
