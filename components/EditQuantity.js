@@ -1,19 +1,7 @@
 import gql from 'graphql-tag';
-import { useQuery} from '@apollo/react-hooks';
+import { useQuery,useMutation} from '@apollo/react-hooks';
 import { TextField, Button } from "@shopify/polaris";
 import React, {useCallback, useState} from 'react';
-
-const GET_INVENTORY_ITEM_BY_ID = gql`
-query getVariantByID($id: ID!) {
-    productVariant(id: $id) {
-      id
-      title
-      inventoryItem {
-        id
-      }
-    }
-  }
-`;
 
 const GET_INVENTORY_LEVELS_BY_ID = gql`
 query getInventoryItemByID($id: ID!) {
@@ -31,17 +19,25 @@ query getInventoryItemByID($id: ID!) {
   }
 `;
 
+const UPDATE_QUANTITY = gpl`
+mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAdjustQuantityInput!) {
+  inventoryAdjustQuantity(input: $inventoryAdjustQuantityInput) {
+    inventoryLevel {
+      available
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}
+`;
+
 const EditQuantity = (props) => {
     // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     // const id=data.productVariant.inventoryItem.id;
     console.log(data);
-    // const getInventoryLevel = (data) => {
-    //     console.log(data.productVariant.inventoryItem.id);
-    // }
-    // const { loading, error, inventoryLevelsdata } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
-    // console.log('inventoryleveldata:',inventoryLevelsdata);
-    // console.log('Inventory',inventoryItemdata.inventoryItem.id);
     const [value, setvalue] = useState(props.quantity);
     const handleChange = useCallback(
         (newValue) => {
@@ -49,6 +45,21 @@ const EditQuantity = (props) => {
         },
         [],
     )
+    const updateHandler = () => {
+//       //{
+//   "inventoryAdjustQuantityInput" : {
+//     "inventoryLevelId": "gid://shopify/InventoryLevel/6485147690?inventory_item_id=12250274365496",
+//     "availableDelta": 1
+//   }
+// }
+      console.log(data.inventoryItem.inventoryLevels.edges[0].node.id);
+      // const { loading, error, data } = useMutation(UPDATE_QUANTITY,{ variables: { 
+      //   inventoryAdjustQuantityInput: {
+      //     inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
+      //     availableDelta:value
+      //   } 
+      // } });
+    }
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
     return (
@@ -60,7 +71,7 @@ const EditQuantity = (props) => {
               value={value}
               onChange={handleChange}
             />
-            <Button>Save</Button>
+            <Button onClick={updateHandler}>Add</Button>
         </div>
     );
 
