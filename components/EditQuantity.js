@@ -81,7 +81,7 @@ const EditQuantity = (props) => {
               placeholder="Add to available quantity"
               
             />
-            <Button onClick={(value, data)=> updateHandler(value,data)}>Add</Button>
+            <Button onClick={updateHandler}>Add</Button>
         </div>
     );
 
