@@ -234,6 +234,7 @@ const resourceName = {
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
+        selectable
         promotedBulkActions={promotedBulkActions}
         bulkActions={bulkActions}
         sortValue={sortValue}
