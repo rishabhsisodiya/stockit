@@ -36,7 +36,7 @@ mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAd
 const EditQuantity = (props) => {
     // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
-    const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
+    // const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
     // console.log(mdata);
     const [value, setvalue] = useState('');
@@ -46,29 +46,18 @@ const EditQuantity = (props) => {
         },
         [],
     )
-    const updateHandler = (value,data) => {
+    const updateHandler = () => {
       console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
-      addQuantity({ variables: { 
-      inventoryAdjustQuantityInput: {
-        inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
-        availableDelta:value
-      } 
-    } })
+    //   addQuantity({ variables: { 
+    //   inventoryAdjustQuantityInput: {
+    //     inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
+    //     availableDelta:value
+    //   } 
+    // } })
   };
-// //       //{
-// //   "inventoryAdjustQuantityInput" : {
-// //     "inventoryLevelId": "gid://shopify/InventoryLevel/6485147690?inventory_item_id=12250274365496",
-// //     "availableDelta": 1
-// //   }
-// // }
-//       console.log(value);
-//       const inventoryLevelId = data.inventoryItem.inventoryLevels.edges[0].node.id;
-//       console.log(inventoryLevelId);
-     
-//       console.log(data);
-//     }
-    if (mloading) return <div>Loading...</div>
-    if (merror) return <div>{merror.message}</div>
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>
   // if (mdata) return <div>{mdata}</div>
     return (
         <div style={{display:"flex"}}>
