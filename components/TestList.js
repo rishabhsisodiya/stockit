@@ -312,8 +312,8 @@ const resourceName = {
             <div style={style}>
               <div>
               <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-                {item.node.title}
-                {variantTitle}
+                <span>{item.node.title}</span>
+                <span>{variantTitle}</span>
               </a>
               </div>
               <div>
