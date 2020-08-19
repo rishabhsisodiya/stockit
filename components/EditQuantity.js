@@ -38,7 +38,7 @@ const EditQuantity = (props) => {
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
     const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
-    // console.log(mdata);
+    console.log('con..');
     const [value, setvalue] = useState('');
     const handleChange = useCallback(
         (newValue) => {
@@ -58,7 +58,7 @@ const EditQuantity = (props) => {
   };
 
   // if (loading) return <div>Loading...</div>
-  if (merror) return <div>{merror.message}</div>
+  if (merror) return <div>Error in mutatiton :{merror.message}</div>
   // if (mdata) return <div>{mdata}</div>
     return (
         <div style={{display:"flex"}}>
