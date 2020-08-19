@@ -233,6 +233,17 @@ const resourceName = {
         }}
         filterControl={filterControl}
       />
+      <Pagination
+        label="Results"
+        hasPrevious
+        onPrevious={() => {
+          console.log('Previous');
+        }}
+        hasNext
+        onNext={() => {
+          console.log('Next');
+        }}
+      />
     </Card>
   );
 
@@ -280,7 +291,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity inventoryId={inventoryItemId} callback={this.renderItem}/>
+            <EditQuantity inventoryId={inventoryItemId} callback={renderItem}/>
           </div>
         </div>
       </ResourceItem>  
