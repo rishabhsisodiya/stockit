@@ -52,13 +52,15 @@ const EditQuantity = (props) => {
 //     "availableDelta": 1
 //   }
 // }
-      console.log(data.inventoryItem.inventoryLevels.edges[0].node.id);
-      // const { loading, error, data } = useMutation(UPDATE_QUANTITY,{ variables: { 
-      //   inventoryAdjustQuantityInput: {
-      //     inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
-      //     availableDelta:value
-      //   } 
-      // } });
+      console.log(value);
+      const inventoryLevelId = data.inventoryItem.inventoryLevels.edges[0].node.id;
+      const { loading, error, data } = useMutation(UPDATE_QUANTITY,{ variables: { 
+        inventoryAdjustQuantityInput: {
+          inventoryLevelId:inventoryLevelId,
+          availableDelta:value
+        } 
+      } });
+      console.log(data);
     }
     if (loading) return <div>Loading...</div>
     if (error) return <div>{error.message}</div>
@@ -70,6 +72,7 @@ const EditQuantity = (props) => {
               type="number"
               value={value}
               onChange={handleChange}
+              placeholder="Add"
             />
             <Button onClick={updateHandler}>Add</Button>
         </div>
