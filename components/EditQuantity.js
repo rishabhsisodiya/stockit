@@ -54,6 +54,7 @@ const EditQuantity = (props) => {
     } })
     setvalue('');
     toggleActive;
+    console.log('done');
   };
   const [active, setActive] = useState(false);
 
@@ -61,11 +62,7 @@ const EditQuantity = (props) => {
 
   const toastMarkup = active ? (
     <Toast
-      content="Image deleted"
-      action={{
-        content: 'Undo',
-        onAction: () => {},
-      }}
+      content="Inventory Updated!"
       duration={10000}
       onDismiss={toggleActive}
     />
