@@ -261,14 +261,16 @@ const resourceName = {
         <Pagination
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
-            console.log('Previous',firstCursor);
+            console.log('Previous');
             setCursor(firstCursor);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
-            setFirstCursor(data.products.edges[0].cursor)
+            if (hasPrevious) {
+              setFirstCursor(data.products.edges[0].cursor)
+            }
             setCursor(data.products.edges[49].cursor);
             refetch();
           }}
