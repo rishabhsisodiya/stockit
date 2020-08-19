@@ -36,10 +36,10 @@ mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAd
 const EditQuantity = (props) => {
     // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
     const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
-    const [ addQuantity, {mdata} ] = useMutation(UPDATE_QUANTITY);
+    const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
     // const id=data.productVariant.inventoryItem.id;
-    // console.log(mdata);
-    const [value, setvalue] = useState(props.quantity);
+    console.log(mdata);
+    const [value, setvalue] = useState('');
     const handleChange = useCallback(
         (newValue) => {
             setvalue(newValue);
@@ -64,13 +64,13 @@ const EditQuantity = (props) => {
      
 //       console.log(data);
 //     }
-    if (loading) return <div>Loading...</div>
-    if (error) return <div>{error.message}</div>
+    if (mloading) return <div>Loading...</div>
+    if (merror) return <div>{merror.message}</div>
     return (
         <div style={{display:"flex"}}>
             {/* {getInventoryLevel(data)} */}
             {/* {data.productVariant.inventoryItem.id} */}
-            <input
+            <TextField
               type="number"
               value={value}
               onChange={handleChange}
