@@ -251,17 +251,19 @@ const resourceName = {
         }}
         filterControl={filterControl}
       />
-      <Pagination
-        label="Results"
-        hasPrevious
-        onPrevious={() => {
-          console.log('Previous');
-        }}
-        hasNext
-        onNext={() => {
-          console.log('Next');
-        }}
-      />
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <Pagination
+          label="Results"
+          hasPrevious
+          onPrevious={() => {
+            console.log('Previous');
+          }}
+          hasNext
+          onNext={() => {
+            console.log('Next');
+          }}
+        />
+      </div> 
     </Card>
   );
 
