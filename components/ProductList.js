@@ -2,9 +2,8 @@ import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
-import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
-import { Toast } from '@shopify/polaris/dist/types/latest/src/components/Frame/components';
 
 //variants s xs m l
 const GET_All_PRODUCTS = gql`
