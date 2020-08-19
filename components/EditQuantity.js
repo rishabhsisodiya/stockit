@@ -46,18 +46,16 @@ const EditQuantity = (props) => {
         },
         [],
     )
-    console.log('setvalue pass..');
     const updateHandler = () => {
       console.log('updatehandler',data.inventoryItem.inventoryLevels.edges[0].node.id);
       console.log('value:',value);
       addQuantity({ variables: { 
       inventoryAdjustQuantityInput: {
         inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
-        availableDelta:value
+        availableDelta:parseInt(value)
       } 
     } })
   };
-  console.log('handler pass..');
 
   // if (loading) return <div>Loading...</div>
   if (merror) return <div>Error in mutatiton :{merror.message}</div>
