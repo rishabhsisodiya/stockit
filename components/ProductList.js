@@ -253,7 +253,6 @@ const resourceName = {
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
-          label="Results"
           hasPrevious
           onPrevious={() => {
             console.log('Previous');

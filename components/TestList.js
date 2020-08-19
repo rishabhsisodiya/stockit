@@ -2,16 +2,20 @@ import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
-import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
 //variants s xs m l
 const GET_All_PRODUCTS = gql`
-query getAllProducts{
+query getAllProducts($numProducts: Int!, $cursor: String){
   shop{
     url
   }
-  products(first:50){
+  products(first: $numProducts, after: $cursor){
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
     edges{
       cursor
       node{
@@ -19,6 +23,7 @@ query getAllProducts{
         handle
         id
         onlineStoreUrl
+        onlineStorePreviewUrl
         images(first:1){
           edges{
             node{
@@ -50,13 +55,32 @@ const TestProductList = () => {
 
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
-const { loading, error, data } = useQuery(GET_All_PRODUCTS);
+console.log('TestProductList rendering..');
+//refetch for loading new data after updating quantity
+const [cursor,setCursor] = useState(null);
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
+console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
+
+//Toast after updating quantity
+const [active, setActive] = useState(false);
+const toggleActive = useCallback(() => {
+  setActive((active) => !active)
+  refetch() 
+}, []);
+
+const toastMarkup = active ? (
+  <Toast
+    content="Inventory Updated!"
+    onDismiss={toggleActive}
+    duration={10000}
+  />
+  ) : null;
 
 const handleAvailabilityChange = useCallback(
     (value) => setAvailability(value),
@@ -90,22 +114,7 @@ const handleFiltersClearAll = useCallback(() => {
     handleTaggedWithRemove,
   ]);
 
-  // const items = [
-  //   {
-  //     id: 341,
-  //     url: 'customers/341',
-  //     name: 'Mae Jemison',
-  //     location: 'Decatur, USA',
-  //     latestOrderUrl: 'orders/1456',
-  //   },
-  //   {
-  //     id: 256,
-  //     url: 'customers/256',
-  //     name: 'Ellen Ochoa',
-  //     location: 'Los Angeles, USA',
-  //     latestOrderUrl: 'orders/1457',
-  //   },
-  // ];
+  
   const filters = [
     {
       key: 'availability',
@@ -219,7 +228,6 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-console.log(data)
 const resourceName = {
   singular: 'product',
   plural: 'products',
@@ -227,12 +235,14 @@ const resourceName = {
 
   return (
     <Card>
+      {toastMarkup}
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
+        selectable
         promotedBulkActions={promotedBulkActions}
         bulkActions={bulkActions}
         sortValue={sortValue}
@@ -246,6 +256,18 @@ const resourceName = {
         }}
         filterControl={filterControl}
       />
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <Pagination
+          hasPrevious={data.products.pageInfo.hasPreviousPage}
+          onPrevious={() => {
+            console.log('Previous');
+          }}
+          hasNext={data.products.pageInfo.hasNextPage}
+          onNext={() => {
+            console.log('Next');
+          }}
+        />
+      </div> 
     </Card>
   );
 
@@ -264,14 +286,16 @@ const resourceName = {
     // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
     // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
     const productId=item.node.id.split("//shopify/Product")[1];
-    const variantId=item.node.variants.edges[0].node.id.split("//shopify/ProductVariant")[1];
+    const variantId=item.node.variants.edges[0].node.id;
     const shopUrl=data.shop.url;
-    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
-    // const inventoryId=item.node.variants.edges[0].node.inventoryItem.id;
+    const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
+    const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
+    // console.log(inventoryItemId);
+    const productPreviewUrl=item.node.onlineStorePreviewUrl;
     const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
-    const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%"};
+    const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
         verticalAlignment="center"
@@ -282,17 +306,16 @@ const resourceName = {
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
           <div>
-          <Link url={productVariantUrl} external>{item.node.title}</Link>
-          {/* <a href={productVariantUrl} target="_blank" style={{textDecoration:"none"}}>{item.node.title}</a> */}
+          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.node.title}</a>
           </div>
           <div>
             <p>${sku}</p>
           </div>
-          <div>
+          <div> 
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity quantity={inventoryQuantity}/>
+            <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
           </div>
         </div>
       </ResourceItem>  
