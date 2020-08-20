@@ -62,7 +62,9 @@ const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
-const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
+//Sorting..
+const [sortValue, setSortValue] = useState('PRODUCT_DESC');
+//Filters
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
@@ -237,6 +239,7 @@ const resourceName = {
   return (
     <Card>
       {toastMarkup}
+      {originalData}
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}
@@ -248,8 +251,10 @@ const resourceName = {
         bulkActions={bulkActions}
         sortValue={sortValue}
         sortOptions={[
-          {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
-          {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'},
+          {label: 'Product A-Z', value: 'PRODUCT_ASC'},
+          {label: 'Product A-Z', value: 'PRODUCT_DESC'},
+          {label: 'Available (ascending)', value: 'AVAILABLE_ASC'},
+          {label: 'Available (descending)', value: 'AVAILABLE_DESC'},
         ]}
         onSortChange={(selected) => {
           setSortValue(selected);
@@ -278,7 +283,30 @@ const resourceName = {
       </div> 
     </Card>
   );
-
+  function originalData(data){
+    console.log('originalData:');
+    let newData=[];
+    const shopUrl = data.shop.url;
+    data.products.edges.map( (item) => {
+      const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
+      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
+      const productId=item.node.id;
+      const productTitle=item.node.title;
+      item.node.variants.edges.map((variantItem)=>{
+        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
+        const variantId=variantItem.node.id;
+        const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
+        const inventoryItemId= variantItem.node.inventoryItem.id;
+        const price = variantItem.node.price;
+        const sku = variantItem.node.sku;
+        const inventoryQuantity = variantItem.node.inventoryQuantity;
+        
+        newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
+        });
+    });
+    console.log(newData);
+  }
+  
   function renderItem(item) {
     const media = (
       <Thumbnail
@@ -301,6 +329,7 @@ const resourceName = {
         const price = variantItem.node.price;
         const sku = variantItem.node.sku;
         const inventoryQuantity = variantItem.node.inventoryQuantity;
+        const title=item.node.title;
         const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
         return (
           <ResourceItem

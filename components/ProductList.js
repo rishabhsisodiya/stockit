@@ -82,6 +82,7 @@ const toastMarkup = active ? (
     duration={10000}
   />
   ) : null;
+//Toast End
 
 const handleAvailabilityChange = useCallback(
     (value) => setAvailability(value),
