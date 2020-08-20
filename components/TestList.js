@@ -235,11 +235,34 @@ const resourceName = {
   singular: 'product',
   plural: 'products',
 };
+const rows = (data) => {
+    console.log('originalData:');
+    let newData=[];
+    const shopUrl = data.shop.url;
+    data.products.edges.map( (item) => {
+      const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
+      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
+      const productId=item.node.id;
+      const productTitle=item.node.title;
+      item.node.variants.edges.map((variantItem)=>{
+        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
+        const variantId=variantItem.node.id;
+        const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
+        const inventoryItemId= variantItem.node.inventoryItem.id;
+        const price = variantItem.node.price;
+        const sku = variantItem.node.sku;
+        const inventoryQuantity = variantItem.node.inventoryQuantity;
+        
+        newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
+        });
+    });
+    return newData;
+} 
+console.log(rows);
 
   return (
     <Card>
       {toastMarkup}
-      {originalData}
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}
@@ -283,29 +306,7 @@ const resourceName = {
       </div> 
     </Card>
   );
-  function originalData(data){
-    console.log('originalData:');
-    let newData=[];
-    const shopUrl = data.shop.url;
-    data.products.edges.map( (item) => {
-      const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
-      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
-      const productId=item.node.id;
-      const productTitle=item.node.title;
-      item.node.variants.edges.map((variantItem)=>{
-        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
-        const variantId=variantItem.node.id;
-        const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-        const inventoryItemId= variantItem.node.inventoryItem.id;
-        const price = variantItem.node.price;
-        const sku = variantItem.node.sku;
-        const inventoryQuantity = variantItem.node.inventoryQuantity;
-        
-        newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
-        });
-    });
-    console.log(newData);
-  }
+  
   
   function renderItem(item) {
     const media = (
