@@ -26,7 +26,11 @@ const TitleTab = () => {
         panelID: 'sales',  
         },    
     ];
-    let tabSelected=<ProductList/>;
+
+    let tabSelected=null;
+if (selected==0) {
+  tabSelected=<ProductList/>
+}
 if (selected==1) {
   tabSelected=<TestProductList/>
 }

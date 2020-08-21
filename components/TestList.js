@@ -233,9 +233,10 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
-  allData(data);
-  
+  console.log('items');
+  // allData(data);
 }
+console.log('printing rows');
 console.log(rows);
  
 const resourceName = {
