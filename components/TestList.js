@@ -232,10 +232,12 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-if (data) {
-  allData(data);
-  console.log(rows);
-}  
+const items = allData(data);
+console.log(items);
+// if (data) {
+//   allData(data);
+//   // console.log(rows);
+// }  
 const resourceName = {
   singular: 'product',
   plural: 'products',
@@ -247,7 +249,7 @@ const resourceName = {
       <div><button onClick={()=> {allData(data)}}>CLick</button></div>
       <ResourceList
         resourceName={resourceName}
-        items={rows}
+        items={items}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -309,7 +311,7 @@ const resourceName = {
         
         });
     });
-    setRows(newData);
+    return newData;
   }
   
   function renderItem(item) {
