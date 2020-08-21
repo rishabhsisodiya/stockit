@@ -61,7 +61,6 @@ const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
 const [rows, setRows]= useState([]);
-console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 //Sorting..
 const [sortValue, setSortValue] = useState('PRODUCT_DESC');
@@ -233,6 +232,7 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
+  console.log('inside ',data);
   return allData(data);
 }
 console.log(items);
