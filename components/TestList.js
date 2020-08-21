@@ -60,7 +60,7 @@ console.log('TestProductList rendering..');
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
-const [rows, setRows]= useState(null);
+const [rows, setRows]= useState(data.products.edges);
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 //Sorting..
