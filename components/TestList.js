@@ -312,58 +312,37 @@ const resourceName = {
     const media = (
       <Thumbnail
         source={
-          item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
+          item.imageSource
         }
         alt={
-          item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
+          item.imageAltText
         }
       />
     );
-    const shopUrl=data.shop.url;
-    const productId=item.node.id.split("//shopify/Product")[1];
-    return item.node.variants.edges.map(
-      (variantItem) => {
-        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
-        const variantId=variantItem.node.id.split("//shopify/ProductVariant")[1];
-        const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId;
-        const inventoryItemId= variantItem.node.inventoryItem.id;
-        const price = variantItem.node.price;
-        const sku = variantItem.node.sku;
-        const inventoryQuantity = variantItem.node.inventoryQuantity;
-        const title=item.node.title;
-        const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
-        return (
-          <ResourceItem
-            verticalAlignment="center"
-            id={item.node.id}
-            media={media}
-            accessibilityLabel={`View details for ${item.node.title}`}
-          >
-            <div style={style}>
-              <div style={{display:"flex",flexDirection:"column"}}>
-              <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-                {item.node.title}
-              </a>
-              <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-                {variantTitle}
-              </a>
-              </div>
-              <div>
-                <p>${sku}</p>
-              </div>
-              <div> 
-                <p>{inventoryQuantity}</p>
-              </div>
-              <div>
-                <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
-              </div>
-            </div>
-          </ResourceItem>  
-        );    
-      }
+    const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
+    return (
+      <ResourceItem
+        verticalAlignment="center"
+        id={item.productId}
+        media={media}
+        accessibilityLabel={`View details for ${item.productTitle}`}
+      >
+        <div style={style}>
+          <div>
+    <a href={item.productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.productTitle}{item.variantTitle}</a>
+          </div>
+          <div>
+            <p>${item.sku}</p>
+          </div>
+          <div> 
+            <p>{item.inventoryQuantity}</p>
+          </div>
+          <div>
+            <EditQuantity inventoryId={item.inventoryItemId} callback={toggleActive}/>
+          </div>
+        </div>
+      </ResourceItem>  
     );
-    
-    
   }
 
   function disambiguateLabel(key, value) {
