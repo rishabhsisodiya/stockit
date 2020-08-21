@@ -60,7 +60,7 @@ console.log('TestProductList rendering..');
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
-const [rows, setRows]= useState(data.products.edges);
+const [rows, setRows]= useState(null);
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 //Sorting..
@@ -232,6 +232,10 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
+if (data) {
+  allData(data);
+  console.log(rows);
+}  
 const resourceName = {
   singular: 'product',
   plural: 'products',
