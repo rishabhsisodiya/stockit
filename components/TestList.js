@@ -310,7 +310,7 @@ const rows = (data) => {
     </Card>
   );
   function allData(data){
-
+    console.log(data);
     data.map((item) => {
       console.log(item);
     })
