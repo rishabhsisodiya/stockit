@@ -236,9 +236,10 @@ const resourceName = {
   plural: 'products',
 };
 const rows = (data) => {
-    console.log('originalData:');
+    console.log(data);
     let newData=[];
-    const shopUrl = data.shop.url;
+    // const shopUrl=data.shop.url;
+    const shopUrl="https://ambraee-dev1.myshopify.com";
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
       const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
