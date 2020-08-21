@@ -59,8 +59,6 @@ console.log('ProductList rendering..');
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
-console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
 const [availability, setAvailability] = useState(null);
@@ -227,9 +225,10 @@ const handleFiltersClearAll = useCallback(() => {
       onAction: () => console.log('Todo: implement bulk delete'),
     },
   ];
-
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});  
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
+console.log(data)
 const resourceName = {
   singular: 'product',
   plural: 'products',
