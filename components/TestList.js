@@ -239,12 +239,12 @@ const rows = (data) => {
     console.log('originalData:');
     let newData=[];
     const shopUrl = data.shop.url;
-    return data.products.edges.map( (item) => {
+    data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
       const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
       const productId=item.node.id;
       const productTitle=item.node.title;
-      return item.node.variants.edges.map((variantItem)=>{
+      item.node.variants.edges.map((variantItem)=>{
         const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
         const variantId=variantItem.node.id;
         const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
@@ -254,12 +254,12 @@ const rows = (data) => {
         const inventoryQuantity = variantItem.node.inventoryQuantity;
         
         newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
-        return newData;
+        
         });
     });
-    
+    console.log('new Data',newData);
 } 
-console.log('new Rows',rows);
+// console.log('new Rows',rows);
 
   return (
     <Card>
