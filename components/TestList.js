@@ -235,7 +235,7 @@ if (error) return <div>{error.message}</div>
 const items = (data) => {
   return allData(data);
 }
-console.log(items());
+console.log(items);
 console.log('printing rows');
 console.log(rows);
  
