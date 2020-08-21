@@ -238,8 +238,8 @@ const resourceName = {
 const rows = (data) => {
     console.log(data);
     let newData=[];
-    // const shopUrl=data.shop.url;
-    const shopUrl="https://ambraee-dev1.myshopify.com";
+    const shopUrl=data.shop.url;
+    // const shopUrl="https://ambraee-dev1.myshopify.com";
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
       const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
@@ -265,7 +265,7 @@ const rows = (data) => {
   return (
     <Card>
       {toastMarkup}
-      <div><button onClick={rows}>CLick</button></div>
+      <div><button onClick={allData}>CLick</button></div>
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}
@@ -309,7 +309,11 @@ const rows = (data) => {
       </div> 
     </Card>
   );
-  
+  function allData(data){
+    const shopUrl=data.shop.url;
+    console.log('All good');
+    console.log('shopUrl'+shopUrl);
+  }
   
   function renderItem(item) {
     const media = (
