@@ -60,8 +60,8 @@ console.log('TestProductList rendering..');
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
-const [rows, setRows]= useState(null);
-console.log(data)
+const [rows, setRows]= useState([]);
+// console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 //Sorting..
 const [sortValue, setSortValue] = useState('PRODUCT_DESC');
@@ -234,7 +234,9 @@ if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
   allData(data);
+  
 }
+console.log(rows);
  
 const resourceName = {
   singular: 'product',
@@ -267,7 +269,7 @@ const resourceName = {
         }}
         filterControl={filterControl}
       />
-      {/* <div style={{display:"flex",justifyContent:"center"}}>
+      <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
@@ -285,7 +287,7 @@ const resourceName = {
             refetch();
           }}
         />
-      </div>  */}
+      </div> 
     </Card>
   );
   function allData(data){
@@ -306,9 +308,12 @@ const resourceName = {
         const inventoryQuantity = variantItem.node.inventoryQuantity;
         
         newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
-        
         });
     });
+    setRows([...rows,...newData]);
+    if (data.products.pageInfo.hasNextPage) {
+      refetch();  
+    }
     return newData;
   }
   
