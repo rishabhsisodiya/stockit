@@ -232,7 +232,9 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-const items = allData(data);
+const items = (data) => {
+  allData(data);
+}
  
 const resourceName = {
   singular: 'product',
@@ -256,8 +258,8 @@ const resourceName = {
         sortOptions={[
           {label: 'Product A-Z', value: 'PRODUCT_ASC'},
           {label: 'Product A-Z', value: 'PRODUCT_DESC'},
-          {label: 'Available (ascending)', value: 'AVAILABLE_ASC'},
-          {label: 'Available (descending)', value: 'AVAILABLE_DESC'},
+          {label: 'Available (Ascending)', value: 'AVAILABLE_ASC'},
+          {label: 'Available (Descending)', value: 'AVAILABLE_DESC'},
         ]}
         onSortChange={(selected) => {
           setSortValue(selected);

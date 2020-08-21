@@ -59,6 +59,7 @@ console.log('ProductList rendering..');
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
+const [productList,setProductList] = useState([]);
 const [selectedItems, setSelectedItems] = useState([]);
 const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
 const [availability, setAvailability] = useState(null);
@@ -263,6 +264,8 @@ const resourceName = {
           onPrevious={() => {
             console.log('Previous');
             setCursor(firstCursor);
+            setProductList(ProductList.push(data))
+            console.log(ProductList);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
@@ -272,6 +275,8 @@ const resourceName = {
               setFirstCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
+            setProductList(ProductList.push(data))
+            console.log(ProductList);
             refetch();
           }}
         />

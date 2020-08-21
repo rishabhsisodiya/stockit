@@ -5,6 +5,7 @@ import ProductList from '../components/ProductList';
 class Index extends React.Component {
 // Frame for displaying toast
   render() {
+    console.log('index rendering');
     return (
       <Frame>
         <Page>
