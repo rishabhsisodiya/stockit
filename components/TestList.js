@@ -292,6 +292,7 @@ const resourceName = {
   );
   function allData(data){
     let newData=[];
+    console.log('Enter alldata fn');
     const shopUrl=data.shop.url;
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
@@ -312,6 +313,7 @@ const resourceName = {
     });
     setRows([...rows,...newData]);
     if (data.products.pageInfo.hasNextPage) {
+      setCursor(data.products.edges[49].cursor);
       refetch();  
     }
     return newData;

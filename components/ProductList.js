@@ -264,8 +264,8 @@ const resourceName = {
           onPrevious={() => {
             console.log('Previous');
             setCursor(firstCursor);
-            setRows([...rows,...data.products.edges])
-            console.log(rows);
+            // setRows([...rows,...data.products.edges])
+            // console.log(rows);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
@@ -275,8 +275,8 @@ const resourceName = {
               setFirstCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
-            setRows([...rows,...data.products.edges])
-            console.log(rows);
+            // setRows([...rows,...data.products.edges])
+            // console.log(rows);
             refetch();
           }}
         />
