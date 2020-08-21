@@ -293,6 +293,8 @@ const resourceName = {
   function allData(data){
     let newData=[];
     console.log('Enter alldata fn');
+    console.log(data.products.edges[0].node.title);
+    console.log('working..');
     const shopUrl=data.shop.url;
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
