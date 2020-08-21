@@ -234,7 +234,8 @@ if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
   let newData=[];
-    console.log('Enter items fn');
+    console.log('Enter items fn',data);
+    console.log(data.products.edges[0].node.title);
     const shopUrl=data.shop.url;
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
