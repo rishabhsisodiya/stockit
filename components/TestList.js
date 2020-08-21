@@ -233,35 +233,9 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
-  let newData=[];
-    console.log('Enter items fn',data);
-    console.log(data.products.edges[0].node.title);
-    const shopUrl=data.shop.url;
-    data.products.edges.map( (item) => {
-      const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
-      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
-      const productId=item.node.id;
-      const productTitle=item.node.title;
-      item.node.variants.edges.map((variantItem)=>{
-        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
-        const variantId=variantItem.node.id;
-        const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-        const inventoryItemId= variantItem.node.inventoryItem.id;
-        const price = variantItem.node.price;
-        const sku = variantItem.node.sku;
-        const inventoryQuantity = variantItem.node.inventoryQuantity;
-        
-        newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
-        });
-    });
-    // setRows([...rows,...newData]);
-    // if (data.products.pageInfo.hasNextPage) {
-    //   setCursor(data.products.edges[49].cursor);
-    //   refetch();  
-    // }
-    return newData;
+  return allData(data);
 }
-console.log(items);
+console.log(items());
 console.log('printing rows');
 console.log(rows);
  
@@ -317,32 +291,32 @@ const resourceName = {
     </Card>
   );
   function allData(data){
-    // let newData=[];
-    // console.log('Enter alldata fn');
-    // const shopUrl=data.shop.url;
-    // data.products.edges.map( (item) => {
-    //   const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
-    //   const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
-    //   const productId=item.node.id;
-    //   const productTitle=item.node.title;
-    //   item.node.variants.edges.map((variantItem)=>{
-    //     const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
-    //     const variantId=variantItem.node.id;
-    //     const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    //     const inventoryItemId= variantItem.node.inventoryItem.id;
-    //     const price = variantItem.node.price;
-    //     const sku = variantItem.node.sku;
-    //     const inventoryQuantity = variantItem.node.inventoryQuantity;
+    let newData=[];
+    console.log('Enter alldata fn');
+    const shopUrl=data.shop.url;
+    data.products.edges.map( (item) => {
+      const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
+      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
+      const productId=item.node.id;
+      const productTitle=item.node.title;
+      item.node.variants.edges.map((variantItem)=>{
+        const variantTitle= variantItem.node.title!=='Default Title'?variantItem.node.title:'';
+        const variantId=variantItem.node.id;
+        const productVariantUrl=shopUrl+'/admin/products'+productId.split("//shopify/Product")[1]+'/variants'+variantId.split("//shopify/ProductVariant")[1];
+        const inventoryItemId= variantItem.node.inventoryItem.id;
+        const price = variantItem.node.price;
+        const sku = variantItem.node.sku;
+        const inventoryQuantity = variantItem.node.inventoryQuantity;
         
-    //     newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
-    //     });
-    // });
-    // // setRows([...rows,...newData]);
-    // // if (data.products.pageInfo.hasNextPage) {
-    // //   setCursor(data.products.edges[49].cursor);
-    // //   refetch();  
-    // // }
-    // return newData;
+        newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
+        });
+    });
+    // setRows([...rows,...newData]);
+    // if (data.products.pageInfo.hasNextPage) {
+    //   setCursor(data.products.edges[49].cursor);
+    //   refetch();  
+    // }
+    return newData;
   }
   
   function renderItem(item) {
