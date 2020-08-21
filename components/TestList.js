@@ -233,9 +233,9 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = (data) => {
-  console.log('items');
-  // allData(data);
+  allData(data);
 }
+console.log(items);
 console.log('printing rows');
 console.log(rows);
  
@@ -248,7 +248,6 @@ const resourceName = {
     <Card>
       {toastMarkup}
       <ResourceList
-        
         resourceName={resourceName}
         items={items}
         renderItem={renderItem}
@@ -312,11 +311,11 @@ const resourceName = {
         newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
         });
     });
-    setRows([...rows,...newData]);
-    if (data.products.pageInfo.hasNextPage) {
-      setCursor(data.products.edges[49].cursor);
-      refetch();  
-    }
+    // setRows([...rows,...newData]);
+    // if (data.products.pageInfo.hasNextPage) {
+    //   setCursor(data.products.edges[49].cursor);
+    //   refetch();  
+    // }
     return newData;
   }
   
