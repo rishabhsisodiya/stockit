@@ -233,11 +233,7 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = allData(data);
-console.log(items);
-// if (data) {
-//   allData(data);
-//   // console.log(rows);
-// }  
+ 
 const resourceName = {
   singular: 'product',
   plural: 'products',
@@ -246,8 +242,8 @@ const resourceName = {
   return (
     <Card>
       {toastMarkup}
-      <div><button onClick={()=> {allData(data)}}>CLick</button></div>
       <ResourceList
+        
         resourceName={resourceName}
         items={items}
         renderItem={renderItem}
@@ -315,7 +311,6 @@ const resourceName = {
   }
   
   function renderItem(item) {
-    console.log(item);
     const media = (
       <Thumbnail
         source={
@@ -335,8 +330,11 @@ const resourceName = {
         accessibilityLabel={`View details for ${item.productTitle}`}
       >
         <div style={style}>
-          <div>
-    <a href={item.productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.productTitle}{item.variantTitle}</a>
+          <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
+            <a href={item.productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+              <div>{item.productTitle}</div>
+              <div>{item.variantTitle}</div>
+            </a>
           </div>
           <div>
             <p>${item.sku}</p>

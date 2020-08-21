@@ -10,7 +10,7 @@ const TitleTab = () => {
    
     const handleTabChange = useCallback(
       (selectedTabIndex) => setSelected(selectedTabIndex),
-      [],
+      [selected],
     );
       
     const tabs = [
@@ -30,12 +30,11 @@ const TitleTab = () => {
 if (selected==1) {
   tabSelected=<TestProductList/>
 }
-
+console.log('tab renderig..');
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
       {tabSelected}
-      
     </Tabs>
   </Card>
 );  
