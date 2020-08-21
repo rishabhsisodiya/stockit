@@ -310,9 +310,10 @@ const rows = (data) => {
     </Card>
   );
   function allData(data){
-    const shopUrl=data.shop.url;
-    console.log('All good');
-    console.log('shopUrl'+shopUrl);
+
+    data.map((item) => {
+      console.log(item);
+    })
   }
   
   function renderItem(item) {
