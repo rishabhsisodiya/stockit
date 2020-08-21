@@ -265,7 +265,7 @@ const rows = (data) => {
   return (
     <Card>
       {toastMarkup}
-      <div><button onClick={allData}>CLick</button></div>
+      <div><button onClick={()=> {allData(data)}}>CLick</button></div>
       <ResourceList
         resourceName={resourceName}
         items={data.products.edges}

@@ -24,12 +24,7 @@ const TitleTab = () => {
         id: 'Sales',  
         content: 'Sales',  
         panelID: 'sales',  
-        },  
-        {  
-        id: 'Suit',  
-        content: 'Suit',  
-        panelID: 'Suit',  
-        },  
+        },    
     ];
     let tabSelected=<ProductList/>;
 if (selected==1) {
