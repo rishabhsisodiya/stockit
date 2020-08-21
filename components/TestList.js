@@ -311,7 +311,7 @@ const rows = (data) => {
   );
   function allData(data){
     console.log(data);
-    data.map((item) => {
+    data.products.edges.map((item) => {
       console.log(item);
     })
   }
