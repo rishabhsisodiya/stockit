@@ -264,7 +264,7 @@ const resourceName = {
           onPrevious={() => {
             console.log('Previous');
             setCursor(firstCursor);
-            setProductList(ProductList.push(data))
+            setProductList([...ProductList,data.products.edges])
             console.log(ProductList);
             refetch();
           }}
@@ -275,7 +275,7 @@ const resourceName = {
               setFirstCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
-            setProductList(ProductList.push(data))
+            setProductList([...ProductList,data.products.edges])
             console.log(ProductList);
             refetch();
           }}
