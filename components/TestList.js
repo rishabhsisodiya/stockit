@@ -60,6 +60,7 @@ console.log('TestProductList rendering..');
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});
+const [rows, setRows]= useState(null);
 console.log(data)
 const [selectedItems, setSelectedItems] = useState([]);
 //Sorting..
@@ -242,7 +243,7 @@ const resourceName = {
       <div><button onClick={()=> {allData(data)}}>CLick</button></div>
       <ResourceList
         resourceName={resourceName}
-        items={data.products.edges}
+        items={rows}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -262,7 +263,7 @@ const resourceName = {
         }}
         filterControl={filterControl}
       />
-      <div style={{display:"flex",justifyContent:"center"}}>
+      {/* <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
@@ -280,7 +281,7 @@ const resourceName = {
             refetch();
           }}
         />
-      </div> 
+      </div>  */}
     </Card>
   );
   function allData(data){
@@ -304,7 +305,7 @@ const resourceName = {
         
         });
     });
-    console.log(newData);
+    setRows(newData);
   }
   
   function renderItem(item) {
