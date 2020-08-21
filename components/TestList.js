@@ -309,6 +309,7 @@ const resourceName = {
   }
   
   function renderItem(item) {
+    console.log(item);
     const media = (
       <Thumbnail
         source={
