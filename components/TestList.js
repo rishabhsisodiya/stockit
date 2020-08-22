@@ -240,6 +240,7 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
+console.log('Before refetch',data);
 if (data.products.pageInfo.hasNextPage) {
   console.log('Next Page');
   // setRows([...rows,...items]);
