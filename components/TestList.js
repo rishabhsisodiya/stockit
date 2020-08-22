@@ -233,9 +233,9 @@ if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = [...allData(data)]
 console.log('items:');
-console.log(items);
-console.log('printing rows:');
-console.log(rows);
+// console.log(items);
+// console.log('printing rows:');
+// console.log(rows);
  
 const resourceName = {
   singular: 'product',
@@ -308,11 +308,14 @@ const resourceName = {
         newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
         });
     });
-    setRows([...rows,...newData]);
-    if (data.products.pageInfo.hasNextPage) {
-      setCursor(data.products.edges[49].cursor);
-      refetch();  
-    }
+    // console.log('all data.');
+    
+    // if (data.products.pageInfo.hasNextPage) {
+    //   setRows([...rows,...newData]);
+    //   console.log('refetch');
+    //   setCursor(data.products.edges[49].cursor);
+    //   refetch();  
+    // }
     return newData;
   }
   
