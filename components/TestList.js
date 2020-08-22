@@ -229,16 +229,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const items = [...allData(data)]
-// console.log('items:');
-// console.log(items);
-// console.log('printing rows:');
-// console.log(rows);
- 
-const resourceName = {
-  singular: 'product',
-  plural: 'products',
-};
+
 //useEffect for storing previous fetched data
 // const prevItemsRef = useRef([]);
 // useEffect(() => {
@@ -256,7 +247,16 @@ if (data.products.pageInfo.hasNextPage) {
   // refetch();  
   console.log('refetch called');
 }
-
+const items = [...allData(data)]
+// console.log('items:');
+// console.log(items);
+// console.log('printing rows:');
+// console.log(rows);
+ 
+const resourceName = {
+  singular: 'product',
+  plural: 'products',
+};
 
   return (
     <Card>
