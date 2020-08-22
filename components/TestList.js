@@ -244,7 +244,7 @@ console.log('Before refetch',data);
 if (data.products.pageInfo.hasNextPage) {
   console.log('Next Page');
   // setRows([...rows,...items]);
-  // setCursor(data.products.edges[49].cursor);
+  setCursor(data.products.edges[49].cursor);
   refetch();  
   console.log('refetch called');
 }
