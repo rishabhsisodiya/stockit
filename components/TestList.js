@@ -232,8 +232,8 @@ const handleFiltersClearAll = useCallback(() => {
 const items = [...allData(data)]
 // console.log('items:');
 // console.log(items);
-console.log('printing rows:');
-console.log(rows);
+// console.log('printing rows:');
+// console.log(rows);
  
 const resourceName = {
   singular: 'product',
@@ -252,7 +252,7 @@ if (error) return <div>{error.message}</div>
 if (data.products.pageInfo.hasNextPage) {
   console.log('Next Page');
   // setRows([...rows,...items]);
-  setCursor(data.products.edges[49].cursor);
+  // setCursor(data.products.edges[49].cursor);
   refetch();  
   console.log('refetch called');
 }
