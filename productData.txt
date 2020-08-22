@@ -31,7 +31,19 @@
     }
   }
 }
-
+const updateHandler = useCallback(
+      (value) => {
+        addQuantity({ variables: { 
+          inventoryAdjustQuantityInput: {
+            inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
+            availableDelta:parseInt(value)
+          } 
+        } })
+        setvalue('');
+        props.callback();
+      },
+      [],
+    );
 ///
 Object { shop: {…}, products: {…} }
 index-691611b56264087b31e8.js:1:50245
