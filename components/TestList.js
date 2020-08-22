@@ -231,10 +231,7 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-const items = (data) => {
-  console.log('inside ',data);
-  return allData(data);
-}
+const items = [...allData(data)]
 console.log(items);
 console.log('printing rows');
 console.log(rows);
