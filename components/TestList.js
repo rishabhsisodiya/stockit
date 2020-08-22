@@ -232,10 +232,10 @@ const handleFiltersClearAll = useCallback(() => {
 
 //useEffect for storing previous fetched data
 // const prevItemsRef = useRef([]);
-// useEffect(() => {
-//   console.log('useEffect');
-//   prevItemsRef.current= items;
-// })
+useEffect(() => {
+  console.log('useEffect');
+  // prevItemsRef.current= items;
+})
 // const prevItems=prevItemsRef.current;
 
 if (loading) return <div>Loading...</div>
