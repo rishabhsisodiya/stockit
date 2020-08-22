@@ -43,7 +43,7 @@ const EditQuantity = (props) => {
         [],
     )
     const updateHandler = useCallback(
-      (value) => {
+      () => {
         addQuantity({ variables: { 
           inventoryAdjustQuantityInput: {
             inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
@@ -53,7 +53,7 @@ const EditQuantity = (props) => {
         setvalue('');
         props.callback();
       },
-      [value],
+      [],
     );
       
   // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
