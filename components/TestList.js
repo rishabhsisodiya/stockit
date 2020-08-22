@@ -229,17 +229,6 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-if (loading) return <div>Loading...</div>
-if (error) return <div>{error.message}</div>
-if (data.products.pageInfo.hasNextPage) {
-  console.log('Next Page');
-  // setRows([...rows,...newData]);
-  setRows([...rows,[1,2,3]])
-  console.log('set state called');
-  // console.log('refetch');
-  // setCursor(data.products.edges[49].cursor);
-  // refetch();  
-}
 const items = [...allData(data)]
 // console.log('items:');
 // console.log(items);
@@ -250,6 +239,24 @@ const resourceName = {
   singular: 'product',
   plural: 'products',
 };
+//useEffect for storing previous fetched data
+// const prevItemsRef = useRef([]);
+// useEffect(() => {
+//   console.log('useEffect');
+//   prevItemsRef.current= items;
+// })
+// const prevItems=prevItemsRef.current;
+
+if (loading) return <div>Loading...</div>
+if (error) return <div>{error.message}</div>
+if (data.products.pageInfo.hasNextPage) {
+  console.log('Next Page');
+  // setRows([...rows,...items]);
+  setCursor(data.products.edges[49].cursor);
+  refetch();  
+  console.log('refetch called');
+}
+
 
   return (
     <Card>
