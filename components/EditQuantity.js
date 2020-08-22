@@ -42,16 +42,20 @@ const EditQuantity = (props) => {
         },
         [],
     )
-    const updateHandler = () => {
-      addQuantity({ variables: { 
-      inventoryAdjustQuantityInput: {
-        inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
-        availableDelta:parseInt(value)
-      } 
-    } })
-    setvalue('');
-    props.callback();
-  };
+    const updateHandler = useCallback(
+      (value) => {
+        addQuantity({ variables: { 
+          inventoryAdjustQuantityInput: {
+            inventoryLevelId:data.inventoryItem.inventoryLevels.edges[0].node.id,
+            availableDelta:parseInt(value)
+          } 
+        } })
+        setvalue('');
+        props.callback();
+      },
+      [value],
+    );
+      
   // const { loading, error, data } = useQuery(GET_INVENTORY_ITEM_BY_ID,{ variables: { id: props.variantId } });
   const { loading, error, data } = useQuery(GET_INVENTORY_LEVELS_BY_ID,{ variables: { id: props.inventoryId } });
   const [ addQuantity, {mloading,merror,mdata} ] = useMutation(UPDATE_QUANTITY);
