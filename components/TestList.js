@@ -233,12 +233,18 @@ if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 if (data.products.pageInfo.hasNextPage) {
   console.log('Next Page');
+  // setRows([...rows,...newData]);
+  setRows([...rows,[1,2,3]])
+  console.log('set state called');
+  // console.log('refetch');
+  // setCursor(data.products.edges[49].cursor);
+  // refetch();  
 }
 const items = [...allData(data)]
 // console.log('items:');
 // console.log(items);
-// console.log('printing rows:');
-// console.log(rows);
+console.log('printing rows:');
+console.log(rows);
  
 const resourceName = {
   singular: 'product',
