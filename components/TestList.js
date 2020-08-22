@@ -232,8 +232,9 @@ const handleFiltersClearAll = useCallback(() => {
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 const items = [...allData(data)]
+console.log('items:');
 console.log(items);
-console.log('printing rows');
+console.log('printing rows:');
 console.log(rows);
  
 const resourceName = {
@@ -289,9 +290,6 @@ const resourceName = {
   );
   function allData(data){
     let newData=[];
-    console.log('Enter alldata fn');
-    console.log(data.products.edges[0].node.title);
-    console.log('working..');
     const shopUrl=data.shop.url;
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
@@ -310,11 +308,11 @@ const resourceName = {
         newData.push({shopUrl,imageSource,imageAltText,productTitle,productVariantUrl,variantTitle,inventoryItemId,price,sku,inventoryQuantity})
         });
     });
-    // setRows([...rows,...newData]);
-    // if (data.products.pageInfo.hasNextPage) {
-    //   setCursor(data.products.edges[49].cursor);
-    //   refetch();  
-    // }
+    setRows([...rows,...newData]);
+    if (data.products.pageInfo.hasNextPage) {
+      setCursor(data.products.edges[49].cursor);
+      refetch();  
+    }
     return newData;
   }
   
