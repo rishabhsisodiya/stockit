@@ -231,6 +231,9 @@ const handleFiltersClearAll = useCallback(() => {
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
+if (data.products.pageInfo.hasNextPage) {
+  console.log('Next Page');
+}
 const items = [...allData(data)]
 // console.log('items:');
 // console.log(items);
@@ -293,7 +296,7 @@ const resourceName = {
     const shopUrl=data.shop.url;
     data.products.edges.map( (item) => {
       const imageSource=item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : '';
-      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : '';
+      const imageAltText=item.node.images.edges[0] ? item.node.images.edges[0].node.altText : 'Product Image';
       const productId=item.node.id;
       const productTitle=item.node.title;
       item.node.variants.edges.map((variantItem)=>{
