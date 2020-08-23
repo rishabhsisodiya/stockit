@@ -348,7 +348,7 @@ const resourceName = {
                 {productTitle}
               </a>
             </div>
-            <div style={{display:"flex" , mar,gridGap:"10%",gridTemplateColumns:"20% 20%"}}>
+            <div style={{display:"flex",margin:"1px",gridTemplateColumns:"20% 20%"}}>
                 <div>{variantTitle}</div>
                 <div>
                    <select value={selectVariantList} onChange={selectHandler}>
