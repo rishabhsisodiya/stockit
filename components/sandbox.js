@@ -76,7 +76,21 @@ const selectHandler = useCallback(
   },
   [],
 )
+// const [popoverActive, setPopoverActive] = useState(false);
+// console.log('active:',popoverActive);
+// const togglePopoverActive = useCallback(
+//   () => setPopoverActive((popoverActive) => !popoverActive),
+//   [],
+// );
+// const activator = (
+//   <Button onClick={togglePopoverActive} size="slim" disclosure>
+//     More
+//   </Button>
+// );
 
+// const popHandler = (event) =>{
+//   console.log(event);
+// }
 //Toast after updating quantity
 const [active, setActive] = useState(false);
 const toggleActive = useCallback(() => {
@@ -312,9 +326,13 @@ const resourceName = {
     const variantId=item.node.variants.edges[0].node.id;
     const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
     // console.log(variantTitle);
-    const variantTitleTag = item.node.variants.edges.map(
+    const selectVariantList = item.node.variants.edges.map(
       (variantItem) => {
-        return variantItem.node.title!=='Default Title'?<div>
+        return variantItem.node.title!=='Default Title'?variantItem.node.title:'';
+      }
+    )
+    const variantTitleTag = selectVariantList?(
+      <div>
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(
               (title,id) => {
@@ -323,21 +341,8 @@ const resourceName = {
             )
             }     
         </select> 
-      </div>:'';
-      }
-    )
-    // const variantTitleTag = selectVariantList?(
-    //   <div>
-    //     <select value={selectValue} onChange={selectHandler}>
-    //         {selectVariantList.map(
-    //           (title,id) => {
-    //           return (<option key={id} value={title}>{title}</option>)
-    //           }
-    //         )
-    //         }     
-    //     </select> 
-    //   </div>
-    // ):variantTitle;
+      </div>
+    ):variantTitle;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
     // const price = item.node.variants.edges[0].node.price;
