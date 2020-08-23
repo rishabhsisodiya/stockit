@@ -231,22 +231,20 @@ const handleFiltersClearAll = useCallback(() => {
 
 
 //useEffect for storing previous fetched data
-// const prevItemsRef = useRef([]);
+const prevItemsRef = useRef([]);
 useEffect(() => {
   console.log('useEffect');
-  // prevItemsRef.current= items;
+  prevItemsRef.current= items;
 })
-// const prevItems=prevItemsRef.current;
+const prevItems=prevItemsRef.current;
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-console.log('Before refetch',data);
 if (data.products.pageInfo.hasNextPage) {
   console.log('Next Page');
-  // setRows([...rows,...items]);
+  setRows([...rows,...items]);
   setCursor(data.products.edges[49].cursor);
   refetch();  
-  console.log('refetch called');
 }
 const items = [...allData(data)]
 // console.log('items:');

@@ -24,7 +24,12 @@ const TitleTab = () => {
         id: 'Sales',  
         content: 'Sales',  
         panelID: 'sales',  
-        },    
+        }, 
+        {  
+        id: 'Suit',  
+        content: 'Suit',  
+        panelID: 'Suit',  
+        },   
     ];
 
     let tabSelected=null;
@@ -33,6 +38,9 @@ if (selected==0) {
 }
 if (selected==1) {
   tabSelected=<TestProductList/>
+}
+if (selected==2) {
+  tabSelected=<Sandbox/>
 }
 console.log('tab renderig..');
 return (
