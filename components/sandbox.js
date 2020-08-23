@@ -66,21 +66,27 @@ const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
 //Popover for variants list 
-const [popoverActive, setPopoverActive] = useState(false);
-console.log('active:',popoverActive);
-const togglePopoverActive = useCallback(
-  () => setPopoverActive((popoverActive) => !popoverActive),
+const selectHandler = useCallback(
+  (event) => {
+    console.log(event);
+  },
   [],
-);
-const activator = (
-  <Button onClick={togglePopoverActive} size="slim" disclosure>
-    More
-  </Button>
-);
+)
+// const [popoverActive, setPopoverActive] = useState(false);
+// console.log('active:',popoverActive);
+// const togglePopoverActive = useCallback(
+//   () => setPopoverActive((popoverActive) => !popoverActive),
+//   [],
+// );
+// const activator = (
+//   <Button onClick={togglePopoverActive} size="slim" disclosure>
+//     More
+//   </Button>
+// );
 
-const popHandler = (event) =>{
-  console.log(event);
-}
+// const popHandler = (event) =>{
+//   console.log(event);
+// }
 //Toast after updating quantity
 const [active, setActive] = useState(false);
 const toggleActive = useCallback(() => {
@@ -335,9 +341,13 @@ const resourceName = {
               <div>{productTitle}</div>
               <div>
                 {variantTitle}
+                <select value={variantTitle} onChange={selectHandler}>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                </select>
               </div>
             </a>
-            <div style={{height: '50px'}}>
+            {/* <div style={{height: '50px'}}>
                 <Popover
                   active={popoverActive}
                   activator={activator}
@@ -354,7 +364,7 @@ const resourceName = {
                     }
                     ]} />
                 </Popover>
-              </div>
+              </div> */}
           </div>
           <div>
             <p>${sku}</p>
