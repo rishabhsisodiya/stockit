@@ -70,9 +70,10 @@ const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
   (key,event) => {
+    console.log('value:',event.target.value);
     setselectValue(event.target.value); 
     setselectKey(key);
-    console.log(key);
+    console.log('key:',key);
   },
   [],
 )
@@ -331,18 +332,18 @@ const resourceName = {
         return variantItem.node.title!=='Default Title'?variantItem.node.title:'';
       }
     )
-    const variantTitleTag = (
+    const variantTitleTag = selectVariantList?(
       <div>
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(
-              (id, title) => {
+              (title,id) => {
               return (<option key={id} value={title}>{title}</option>)
               }
             )
             }     
         </select> 
       </div>
-    );
+    ):variantTitle;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
     // const price = item.node.variants.edges[0].node.price;
