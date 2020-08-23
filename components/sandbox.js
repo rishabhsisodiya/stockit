@@ -301,7 +301,8 @@ const resourceName = {
     const productId=item.node.variant.product.id.split("//shopify/Product")[1];
     const productTitle=item.node.variant.product.title;
     const variantId=item.node.variant.id;
-    const variantTitle=item.node.variant.title;
+    //variantItem.node.title!=='Default Title'?variantItem.node.title:'';
+    const variantTitle=item.node.variant.title!=='Default Title'?item.node.variant.title:'';
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.id;
