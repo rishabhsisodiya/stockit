@@ -67,7 +67,7 @@ const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
 //Popover for variants list 
 const [popoverActive, setPopoverActive] = useState(false);
-
+console.log('active:',popoverActive);
 const togglePopoverActive = useCallback(
   () => setPopoverActive((popoverActive) => !popoverActive),
   [],
@@ -77,6 +77,10 @@ const activator = (
     More
   </Button>
 );
+
+const popHandler = (event) =>{
+  console.log(event);
+}
 //Toast after updating quantity
 const [active, setActive] = useState(false);
 const toggleActive = useCallback(() => {
@@ -339,7 +343,16 @@ const resourceName = {
                   activator={activator}
                   onClose={togglePopoverActive}
                 >
-                  <ActionList items={[{content: 'm'}, {content: 'l'}]} />
+                  <ActionList items={[
+                    {
+                      content: 'm',
+                      onAction={popHandler},
+                    },  
+                    {
+                      content: 'l',
+                      onAction={popHandler},
+                    }
+                    ]} />
                 </Popover>
               </div>
           </div>
