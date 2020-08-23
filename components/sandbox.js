@@ -73,8 +73,8 @@ const togglePopoverActive = useCallback(
   [],
 );
 const activator = (
-  <Button onClick={togglePopoverActive} disclosure>
-    More Variants
+  <Button onClick={togglePopoverActive} size="slim" disclosure>
+    More
   </Button>
 );
 //Toast after updating quantity
@@ -305,16 +305,15 @@ const resourceName = {
         }
       />
     );
+    const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;
+    //Variants
     const variantId=item.node.variants.edges[0].node.id;
     const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
-    const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
-    // console.log(inventoryItemId);
-    const productPreviewUrl=item.node.onlineStorePreviewUrl;
-    const price = item.node.variants.edges[0].node.price;
+    // const price = item.node.variants.edges[0].node.price;
     const sku = item.node.variants.edges[0].node.sku;
     const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
@@ -327,12 +326,14 @@ const resourceName = {
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
-        <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
-          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-            <div>{productTitle}</div>
-            <div>
-              {variantTitle}
-              <div style={{height: '250px'}}>
+          <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
+            <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+              <div>{productTitle}</div>
+              <div>
+                {variantTitle}
+              </div>
+            </a>
+            <div style={{height: '50px'}}>
                 <Popover
                   active={popoverActive}
                   activator={activator}
@@ -341,8 +342,6 @@ const resourceName = {
                   <ActionList items={[{content: 'm'}, {content: 'l'}]} />
                 </Popover>
               </div>
-            </div>
-          </a>
           </div>
           <div>
             <p>${sku}</p>
