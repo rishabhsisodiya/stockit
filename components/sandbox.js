@@ -65,10 +65,11 @@ const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
-//Popover for variants list 
+//Popover for variants list
+const [selectKey, setselectKey] = useState(0) 
 const selectHandler = useCallback(
   (event) => {
-    console.log(event);
+    console.log(event.target.value);
   },
   [],
 )
@@ -351,7 +352,7 @@ const resourceName = {
             <div style={{display:"flex",margin:"1px",gridTemplateColumns:"20% 20%"}}>
                 <div>{variantTitle}</div>
                 <div>
-                   <select value={selectVariantList} onChange={selectHandler}>
+                   <select multiple="true" value={selectVariantList} onChange={selectHandler}>
                     </select>  
                 </div>
             </div>
