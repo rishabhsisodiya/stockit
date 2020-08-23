@@ -304,13 +304,13 @@ const resourceName = {
     const variantTitle=item.node.variant.title;
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    const inventoryItemId= item.id;
+    const inventoryItemId= item.node.id;
     // console.log(inventoryItemId);
     // const productPreviewUrl=item.node.onlineStorePreviewUrl;
     // const price = item.node.variants.edges[0].node.price;
-    const sku = item.sku;
-    const inventoryQuantity = item.inventoryLevels.edges[0].node.available;
-    const inventoryLevelsId= item.inventoryLevels.edges[0].node.id;
+    const sku = item.node.sku;
+    const inventoryQuantity = item.node.inventoryLevels.edges[0].node.available;
+    const inventoryLevelsId= item.node.inventoryLevels.edges[0].node.id;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
