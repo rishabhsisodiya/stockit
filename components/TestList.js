@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
-import React, {useCallback, useState,useEffect} from 'react';
+import React, {useCallback, useState,useEffect,useRef} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
@@ -231,21 +231,21 @@ const handleFiltersClearAll = useCallback(() => {
 
 
 //useEffect for storing previous fetched data
-const prevItemsRef = useRef([]);
-useEffect(() => {
-  console.log('useEffect');
-  prevItemsRef.current= items;
-})
-const prevItems=prevItemsRef.current;
+// const prevItemsRef = useRef([]);
+// useEffect(() => {
+//   console.log('useEffect');
+//   prevItemsRef.current= items;
+// })
+// const prevItems=prevItemsRef.current;
 
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
-if (data.products.pageInfo.hasNextPage) {
-  console.log('Next Page');
-  setRows([...rows,...items]);
-  setCursor(data.products.edges[49].cursor);
-  refetch();  
-}
+// if (data.products.pageInfo.hasNextPage) {
+//   console.log('Next Page');
+//   setRows([...rows,...items]);
+//   setCursor(data.products.edges[49].cursor);
+//   refetch();  
+// }
 const items = [...allData(data)]
 // console.log('items:');
 // console.log(items);
