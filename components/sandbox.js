@@ -5,49 +5,48 @@ import React, {useCallback, useState} from 'react';
 import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
-//variants s xs m l
 const GET_All_PRODUCTS = gql`
-query getInventoryItems($numProducts: Int!, $cursor: String){
+query getAllProducts($numProducts: Int!, $cursor: String){
   shop{
     url
   }
-  inventoryItems(first: $numProducts, after: $cursor){
-    pageInfo{
+  products(first: $numProducts, after: $cursor){
+    pageInfo {
       hasNextPage
       hasPreviousPage
     }
     edges{
       cursor
       node{
+        title
+        handle
         id
-        sku
-        inventoryLevels(first:1){
+        onlineStoreUrl
+        onlineStorePreviewUrl
+        images(first:1){
           edges{
             node{
-              id
-              available
+              originalSrc
+              altText
             }
           }
         }
-        variant{
-          id
-          title
-          product{
-            title
-        		id
-        		images(first:1){
-              edges{
-                node{
-                  altText
-                  originalSrc
-                }
+        variants(first:1){
+          edges{
+            node{
+              price
+              id
+              inventoryQuantity
+              sku
+              inventoryItem {
+                id
               }
             }
-          }
+          }         
         }
       }
     }
-  }
+  } 
 }
 `;
 
@@ -55,7 +54,7 @@ const Sandbox = () => {
 
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
-console.log('ProductList rendering..');
+console.log('Sandbox rendering..');
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
 const [firstCursor,setFirstCursor] = useState(null);
@@ -240,7 +239,7 @@ const resourceName = {
       {toastMarkup}
       <ResourceList
         resourceName={resourceName}
-        items={data.inventoryItems.edges}
+        items={data.products.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -260,22 +259,22 @@ const resourceName = {
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
-          hasPrevious={data.inventoryItems.pageInfo.hasPreviousPage}
+          hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
             setCursor(firstCursor);
-            // setRows([...rows,...data.inventoryItems.edges])
+            // setRows([...rows,...data.products.edges])
             // console.log(rows);
             refetch();
           }}
-          hasNext={data.inventoryItems.pageInfo.hasNextPage}
+          hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
-            if (data.inventoryItems.pageInfo.hasPreviousPage) {
-              setFirstCursor(data.inventoryItems.edges[0].cursor)
+            if (data.products.pageInfo.hasPreviousPage) {
+              setFirstCursor(data.products.edges[0].cursor)
             }
-            setCursor(data.inventoryItems.edges[49].cursor);
-            // setRows([...rows,...data.inventoryItems.edges])
+            setCursor(data.products.edges[49].cursor);
+            // setRows([...rows,...data.products.edges])
             // console.log(rows);
             refetch();
           }}
@@ -288,45 +287,38 @@ const resourceName = {
     const media = (
       <Thumbnail
         source={
-          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.originalSrc : ''
+          item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
         }
         alt={
-          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.altText : ''
+          item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
         }
       />
     );
     //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
     // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
     // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
-    const productId=item.node.variant.product.id.split("//shopify/Product")[1];
-    const productTitle=item.node.variant.product.title;
-    const variantId=item.node.variant.id;
-    //variantItem.node.title!=='Default Title'?variantItem.node.title:'';
-    const variantTitle=item.node.variant.title!=='Default Title'?item.node.variant.title:'';
+    const productId=item.node.id.split("//shopify/Product")[1];
+    const variantId=item.node.variants.edges[0].node.id;
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    const inventoryItemId= item.node.id;
+    const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
     // console.log(inventoryItemId);
-    // const productPreviewUrl=item.node.onlineStorePreviewUrl;
-    // const price = item.node.variants.edges[0].node.price;
-    const sku = item.node.sku;
-    const inventoryQuantity = item.node.inventoryLevels.edges[0].node.available;
-    const inventoryLevelsId= item.node.inventoryLevels.edges[0].node.id;
+    const productPreviewUrl=item.node.onlineStorePreviewUrl;
+    const price = item.node.variants.edges[0].node.price;
+    const sku = item.node.variants.edges[0].node.sku;
+    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
         verticalAlignment="center"
-        id={variantId}
+        id={item.node.id}
         media={media}
-        accessibilityLabel={`View details for ${productTitle}`}
+        accessibilityLabel={`View details for ${item.node.title}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
-          <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
-            <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-              <div>{productTitle}</div>
-              <div>{variantTitle}</div>
-            </a>
+          <div>
+          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.node.title}</a>
           </div>
           <div>
             <p>${sku}</p>
@@ -362,7 +354,6 @@ const resourceName = {
       return value === '' || value == null;
     }
   }
-
 }
 
 export default Sandbox;

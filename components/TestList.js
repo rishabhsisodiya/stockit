@@ -20,9 +20,7 @@ query getAllProducts($numProducts: Int!, $cursor: String){
       cursor
       node{
         title
-        handle
         id
-        onlineStoreUrl
         images(first:1){
           edges{
             node{
@@ -35,7 +33,6 @@ query getAllProducts($numProducts: Int!, $cursor: String){
           edges{
             node{
               title
-              price
               id
               inventoryQuantity
               sku
