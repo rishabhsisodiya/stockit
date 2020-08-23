@@ -71,7 +71,8 @@ const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
   (event) => {
     console.log('value:');
-    console.log(event.target);
+    console.log(event.target.value);
+    console.log(event.target.key);
     setselectValue(event.target.value); 
   },
   [],
@@ -331,7 +332,7 @@ const resourceName = {
         return variantItem.node.title!=='Default Title'?variantItem.node.title:'';
       }
     )
-    const variantTitleTag = selectVariantList?(
+    const variantTitleTag = selectVariantList.length>1?(
       <div>
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(

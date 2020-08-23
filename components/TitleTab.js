@@ -15,32 +15,36 @@ const TitleTab = () => {
       
     const tabs = [
         {
-        id: 'All',
-        content: 'All',  
-        accessibilityLabel: 'All',  
-        panelID: 'All',  
+        id: 'Dev',
+        content: 'Dev',  
+        accessibilityLabel: 'Dev',  
+        panelID: 'Dev',  
         },  
         {  
-        id: 'Sales',  
-        content: 'Sales',  
-        panelID: 'sales',  
+        id: 'Pre-Prod',  
+        content: 'Pre-Prod',
+        accessibilityLabel: 'Pre-Prod',  
+        panelID: 'Pre-Prod',  
         }, 
         {  
-        id: 'Suit',  
-        content: 'Suit',  
-        panelID: 'Suit',  
+        id: 'Prod',  
+        content: 'Prod', 
+        accessibilityLabel: 'Prod', 
+        panelID: 'Prod',  
         },   
     ];
 
     let tabSelected=null;
 if (selected==0) {
-  tabSelected=<ProductList/>
+  // tabSelected=<ProductList/>
+  tabSelected=<Sandbox/>
 }
 if (selected==1) {
   tabSelected=<TestProductList/>
 }
 if (selected==2) {
-  tabSelected=<Sandbox/>
+  tabSelected=<ProductList/>
+  // tabSelected=<Sandbox/>
 }
 console.log('tab renderig..');
 return (
