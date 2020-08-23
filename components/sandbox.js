@@ -321,6 +321,12 @@ const resourceName = {
     //Variants
     const variantId=item.node.variants.edges[0].node.id;
     const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
+    const selectVariantList = item.node.variants.edges.map(
+      (variantItem) => {
+        return variantItem.node.title;
+      }
+    )
+    console.log(selectVariantList);
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
     // const price = item.node.variants.edges[0].node.price;
@@ -337,16 +343,21 @@ const resourceName = {
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
           <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
-            <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
-              <div>{productTitle}</div>
-              <div>
-                {variantTitle}
-              </div>
-            </a>
-            <select value={variantTitle} onChange={selectHandler}>
-                <option value="M">M</option>
-                <option value="L">L</option>
-            </select>
+            <div>
+              <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+                {productTitle}
+              </a>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"50% 50%"}}>
+                <div>{variantTitle}</div>
+                <div>
+                   <select value={variantTitle} onChange={selectHandler}>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                    </select>  
+                </div>
+            </div>
+            
             {/* <div style={{height: '50px'}}>
                 <Popover
                   active={popoverActive}
