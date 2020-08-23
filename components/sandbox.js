@@ -66,7 +66,7 @@ const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
 //Popover for variants list 
-const [popoverActive, setPopoverActive] = useState(true);
+const [popoverActive, setPopoverActive] = useState(false);
 
 const togglePopoverActive = useCallback(
   () => setPopoverActive((popoverActive) => !popoverActive),
