@@ -31,7 +31,7 @@ query getAllProducts($numProducts: Int!, $cursor: String){
             }
           }
         }
-        variants(first:1){
+        variants(first:6){
           edges{
             node{
               price
@@ -65,7 +65,18 @@ const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
+//Popover for variants list 
+const [popoverActive, setPopoverActive] = useState(true);
 
+const togglePopoverActive = useCallback(
+  () => setPopoverActive((popoverActive) => !popoverActive),
+  [],
+);
+const activator = (
+  <Button onClick={togglePopoverActive} disclosure>
+    More Variants
+  </Button>
+);
 //Toast after updating quantity
 const [active, setActive] = useState(false);
 const toggleActive = useCallback(() => {
@@ -294,11 +305,10 @@ const resourceName = {
         }
       />
     );
-    //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
-    // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
-    // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
     const productId=item.node.id.split("//shopify/Product")[1];
+    const productTitle=item.node.title;
     const variantId=item.node.variants.edges[0].node.id;
+    const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
@@ -317,8 +327,22 @@ const resourceName = {
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
-          <div>
-          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.node.title}</a>
+        <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
+          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+            <div>{productTitle}</div>
+            <div>
+              {variantTitle}
+              <div style={{height: '250px'}}>
+                <Popover
+                  active={popoverActive}
+                  activator={activator}
+                  onClose={togglePopoverActive}
+                >
+                  <ActionList items={[{content: 'm'}, {content: 'l'}]} />
+                </Popover>
+              </div>
+            </div>
+          </a>
           </div>
           <div>
             <p>${sku}</p>
