@@ -69,11 +69,10 @@ const [queryValue, setQueryValue] = useState(null);
 const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
-  (key,event) => {
-    console.log('value:',event.target.value);
+  (event) => {
+    console.log('value:');
+    console.log(event);
     setselectValue(event.target.value); 
-    setselectKey(key);
-    console.log('key:',key);
   },
   [],
 )
