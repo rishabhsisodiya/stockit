@@ -341,12 +341,12 @@ const resourceName = {
               <div>{productTitle}</div>
               <div>
                 {variantTitle}
-                <select value={variantTitle} onChange={selectHandler}>
-                  <option value="M">M</option>
-                  <option value="L">L</option>
-                </select>
               </div>
             </a>
+            <select value={variantTitle} onChange={selectHandler}>
+                <option value="M">M</option>
+                <option value="L">L</option>
+            </select>
             {/* <div style={{height: '50px'}}>
                 <Popover
                   active={popoverActive}
