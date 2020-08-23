@@ -288,10 +288,10 @@ const resourceName = {
     const media = (
       <Thumbnail
         source={
-          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.variant.product.originalSrc : ''
+          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.originalSrc : ''
         }
         alt={
-          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].altText : ''
+          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.altText : ''
         }
       />
     );
