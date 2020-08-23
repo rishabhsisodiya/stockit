@@ -34,10 +34,10 @@ query getAllProducts($numProducts: Int!, $cursor: String){
         variants(first:6){
           edges{
             node{
-              price
+              title
               id
-              inventoryQuantity
               sku
+              inventoryQuantity
               inventoryItem {
                 id
               }
@@ -321,6 +321,7 @@ const resourceName = {
     //Variants
     const variantId=item.node.variants.edges[0].node.id;
     const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
+    // console.log(variantTitle);
     const selectVariantList = item.node.variants.edges.map(
       (variantItem) => {
         return variantItem.node.title;
@@ -348,7 +349,7 @@ const resourceName = {
                 {productTitle}
               </a>
             </div>
-            <div style={{display:"grid",gridTemplateColumns:"50% 50%"}}>
+            <div style={{display:"flex",gridTemplateColumns:"20% 20%"}}>
                 <div>{variantTitle}</div>
                 <div>
                    <select value={variantTitle} onChange={selectHandler}>
