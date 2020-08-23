@@ -66,10 +66,13 @@ const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
 //Popover for variants list
-const [selectKey, setselectKey] = useState(0) 
+const [selectKey, setselectKey] = useState(0);
+const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
-  (event) => {
-    console.log(event.target.value);
+  (key,event) => {
+    setselectValue(event.target.value); 
+    setselectKey(key);
+    console.log(key);
   },
   [],
 )
@@ -328,6 +331,18 @@ const resourceName = {
         return variantItem.node.title!=='Default Title'?variantItem.node.title:'';
       }
     )
+    const variantTitleTag = (
+      <div>
+        <select value={selectValue} onChange={selectHandler}>
+            {selectVariantList.map(
+              (id, title) => {
+              return (<option key={id} value={title}>{title}</option>)
+              }
+            )
+            }     
+        </select> 
+      </div>
+    );
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
     const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
     // const price = item.node.variants.edges[0].node.price;
@@ -349,32 +364,9 @@ const resourceName = {
                 {productTitle}
               </a>
             </div>
-            <div style={{display:"flex",margin:"1px",gridTemplateColumns:"20% 20%"}}>
-                <div>{variantTitle}</div>
-                <div>
-                   <select multiple="true" value={selectVariantList} onChange={selectHandler}>
-                    </select>  
-                </div>
+            <div>
+                {variantTitleTag}
             </div>
-            
-            {/* <div style={{height: '50px'}}>
-                <Popover
-                  active={popoverActive}
-                  activator={activator}
-                  onClose={togglePopoverActive}
-                >
-                  <ActionList items={[
-                    {
-                      content: 'm',
-                      onAction={popHandler},
-                    },  
-                    {
-                      content: 'l',
-                      onAction={popHandler},
-                    }
-                    ]} />
-                </Popover>
-              </div> */}
           </div>
           <div>
             <p>${sku}</p>
