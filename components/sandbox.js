@@ -7,47 +7,47 @@ import EditQuantity from './EditQuantity';
 
 //variants s xs m l
 const GET_All_PRODUCTS = gql`
-query getAllProducts($numProducts: Int!, $cursor: String){
+query getInventoryItems($numProducts: Int!, $cursor: String){
   shop{
     url
   }
-  products(first: $numProducts, after: $cursor){
-    pageInfo {
+  inventoryItems(first: $numProducts, after: $cursor){
+    pageInfo{
       hasNextPage
       hasPreviousPage
     }
     edges{
       cursor
       node{
-        title
-        handle
         id
-        onlineStoreUrl
-        onlineStorePreviewUrl
-        images(first:1){
+        sku
+        inventoryLevels(first:1){
           edges{
             node{
-              originalSrc
-              altText
+              id
+              available
             }
           }
         }
-        variants(first:1){
-          edges{
-            node{
-              price
-              id
-              inventoryQuantity
-              sku
-              inventoryItem {
-                id
+        variant{
+          id
+          title
+          product{
+            title
+        		id
+        		images(first:1){
+              edges{
+                node{
+                  altText
+                  originalSrc
+                }
               }
             }
-          }         
+          }
         }
       }
     }
-  } 
+  }
 }
 `;
 
@@ -240,7 +240,7 @@ const resourceName = {
       {toastMarkup}
       <ResourceList
         resourceName={resourceName}
-        items={data.products.edges}
+        items={data.inventoryItems.edges}
         renderItem={renderItem}
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
@@ -260,22 +260,22 @@ const resourceName = {
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
-          hasPrevious={data.products.pageInfo.hasPreviousPage}
+          hasPrevious={data.inventoryItems.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
             setCursor(firstCursor);
-            // setRows([...rows,...data.products.edges])
+            // setRows([...rows,...data.inventoryItems.edges])
             // console.log(rows);
             refetch();
           }}
-          hasNext={data.products.pageInfo.hasNextPage}
+          hasNext={data.inventoryItems.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
-            if (data.products.pageInfo.hasPreviousPage) {
-              setFirstCursor(data.products.edges[0].cursor)
+            if (data.inventoryItems.pageInfo.hasPreviousPage) {
+              setFirstCursor(data.inventoryItems.edges[0].cursor)
             }
-            setCursor(data.products.edges[49].cursor);
-            // setRows([...rows,...data.products.edges])
+            setCursor(data.inventoryItems.edges[49].cursor);
+            // setRows([...rows,...data.inventoryItems.edges])
             // console.log(rows);
             refetch();
           }}
@@ -288,38 +288,44 @@ const resourceName = {
     const media = (
       <Thumbnail
         source={
-          item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc : ''
+          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].node.variant.product.originalSrc : ''
         }
         alt={
-          item.node.images.edges[0] ? item.node.images.edges[0].altText : ''
+          item.node.variant.product.images.edges[0] ? item.node.variant.product.images.edges[0].altText : ''
         }
       />
     );
     //https://ambraee-dev1.myshopify.com/admin/products/4821937717383/variants/33637684805767
     // https://ambraee-dev1.myshopify.com/4876013600903/33747458162823
     // https://ambraee-dev1.myshopify.comproducts/4821937717383variants/33637684772999
-    const productId=item.node.id.split("//shopify/Product")[1];
-    const variantId=item.node.variants.edges[0].node.id;
+    const productId=item.node.variant.product.id.split("//shopify/Product")[1];
+    const productTitle=item.node.variant.product.title;
+    const variantId=item.node.variant.id;
+    const variantTitle=item.node.variant.title;
     const shopUrl=data.shop.url;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
+    const inventoryItemId= item.id;
     // console.log(inventoryItemId);
-    const productPreviewUrl=item.node.onlineStorePreviewUrl;
-    const price = item.node.variants.edges[0].node.price;
-    const sku = item.node.variants.edges[0].node.sku;
-    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
+    // const productPreviewUrl=item.node.onlineStorePreviewUrl;
+    // const price = item.node.variants.edges[0].node.price;
+    const sku = item.sku;
+    const inventoryQuantity = item.inventoryLevels.edges[0].node.available;
+    const inventoryLevelsId= item.inventoryLevels.edges[0].node.id;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
         verticalAlignment="center"
-        id={item.node.id}
+        id={variantId}
         media={media}
-        accessibilityLabel={`View details for ${item.node.title}`}
+        accessibilityLabel={`View details for ${productTitle}`}
       >
         {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
-          <div>
-          <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>{item.node.title}</a>
+          <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
+            <a href={productVariantUrl} target="_blank" style={{textDecoration:"none",color:"blue"}}>
+              <div>{productTitle}</div>
+              <div>{variantTitle}</div>
+            </a>
           </div>
           <div>
             <p>${sku}</p>

@@ -1,3 +1,100 @@
+{
+  "data": {
+    "shop": {
+      "url": "https://ambraee-dev1.myshopify.com"
+    },
+    "inventoryItems": {
+      "pageInfo": {
+        "hasNextPage": true,
+        "hasPreviousPage": false
+      },
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjozNTUwMzc3OTY3NjI5NSwibGFzdF92YWx1ZSI6IjM1NTAzNzc5Njc2Mjk1In0=",
+          "node": {
+            "id": "gid://shopify/InventoryItem/35503779676295",
+            "inventoryLevels": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "gid://shopify/InventoryLevel/78088503431?inventory_item_id=35503779676295",
+                    "available": 15
+                  }
+                }
+              ]
+            },
+            "variant": {
+              "id": "gid://shopify/ProductVariant/33637684772999",
+              "title": "s",
+              "product": {
+                "title": "Test",
+                "id": "gid://shopify/Product/4821937717383",
+                "images": {
+                  "edges": [
+                    {
+                      "node": {
+                        "altText": null,
+                        "originalSrc": "https://cdn.shopify.com/s/files/1/0372/8028/4807/products/MG_9679a.jpg?v=1585727638"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozNTUwMzc3OTcwOTA2MywibGFzdF92YWx1ZSI6IjM1NTAzNzc5NzA5MDYzIn0=",
+          "node": {
+            "id": "gid://shopify/InventoryItem/35503779709063",
+            "inventoryLevels": {
+              "edges": [
+                {
+                  "node": {
+                    "id": "gid://shopify/InventoryLevel/78088503431?inventory_item_id=35503779709063",
+                    "available": 6
+                  }
+                }
+              ]
+            },
+            "variant": {
+              "id": "gid://shopify/ProductVariant/33637684805767",
+              "title": "xs",
+              "product": {
+                "title": "Test",
+                "id": "gid://shopify/Product/4821937717383",
+                "images": {
+                  "edges": [
+                    {
+                      "node": {
+                        "altText": null,
+                        "originalSrc": "https://cdn.shopify.com/s/files/1/0372/8028/4807/products/MG_9679a.jpg?v=1585727638"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 21,
+      "actualQueryCost": 21,
+      "throttleStatus": {
+        "maximumAvailable": 1000,
+        "currentlyAvailable": 979,
+        "restoreRate": 50
+      }
+    }
+  }
+}
+
+
+
 "inventoryItem": {
                       "id": "gid://shopify/InventoryItem/35503779676295"
                     }
