@@ -72,7 +72,7 @@ const selectHandler = useCallback(
   (event,key) => {
     console.log('value:');
     console.log(event.target.value);
-    console.log(key);
+    console.log(event.target.id);
     setselectValue(event.target.value); 
   },
   [],
@@ -306,6 +306,7 @@ const resourceName = {
         }
       />
     );
+    console.log('return..');
     const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;
@@ -323,8 +324,7 @@ const resourceName = {
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(
               (title,id) => {
-                console.log(id);
-              return (<option key={id} value={title}>{title}</option>)
+              return (<option id={id} value={title}>{title}</option>)
               }
             )
             }     
