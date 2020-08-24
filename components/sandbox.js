@@ -138,10 +138,29 @@ const handleFiltersQueryChange = useCallback(
 );
 
 // Filter remove methods
-const handleAvailabilityRemove = useCallback(() => setAvailability(null), []);
-const handleProductTypeRemove = useCallback(() => setProductType(null), []);
-const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
-const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
+const handleAvailabilityRemove = useCallback(
+  () => {
+    setQuery('');
+    setAvailability(null)
+  }
+  , []);
+const handleProductTypeRemove = useCallback(() => {
+  setQuery('');
+  setProductType(null)
+  }
+  , []);
+const handleTaggedWithRemove = useCallback(
+  () => {
+    setQuery('');
+    setTaggedWith(null)
+  }
+  , []);
+const handleQueryValueRemove = useCallback(
+  () => {
+    setQuery('');
+    setQueryValue(null)
+  }
+  , []);
 const handleFiltersClearAll = useCallback(() => {
     handleAvailabilityRemove();
     handleProductTypeRemove();
