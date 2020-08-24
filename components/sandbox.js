@@ -308,7 +308,7 @@ const resourceName = {
     const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;
-    if (item.node.edges.length<=variantKey) {
+    if (item.node.variants.edges.length<=variantKey) {
       variantKey=0;
     }
     //Variants
