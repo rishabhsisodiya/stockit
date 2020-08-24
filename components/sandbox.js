@@ -271,12 +271,10 @@ const resourceName = {
         sortValue={sortValue}
         sortOptions={sortOptions}
         onSortChange={(selected) => {
-          let [sortingValue, order]=selected.split(" ");
-          console.log(sortingValue);
-          console.log(order);
+          let [sortingValue, orderString]=selected.split(" ");
+          let order = (orderString === 'true');
           setSortValue(sortingValue);
-          setReverse(order)
-          console.log(`Sort option changed to ${selected}.`);
+          setReverse(order);
         }}
         filterControl={filterControl}
       />
