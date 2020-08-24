@@ -69,29 +69,15 @@ const [queryValue, setQueryValue] = useState(null);
 const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
-  (event) => {
+  (event,key) => {
     console.log('value:');
     console.log(event.target.value);
-    console.log(event.target.key);
+    console.log(key);
     setselectValue(event.target.value); 
   },
   [],
 )
-// const [popoverActive, setPopoverActive] = useState(false);
-// console.log('active:',popoverActive);
-// const togglePopoverActive = useCallback(
-//   () => setPopoverActive((popoverActive) => !popoverActive),
-//   [],
-// );
-// const activator = (
-//   <Button onClick={togglePopoverActive} size="slim" disclosure>
-//     More
-//   </Button>
-// );
 
-// const popHandler = (event) =>{
-//   console.log(event);
-// }
 //Toast after updating quantity
 const [active, setActive] = useState(false);
 const toggleActive = useCallback(() => {
@@ -337,6 +323,7 @@ const resourceName = {
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(
               (title,id) => {
+                console.log(id);
               return (<option key={id} value={title}>{title}</option>)
               }
             )
