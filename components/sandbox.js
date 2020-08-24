@@ -301,7 +301,7 @@ const handleFiltersClearAll = useCallback(() => {
   ];
 
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
-if (loading) return <div><Spinner accessibilityLabel="Loading form field" hasFocusableParent={false}/></div>
+if (loading) return <Spinner size="large" accessibilityLabel="Loading form field" hasFocusableParent={false}/>
 if (error) return <div>{error.message}</div>
 console.log(data)
 const resourceName = {
