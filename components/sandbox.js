@@ -241,8 +241,8 @@ const handleFiltersClearAll = useCallback(() => {
   const sortOptions =[
     {label: 'Available (ascending)', value: 'INVENTORY_TOTAL false'},
     {label: 'Available (descending)', value: 'INVENTORY_TOTAL true'},
-    {label: 'Title (ascending)', value: 'Title false'},
-    {label: 'Title (descending)', value: 'Title true'},
+    {label: 'Title (ascending)', value: 'TITLE false'},
+    {label: 'Title (descending)', value: 'TITLE true'},
     {label: 'Updated (ascending)', value: 'UPDATED_AT asc'},
     {label: 'Updated (descending)', value: 'UPDATED_AT true'},
   ]
@@ -275,6 +275,7 @@ const resourceName = {
           let order = (orderString === 'true');
           setSortValue(sortingValue);
           setReverse(order);
+          console.log(selected);
         }}
         filterControl={filterControl}
       />
