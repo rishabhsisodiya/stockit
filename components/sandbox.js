@@ -61,7 +61,7 @@ const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState(null);
 
 const [selectedItems, setSelectedItems] = useState([]);
-const [sortValue, setSortValue] = useState('Available );
+const [sortValue, setSortValue] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
