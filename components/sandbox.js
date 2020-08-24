@@ -55,17 +55,24 @@ const Sandbox = () => {
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
 console.log('Sandbox rendering..');
-//refetch for loading new data after updating quantity
+//pagination
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState(null);
+//sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
-const [selectedItems, setSelectedItems] = useState([]);
-const [sortValue, setSortValue] = useState('INVENTORY_TOTAL-ASC');
 const [reverse, setReverse] = useState(false);
-const [availability, setAvailability] = useState(null);
-const [productType, setProductType] = useState(null);
-const [taggedWith, setTaggedWith] = useState(null);
-const [queryValue, setQueryValue] = useState(null);
+//Sorting Resource List options
+const [sortValue, setSortValue] = useState('INVENTORY_TOTAL-ASC');
+const sortOptions =[
+  {label: 'Available (ascending)', value: 'INVENTORY_TOTAL-ASC'},
+  {label: 'Available (descending)', value: 'INVENTORY_TOTAL-DESC'},
+  {label: 'Title (ascending)', value: 'TITLE-ASC'},
+  {label: 'Title (descending)', value: 'TITLE-DESC'},
+  {label: 'Updated (ascending)', value: 'UPDATED_AT-ASC'},
+  {label: 'Updated (descending)', value: 'UPDATED_AT-DESC'},
+]
+//Select All options
+const [selectedItems, setSelectedItems] = useState([]);
 //Popover for variants list
 const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
@@ -91,8 +98,12 @@ const toastMarkup = active ? (
     duration={10000}
   />
   ) : null;
-//Toast End
 
+//Filters
+const [availability, setAvailability] = useState(null);
+const [productType, setProductType] = useState(null);
+const [taggedWith, setTaggedWith] = useState(null);
+const [queryValue, setQueryValue] = useState(null);
 const handleAvailabilityChange = useCallback(
     (value) => setAvailability(value),
     [],
@@ -237,17 +248,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-  //Sorting
-  const sortOptions =[
-    {label: 'Available (ascending)', value: 'INVENTORY_TOTAL-ASC'},
-    {label: 'Available (descending)', value: 'INVENTORY_TOTAL-DESC'},
-    {label: 'Title (ascending)', value: 'TITLE-ASC'},
-    {label: 'Title (descending)', value: 'TITLE-DESC'},
-    {label: 'Updated (ascending)', value: 'UPDATED_AT-ASC'},
-    {label: 'Updated (descending)', value: 'UPDATED_AT-DESC'},
-  ]
-
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sortValue,reverse}});  
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse}});  
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 console.log(data)
@@ -286,8 +287,6 @@ const resourceName = {
           onPrevious={() => {
             console.log('Previous');
             setCursor(prevCursor);
-            // setRows([...rows,...data.products.edges])
-            // console.log(rows);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
@@ -297,8 +296,6 @@ const resourceName = {
               setPrevCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
-            // setRows([...rows,...data.products.edges])
-            // console.log(rows);
             refetch();
           }}
         />
