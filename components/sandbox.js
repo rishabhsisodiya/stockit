@@ -115,14 +115,14 @@ const handleAvailabilityChange = useCallback(
 const handleProductTypeChange = useCallback(
     (value) => {
       console.log('product type search:',value)
-      setQuery(value);
+      // setQuery(value);
       setProductType(value)},
     [],
 );
 const handleTaggedWithChange = useCallback(
     (value) =>{
       console.log('tagged search:',value)
-      setQuery(value);
+      // setQuery('tag:'+value);
       setTaggedWith(value)
     } ,
     [],
@@ -216,12 +216,15 @@ const handleFiltersClearAll = useCallback(() => {
       key: 'taggedWith',
       label: 'Tagged with',
       filter: (
-        <TextField
+        <div>
+          <TextField
           label="Tagged with"
           value={taggedWith}
           onChange={handleTaggedWithChange}
           labelHidden
-        />
+          />
+          <Button onClick={handleTaggedWithChange}>Save</Button>
+        </div>
       ),
     },
   ];
@@ -244,7 +247,7 @@ const handleFiltersClearAll = useCallback(() => {
       onRemove: handleProductTypeRemove,
     });
   }
-  if (!isEmpty(taggedWith)) {
+  if (!isEmpty(taggedWith)&&false) {
     const key = 'taggedWith';
     appliedFilters.push({
       key,
