@@ -129,6 +129,7 @@ const handleTaggedWithChange = useCallback(
 const [show, setShow] = useState(false)
 const handleTagFilterShow = useCallback(
   () => {
+    console.log('button clicked');
     setQuery('tag:'+taggedWith);
     setShow(true);
   },
@@ -255,6 +256,7 @@ const handleFiltersClearAll = useCallback(() => {
     });
   }
   if (!isEmpty(taggedWith)&&show) {
+    console.log('push');
     const key = 'taggedWith';
     appliedFilters.push({
       key,
@@ -268,6 +270,7 @@ const handleFiltersClearAll = useCallback(() => {
       queryValue={queryValue}
       filters={filters}
       appliedFilters={appliedFilters}
+      onQueryBlur={}
       onQueryChange={handleFiltersQueryChange}
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
