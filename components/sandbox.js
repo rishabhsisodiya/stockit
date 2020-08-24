@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery} from '@apollo/react-hooks';
 // import {useQuery,gql} from '@apollo/client';
 import React, {useCallback, useState} from 'react';
-import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast, Popover, ActionList} from '@shopify/polaris';
+import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceList, TextField, TextStyle, Heading,Checkbox, Link, ChoiceList, Pagination, Toast, Popover, ActionList, Spinner} from '@shopify/polaris';
 import EditQuantity from './EditQuantity';
 
 const GET_All_PRODUCTS = gql`
@@ -301,7 +301,7 @@ const handleFiltersClearAll = useCallback(() => {
   ];
 
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
-if (loading) return <div><ResourceList loading={loading}/></div>
+if (loading) return <div><Spinner accessibilityLabel="Loading form field" hasFocusableParent={false}/></div>
 if (error) return <div>{error.message}</div>
 console.log(data)
 const resourceName = {
