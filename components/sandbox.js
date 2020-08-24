@@ -6,11 +6,11 @@ import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceLis
 import EditQuantity from './EditQuantity';
 
 const GET_All_PRODUCTS = gql`
-query getAllProducts($numProducts: Int!, $cursor: String,$sortValue:ProductSortKeys!,$reverse:Boolean!){
+query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,$reverse:Boolean!){
   shop{
     url
   }
-  products(first: $numProducts, after: $cursor,sortKey:$sortValue,reverse:$reverse){
+  products(first: $numProducts, after: $cursor,sortKey:$sort,reverse:$reverse){
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -58,9 +58,9 @@ console.log('Sandbox rendering..');
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState(null);
-
+const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [selectedItems, setSelectedItems] = useState([]);
-const [sortValue, setSortValue] = useState('INVENTORY_TOTAL');
+const [sortValue, setSortValue] = useState('INVENTORY_TOTAL-ASC');
 const [reverse, setReverse] = useState(false);
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
@@ -239,12 +239,12 @@ const handleFiltersClearAll = useCallback(() => {
 
   //Sorting
   const sortOptions =[
-    {label: 'Available (ascending)', value: 'INVENTORY_TOTAL false'},
-    {label: 'Available (descending)', value: 'INVENTORY_TOTAL true'},
-    {label: 'Title (ascending)', value: 'TITLE false'},
-    {label: 'Title (descending)', value: 'TITLE true'},
-    {label: 'Updated (ascending)', value: 'UPDATED_AT asc'},
-    {label: 'Updated (descending)', value: 'UPDATED_AT true'},
+    {label: 'Available (ascending)', value: 'INVENTORY_TOTAL-ASC'},
+    {label: 'Available (descending)', value: 'INVENTORY_TOTAL-DESC'},
+    {label: 'Title (ascending)', value: 'TITLE-ASC'},
+    {label: 'Title (descending)', value: 'TITLE-DESC'},
+    {label: 'Updated (ascending)', value: 'UPDATED_AT-ASC'},
+    {label: 'Updated (descending)', value: 'UPDATED_AT-DESC'},
   ]
 
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sortValue,reverse}});  
@@ -271,9 +271,10 @@ const resourceName = {
         sortValue={sortValue}
         sortOptions={sortOptions}
         onSortChange={(selected) => {
-          let [sortingValue, orderString]=selected.split(" ");
-          let order = (orderString === 'true');
-          setSortValue(sortingValue);
+          let [sortingValue, orderString]=selected.split("-");
+          let order = (orderString === 'DESC');
+          setSortValue(selected);
+          setSort(sortingValue);
           setReverse(order);
           console.log(selected);
         }}
