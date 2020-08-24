@@ -70,8 +70,10 @@ const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
   (event,key) => {
-    console.log('key:');
+    console.log('Value:');
     console.log(event.target);
+    console.log('Key',key);
+    console.log(event);
     setselectValue(event.target.value); 
   },
   [],
@@ -323,7 +325,7 @@ const resourceName = {
         <select value={selectValue} onChange={selectHandler}>
             {selectVariantList.map(
               (title,id) => {
-              return (<option id={id} value={title}>{title}</option>)
+              return (<option id={id} key={id} value={title}>{title}</option>)
               }
             )
             }     
