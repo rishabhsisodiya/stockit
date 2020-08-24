@@ -331,6 +331,7 @@ const resourceName = {
           setReverse(order);
         }}
         filterControl={filterControl}
+        loading={loading}
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
