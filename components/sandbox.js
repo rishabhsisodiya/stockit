@@ -6,11 +6,11 @@ import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceLis
 import EditQuantity from './EditQuantity';
 
 const GET_All_PRODUCTS = gql`
-query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,$reverse:Boolean!){
+query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,$reverse:Boolean!,$query:String){
   shop{
     url
   }
-  products(first: $numProducts, after: $cursor,sortKey:$sort,reverse:$reverse){
+  products(first: $numProducts, after: $cursor,sortKey:$sort,reverse:$reverse,query:$query){
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -19,10 +19,7 @@ query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,
       cursor
       node{
         title
-        handle
         id
-        onlineStoreUrl
-        onlineStorePreviewUrl
         images(first:1){
           edges{
             node{
@@ -31,7 +28,7 @@ query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,
             }
           }
         }
-        variants(first:6){
+        variants(first:10){
           edges{
             node{
               title
@@ -52,15 +49,18 @@ query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,
 
 const Sandbox = () => {
 
-// const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
-// console.log('All products:',newdata)
 console.log('Sandbox rendering..');
-//pagination
+//-----------GraphQl query state variable-------------START------------- 
+// pagination
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState(null);
 //sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
+//filter
+const [query, setQuery] = useState("")
+//-----------GraphQl query state variable--------------END------------ 
+
 //Sorting Resource List options
 const [sortValue, setSortValue] = useState('INVENTORY_TOTAL-ASC');
 const sortOptions =[
@@ -77,7 +77,7 @@ const [selectedItems, setSelectedItems] = useState([]);
 const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
-  (event,key) => {
+  (event) => {
     setselectKey(event.target.selectedIndex)
     setselectValue(event.target.value); 
   },
@@ -99,27 +99,45 @@ const toastMarkup = active ? (
   />
   ) : null;
 
-//Filters
+//------------Filters----------------------------------
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
 const handleAvailabilityChange = useCallback(
-    (value) => setAvailability(value),
+    (value) => {
+      console.log('query search:',value)
+      setQuery(value);
+      setAvailability(value)
+    },
     [],
 );
 const handleProductTypeChange = useCallback(
-    (value) => setProductType(value),
+    (value) => {
+      console.log('product type search:',value)
+      setQuery(value);
+      setProductType(value)},
     [],
 );
 const handleTaggedWithChange = useCallback(
-    (value) => setTaggedWith(value),
+    (value) =>{
+      console.log('tagged search:',value)
+      setQuery(value);
+      setTaggedWith(value)
+    } ,
     [],
 );
 const handleFiltersQueryChange = useCallback(
-   (value) => setQueryValue(value),
+  
+   (value) => {
+      console.log('query search:',value)
+     setQuery(value);
+     setQueryValue(value)
+    },
     [],
 );
+
+// Filter remove methods
 const handleAvailabilityRemove = useCallback(() => setAvailability(null), []);
 const handleProductTypeRemove = useCallback(() => setProductType(null), []);
 const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
@@ -136,7 +154,7 @@ const handleFiltersClearAll = useCallback(() => {
     handleTaggedWithRemove,
   ]);
 
-  
+  //DEfine all filters
   const filters = [
     {
       key: 'availability',
@@ -189,6 +207,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
+  //Check which filter is selected and then push into appliedfilters whichever is available
   const appliedFilters = [];
   if (!isEmpty(availability)) {
     const key = 'availability';
@@ -248,7 +267,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse}});  
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 console.log(data)
@@ -277,7 +296,6 @@ const resourceName = {
           setSortValue(selected);
           setSort(sortingValue);
           setReverse(order);
-          console.log(selected);
         }}
         filterControl={filterControl}
       />
