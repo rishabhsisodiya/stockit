@@ -301,7 +301,7 @@ const handleFiltersClearAll = useCallback(() => {
   ];
 
 const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
-if (loading) return <div>Loading...</div>
+if (loading) return <div><ResourceList loading={loading}/></div>
 if (error) return <div>{error.message}</div>
 console.log(data)
 const resourceName = {
@@ -331,7 +331,6 @@ const resourceName = {
           setReverse(order);
         }}
         filterControl={filterControl}
-        loading={loading}
       />
       <div style={{display:"flex",justifyContent:"center"}}>
         <Pagination
