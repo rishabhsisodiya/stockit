@@ -28,7 +28,7 @@ query getAllProducts($numProducts: Int!, $cursor: String,$sort:ProductSortKeys!,
             }
           }
         }
-        variants(first:10){
+        variants(first:6){
           edges{
             node{
               title
