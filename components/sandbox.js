@@ -128,7 +128,7 @@ const handleTaggedWithChange = useCallback(
 );
 const [show, setShow] = useState(false)
 const handleTagFilterShow = useCallback(
-  () => {
+  (taggedWith) => {
     console.log('button clicked',taggedWith);
     setQuery('tag:'+taggedWith);
     setShow(true);
