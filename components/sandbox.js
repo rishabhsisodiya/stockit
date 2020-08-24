@@ -6,11 +6,11 @@ import {Avatar,Button,Stack, Thumbnail, Card, Filters, ResourceItem, ResourceLis
 import EditQuantity from './EditQuantity';
 
 const GET_All_PRODUCTS = gql`
-query getAllProducts($numProducts: Int!, $cursor: String){
+query getAllProducts($numProducts: Int!, $cursor: String,$sortValue:ProductSortKeys!,$reverse:Boolean!){
   shop{
     url
   }
-  products(first: $numProducts, after: $cursor){
+  products(first: $numProducts, after: $cursor,sortKey:$sortValue,reverse:$reverse){
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -55,12 +55,14 @@ const Sandbox = () => {
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
 console.log('Sandbox rendering..');
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sortValue,reverse}});  
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
-const [firstCursor,setFirstCursor] = useState(null);
-const [rows,setRows] = useState([]);
+const [prevCursor,setPrevCursor] = useState(null);
+
 const [selectedItems, setSelectedItems] = useState([]);
-const [sortValue, setSortValue] = useState('DATE_MODIFIED_DESC');
+const [sortValue, setSortValue] = useState('Available );
+const [reverse, setReverse] = useState(false);
 const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
@@ -235,7 +237,18 @@ const handleFiltersClearAll = useCallback(() => {
       onAction: () => console.log('Todo: implement bulk delete'),
     },
   ];
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor}});  
+
+  //Sorting
+  const sortOptions =[
+    {label: 'Available (ascending)', value: 'INVENTORY_TOTAL false'},
+    {label: 'Available (descending)', value: 'INVENTORY_TOTAL true'},
+    {label: 'Title (ascending)', value: 'Title false'},
+    {label: 'Title (descending)', value: 'Title true'},
+    {label: 'Updated (ascending)', value: 'UPDATED_AT asc'},
+    {label: 'Updated (descending)', value: 'UPDATED_AT true'},
+  ]
+
+
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 console.log(data)
@@ -257,12 +270,13 @@ const resourceName = {
         promotedBulkActions={promotedBulkActions}
         bulkActions={bulkActions}
         sortValue={sortValue}
-        sortOptions={[
-          {label: 'Newest update', value: 'DATE_MODIFIED_DESC'},
-          {label: 'Oldest update', value: 'DATE_MODIFIED_ASC'},
-        ]}
+        sortOptions={sortOptions}
         onSortChange={(selected) => {
-          setSortValue(selected);
+          let [sortingValue, order]=selected.split(" ");
+          console.log(sortingValue);
+          console.log(order);
+          setSortValue(sortingValue);
+          setReverse(order)
           console.log(`Sort option changed to ${selected}.`);
         }}
         filterControl={filterControl}
@@ -272,7 +286,7 @@ const resourceName = {
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
-            setCursor(firstCursor);
+            setCursor(prevCursor);
             // setRows([...rows,...data.products.edges])
             // console.log(rows);
             refetch();
@@ -281,7 +295,7 @@ const resourceName = {
           onNext={() => {
             console.log('Next');
             if (data.products.pageInfo.hasPreviousPage) {
-              setFirstCursor(data.products.edges[0].cursor)
+              setPrevCursor(data.products.edges[0].cursor)
             }
             setCursor(data.products.edges[49].cursor);
             // setRows([...rows,...data.products.edges])
