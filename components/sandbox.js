@@ -304,7 +304,7 @@ const resourceName = {
         }
       />
     );
-    const variantKey = selectKey;
+    let variantKey = selectKey;
     const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;

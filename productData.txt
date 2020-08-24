@@ -1,3 +1,168 @@
+inventoryItems: {…}
+​​
+__typename: "InventoryItemConnection"
+​​
+edges: (50) […]
+​​​
+0: {…}
+​​​​
+__typename: "InventoryItemEdge"
+​​​​
+cursor: "eyJsYXN0X2lkIjozNTUwMzc3OTY3NjI5NSwibGFzdF92YWx1ZSI6IjM1NTAzNzc5Njc2Mjk1In0="
+​​​​
+node: {…}
+​​​​​
+__typename: "InventoryItem"
+​​​​​
+id: "gid://shopify/InventoryItem/35503779676295"
+​​​​​
+inventoryLevels: {…}
+​​​​​​
+__typename: "InventoryLevelConnection"
+​​​​​​
+edges: (1) […]
+​​​​​​​
+0: {…}
+​​​​​​​​
+__typename: "InventoryLevelEdge"
+​​​​​​​​
+node: {…}
+​​​​​​​​​
+__typename: "InventoryLevel"
+​​​​​​​​​
+available: 15
+​​​​​​​​​
+id: "gid://shopify/InventoryLevel/78088503431?inventory_item_id=35503779676295"
+​​​​​​​​​
+<prototype>: Object { … }
+​​​​​​​​
+<prototype>: Object { … }
+​​​​​​​
+length: 1
+​​​​​​​
+<prototype>: Array []
+​​​​​​
+<prototype>: Object { … }
+​​​​​
+sku: ""
+​​​​​
+variant: Object { id: "gid://shopify/ProductVariant/33637684772999", title: "s", __typename: "ProductVariant", … }
+​​​​​
+<prototype>: Object { … }
+​​​​
+<prototype>: Object { … }
+​​​
+1: Object { cursor: "eyJsYXN0X2lkIjozNTUwMzc3OTcwOTA2MywibGFzdF92YWx1ZSI6IjM1NTAzNzc5NzA5MDYzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+2: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjE4NTYwNywibGFzdF92YWx1ZSI6IjM1NjQ0NjA2MTg1NjA3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+3: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjMxNjY3OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA2MzE2Njc5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+4: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjQ0Nzc1MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA2NDQ3NzUxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+5: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjU0NjA1NSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA2NTQ2MDU1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+6: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjY3NzEyNywibGFzdF92YWx1ZSI6IjM1NjQ0NjA2Njc3MTI3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+7: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjgwODE5OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA2ODA4MTk5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+8: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNjkzOTI3MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA2OTM5MjcxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+9: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzA3MDM0MywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3MDcwMzQzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+10: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzE2ODY0NywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3MTY4NjQ3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+11: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzMzMjQ4NywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3MzMyNDg3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+12: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzQ2MzU1OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA3NDYzNTU5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+13: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzU2MTg2MywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3NTYxODYzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+14: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzcyNTcwMywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3NzI1NzAzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+15: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzgyNDAwNywibGFzdF92YWx1ZSI6IjM1NjQ0NjA3ODI0MDA3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+16: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwNzkyMjMxMSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA3OTIyMzExIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+17: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwODA1MzM4MywibGFzdF92YWx1ZSI6IjM1NjQ0NjA4MDUzMzgzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+18: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwODQ0NjU5OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA4NDQ2NTk5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+19: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwODU3NzY3MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA4NTc3NjcxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+20: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwODkwNTM1MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA4OTA1MzUxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+21: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwOTAzNjQyMywibGFzdF92YWx1ZSI6IjM1NjQ0NjA5MDM2NDIzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+22: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwOTE2NzQ5NSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA5MTY3NDk1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+23: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwOTI5ODU2NywibGFzdF92YWx1ZSI6IjM1NjQ0NjA5Mjk4NTY3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+24: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwOTM5Njg3MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjA5Mzk2ODcxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+25: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYwOTQ2MjQwNywibGFzdF92YWx1ZSI6IjM1NjQ0NjA5NDYyNDA3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+26: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMDM0NzE0MywibGFzdF92YWx1ZSI6IjM1NjQ0NjEwMzQ3MTQzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+27: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMTE2NjM0MywibGFzdF92YWx1ZSI6IjM1NjQ0NjExMTY2MzQzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+28: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMTQ2MTI1NSwibGFzdF92YWx1ZSI6IjM1NjQ0NjExNDYxMjU1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+29: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMTUyNjc5MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjExNTI2NzkxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+30: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMTY1Nzg2MywibGFzdF92YWx1ZSI6IjM1NjQ0NjExNjU3ODYzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+31: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMjA1MTA3OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEyMDUxMDc5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+32: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMjU0MjU5OSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEyNTQyNTk5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+33: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMjY0MDkwMywibGFzdF92YWx1ZSI6IjM1NjQ0NjEyNjQwOTAzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+34: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMjcwNjQzOSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEyNzA2NDM5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+35: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMjgwNDc0MywibGFzdF92YWx1ZSI6IjM1NjQ0NjEyODA0NzQzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+36: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzE2NTE5MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEzMTY1MTkxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+37: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzI5NjI2MywibGFzdF92YWx1ZSI6IjM1NjQ0NjEzMjk2MjYzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+38: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzM5NDU2NywibGFzdF92YWx1ZSI6IjM1NjQ0NjEzMzk0NTY3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+39: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzUyNTYzOSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEzNTI1NjM5In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+40: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzU5MTE3NSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEzNTkxMTc1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+41: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzcyMjI0NywibGFzdF92YWx1ZSI6IjM1NjQ0NjEzNzIyMjQ3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+42: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzgyMDU1MSwibGFzdF92YWx1ZSI6IjM1NjQ0NjEzODIwNTUxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+43: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxMzk1MTYyMywibGFzdF92YWx1ZSI6IjM1NjQ0NjEzOTUxNjIzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+44: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDA0OTkyNywibGFzdF92YWx1ZSI6IjM1NjQ0NjE0MDQ5OTI3In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+45: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDE0ODIzMSwibGFzdF92YWx1ZSI6IjM1NjQ0NjE0MTQ4MjMxIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+46: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDI0NjUzNSwibGFzdF92YWx1ZSI6IjM1NjQ0NjE0MjQ2NTM1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+47: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDQ3NTkxMSwibGFzdF92YWx1ZSI6IjM1NjQ0NjE0NDc1OTExIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+48: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDU3NDIxNSwibGFzdF92YWx1ZSI6IjM1NjQ0NjE0NTc0MjE1In0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+49: Object { cursor: "eyJsYXN0X2lkIjozNTY0NDYxNDYwNjk4MywibGFzdF92YWx1ZSI6IjM1NjQ0NjE0NjA2OTgzIn0=", node: {…}, __typename: "InventoryItemEdge" }
+​​​
+length: 50
+​​​
+<prototype>: Array []
+​​
+pageInfo: Object { hasNextPage: true, hasPreviousPage: false, __typename: "PageInfo" }
+​​
+<prototype>: Object { … }
+​
+shop: Object { url: "https://ambraee-dev1.myshopify.com", __typename: "Shop" }
+
+
+
+
 {
   "data": {
     "shop": {
