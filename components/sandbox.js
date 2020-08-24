@@ -55,7 +55,6 @@ const Sandbox = () => {
 // const { newloading, newerror, newdata } = useQuery(GET_ALL_PRODUCTS);
 // console.log('All products:',newdata)
 console.log('Sandbox rendering..');
-const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sortValue,reverse}});  
 //refetch for loading new data after updating quantity
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState(null);
@@ -248,7 +247,7 @@ const handleFiltersClearAll = useCallback(() => {
     {label: 'Updated (descending)', value: 'UPDATED_AT true'},
   ]
 
-
+const { loading, error, data,refetch } = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sortValue,reverse}});  
 if (loading) return <div>Loading...</div>
 if (error) return <div>{error.message}</div>
 console.log(data)
