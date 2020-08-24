@@ -70,10 +70,9 @@ const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
   (event,key) => {
-    console.log('Value:');
     console.log(event.target);
-    console.log('Key',key);
-    console.log(event);
+    console.log(event.target.selectedIndex);
+    setselectKey(event.target.selectedIndex)
     setselectValue(event.target.value); 
   },
   [],
@@ -312,8 +311,8 @@ const resourceName = {
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;
     //Variants
-    const variantId=item.node.variants.edges[0].node.id;
-    const variantTitle=item.node.variants.edges[0].node.title!=='Default Title'?item.node.variants.edges[0].node.title:'';
+    const variantId=item.node.variants.edges[selectKey].node.id;
+    const variantTitle=item.node.variants.edges[selectKey].node.title!=='Default Title'?item.node.variants.edges[selectKey].node.title:'';
     // console.log(variantTitle);
     const selectVariantList = item.node.variants.edges.map(
       (variantItem) => {
@@ -333,10 +332,10 @@ const resourceName = {
       </div>
     ):variantTitle;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    const inventoryItemId= item.node.variants.edges[0].node.inventoryItem.id;
-    // const price = item.node.variants.edges[0].node.price;
-    const sku = item.node.variants.edges[0].node.sku;
-    const inventoryQuantity = item.node.variants.edges[0].node.inventoryQuantity;
+    const inventoryItemId= item.node.variants.edges[selectKey].node.inventoryItem.id;
+    // const price = item.node.variants.edges[selectKey].node.price;
+    const sku = item.node.variants.edges[selectKey].node.sku;
+    const inventoryQuantity = item.node.variants.edges[selectKey].node.inventoryQuantity;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
