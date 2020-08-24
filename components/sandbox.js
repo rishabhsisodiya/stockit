@@ -70,8 +70,6 @@ const [selectKey, setselectKey] = useState(0);
 const [selectValue, setselectValue] = useState('Select')
 const selectHandler = useCallback(
   (event,key) => {
-    console.log(event.target);
-    console.log(event.target.selectedIndex);
     setselectKey(event.target.selectedIndex)
     setselectValue(event.target.value); 
   },
@@ -306,13 +304,16 @@ const resourceName = {
         }
       />
     );
-    console.log('return..');
+    const variantKey = selectKey;
     const shopUrl=data.shop.url;
     const productId=item.node.id.split("//shopify/Product")[1];
     const productTitle=item.node.title;
+    if (item.node.edges.length<=variantKey) {
+      variantKey=0;
+    }
     //Variants
-    const variantId=item.node.variants.edges[selectKey].node.id;
-    const variantTitle=item.node.variants.edges[selectKey].node.title!=='Default Title'?item.node.variants.edges[selectKey].node.title:'';
+    const variantId=item.node.variants.edges[variantKey].node.id;
+    const variantTitle=item.node.variants.edges[variantKey].node.title!=='Default Title'?item.node.variants.edges[variantKey].node.title:'';
     // console.log(variantTitle);
     const selectVariantList = item.node.variants.edges.map(
       (variantItem) => {
@@ -332,10 +333,10 @@ const resourceName = {
       </div>
     ):variantTitle;
     const productVariantUrl=shopUrl+'/admin/products'+productId+'/variants'+variantId.split("//shopify/ProductVariant")[1];
-    const inventoryItemId= item.node.variants.edges[selectKey].node.inventoryItem.id;
-    // const price = item.node.variants.edges[selectKey].node.price;
-    const sku = item.node.variants.edges[selectKey].node.sku;
-    const inventoryQuantity = item.node.variants.edges[selectKey].node.inventoryQuantity;
+    const inventoryItemId= item.node.variants.edges[variantKey].node.inventoryItem.id;
+    // const price = item.node.variants.edges[variantKey].node.price;
+    const sku = item.node.variants.edges[variantKey].node.sku;
+    const inventoryQuantity = item.node.variants.edges[variantKey].node.inventoryQuantity;
     const style={display:"grid",gridTemplateColumns:"30% 20% 10% 40%" };
     return (
       <ResourceItem
