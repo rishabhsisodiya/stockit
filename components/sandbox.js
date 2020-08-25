@@ -305,10 +305,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const { loading, error, data,refetch,extensions} = useQuery(GET_All_PRODUCTS,{errorPolicy:'all',variables:{numProducts:50,cursor,sort,reverse,query}});  
-if (extensions) {
-  console.log(extensions);
-}
+const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{errorPolicy:'all',variables:{numProducts:50,cursor,sort,reverse,query}});  
 if (loading) return <div>loading...</div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
@@ -316,6 +313,7 @@ if (error) {
     refetch();
     return <div>Loading..</div>
   }
+  console.log(error);
   return <div>{error.message}</div>
 }
 console.log(data)
