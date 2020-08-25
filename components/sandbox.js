@@ -310,7 +310,6 @@ if (loading) return <div>loading...</div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
     refetch();
-    return <Spinner accessibilityLabel="Spinner Throttled Error" />
   }
   return <div>{error.message}</div>
 }
