@@ -135,6 +135,9 @@ const handleTagFilterShow = useCallback(
   },
   [],
 )
+const test = () => {
+  console.log('Test');
+}
 const [queryTimeout, setQueryTimeout] = useState(0);
 const handleFiltersQueryChange = useCallback(
   
@@ -144,7 +147,7 @@ const handleFiltersQueryChange = useCallback(
       }
      setQueryValue(value);
      setQueryTimeout(setTimeout(() => {
-       console.log('timeout');
+       test();
         setQuery(value);
      }, 3000));
     },
