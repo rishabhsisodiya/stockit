@@ -309,7 +309,9 @@ const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{errorPolicy:'
 if (loading) return <div>loading...</div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
+    console.log('Throttled');
     refetch();
+    return <div>Loading..</div>
   }
   return <div>{error.message}</div>
 }
