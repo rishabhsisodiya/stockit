@@ -142,9 +142,7 @@ const [queryTimeout, setQueryTimeout] = useState(0);
 const handleFiltersQueryChange = useCallback(
   
    (value) => {
-      if (!queryTimeout) {
-        clearTimeout(queryTimeout);
-      }
+    clearTimeout(queryTimeout)
      setQueryValue(value);
      setQueryTimeout(setTimeout(() => {
        test();
