@@ -147,7 +147,7 @@ const handleFiltersQueryChange = useCallback(
      setQueryValue(value);
      setQueryTimeout(setTimeout(() => {
        test()
-       setSort()
+       setSort(value)
      }, 7000));
     },
     [],
@@ -308,7 +308,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{onError:(error)=>{console.log(error);},errorPolicy:'all',variables:{numProducts:50,cursor,sort,reverse,query}});  
+const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{onError:(error)=>{console.log('handling')},errorPolicy:'all',variables:{numProducts:50,cursor,sort,reverse,query}});  
 if (loading) return <div>loading...</div>
 if (error) {
   console.log(error);
