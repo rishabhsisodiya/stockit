@@ -149,7 +149,7 @@ const handleFiltersQueryChange = useCallback(
      setQueryTimeout(setTimeout(() => {
        test();
         setQuery(value);
-     }, 3000));
+     }, 7000));
     },
     [],
 );
