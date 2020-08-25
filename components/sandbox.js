@@ -310,6 +310,8 @@ if (loading) return <div>loading...</div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
     console.log('refetch');
+    refetch();
+    return <Loading />
   }
   return <div>{error.message}</div>
 }
