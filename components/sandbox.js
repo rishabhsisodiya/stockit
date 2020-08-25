@@ -140,13 +140,12 @@ const handleFiltersQueryChange = useCallback(
   
    (value) => {
       if (!queryTimeout) {
-        console.log('clear');
         clearTimeout(queryTimeout);
       }
      setQueryValue(value);
      setQueryTimeout(setTimeout(() => {
         setQuery(value);
-     }, 5000));
+     }, 7000));
     },
     [],
 );
