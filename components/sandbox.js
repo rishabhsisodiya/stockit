@@ -144,8 +144,9 @@ const handleFiltersQueryChange = useCallback(
       }
      setQueryValue(value);
      setQueryTimeout(setTimeout(() => {
+       console.log('timeout');
         setQuery(value);
-     }, 7000));
+     }, 3000));
     },
     [],
 );
