@@ -117,7 +117,7 @@ const handleAvailabilityChange = useCallback(
             {
               qStr=qStr+' OR '+'published_status:'+val;
             })
-            console.log(qstr);
+            console.log(qStr);
           setQuery(qStr);
         }, 3000)
       );
@@ -136,7 +136,7 @@ const handleProductTypeChange = useCallback(
             {
               qStr=qStr+' OR '+'product_type:'+val;
             })
-            console.log(qstr);
+            console.log(qStr);
           setQuery(qStr);
         }, 3000)
       );
@@ -151,7 +151,7 @@ const handleTaggedWithChange = useCallback(
       setQueryTimeout(
         setTimeout(() => {
           let qStr=query+' OR '+'tag:'+value;
-            console.log(qstr);
+            console.log(qStr);
           setQuery(qStr);
         }, 3000)
       );
@@ -164,6 +164,7 @@ const handleFiltersQueryChange = useCallback(
     setQueryValue(value);
     setQueryTimeout(setTimeout(() => {
       let qStr=query+' OR '+value;
+      console.log(qStr);
        setQuery(qStr);
      }, 3000));
     },
