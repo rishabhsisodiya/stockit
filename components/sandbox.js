@@ -107,7 +107,7 @@ const [queryValue, setQueryValue] = useState(null);
 const [queryTimeout, setQueryTimeout] = useState(0);
 const handleAvailabilityChange = useCallback(
     (value) => {
-      console.log('query availabilty:',value)
+      // console.log('query availabilty:',value)
       clearTimeout(queryTimeout);
       setAvailability(value)
       setQueryTimeout(
@@ -118,7 +118,7 @@ const handleAvailabilityChange = useCallback(
               qStr=qStr+' OR '+'published_status:'+val;
             })
             console.log(qstr);
-          // setQuery(qStr);
+          setQuery(qStr);
         }, 3000)
       );
     },
@@ -126,7 +126,7 @@ const handleAvailabilityChange = useCallback(
 );
 const handleProductTypeChange = useCallback(
     (value) => {
-      console.log('product type search:',value)
+      // console.log('product type search:',value)
       clearTimeout(queryTimeout);
       setProductType(value);
       setQueryTimeout(
@@ -137,7 +137,7 @@ const handleProductTypeChange = useCallback(
               qStr=qStr+' OR '+'product_type:'+val;
             })
             console.log(qstr);
-          // setQuery(qStr);
+          setQuery(qStr);
         }, 3000)
       );
     },
@@ -150,13 +150,9 @@ const handleTaggedWithChange = useCallback(
       setTaggedWith(value);
       setQueryTimeout(
         setTimeout(() => {
-          let qStr=query;
-          value.map(val => 
-            {
-              qStr=qStr+' OR '+'tag:'+val;
-            })
+          let qStr=query+' OR '+'tag:'+value;
             console.log(qstr);
-          // setQuery(qStr);
+          setQuery(qStr);
         }, 3000)
       );
     } ,[],);
@@ -167,7 +163,7 @@ const handleFiltersQueryChange = useCallback(
     clearTimeout(queryTimeout);
     setQueryValue(value);
     setQueryTimeout(setTimeout(() => {
-      let qStr=query+value;
+      let qStr=query+' OR '+value;
        setQuery(qStr);
      }, 3000));
     },
