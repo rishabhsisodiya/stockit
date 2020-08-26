@@ -175,7 +175,6 @@ const handleProductTypeRemove = useCallback(() => {
 const handleTaggedWithRemove = useCallback(
   () => {
     setQuery('');
-    setShow(false);
     setTaggedWith(null)
   }
   , []);
