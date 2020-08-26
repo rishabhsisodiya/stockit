@@ -135,17 +135,14 @@ const handleTagFilterShow = useCallback(
   },
   [],
 )
-const test = () => {
-  console.log('Test');
-}
 const [queryTimeout, setQueryTimeout] = useState(0);
 const handleFiltersQueryChange = useCallback(
   
    (value) => {
-    clearTimeout(queryTimeout)
+    clearTimeout(queryTimeout);
     setQueryValue(value);
     setQueryTimeout(setTimeout(() => {
-       setSort(value);
+       setQuery(value);
      }, 7000));
     },
     [],
@@ -315,7 +312,8 @@ if (error) {
     setTimeout(() => {
       refetch();
     }, 7000);
-    return <div>Loading..</div>
+    return <Spinner accessibilityLabel="Throttled Error Spinner"/>
+    // return <div>Loading..</div>
   }
   return <div>{error.message}</div>
 }
