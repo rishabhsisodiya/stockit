@@ -128,12 +128,12 @@ const handleTaggedWithChange = useCallback(
 );
 const [show, setShow] = useState(false)
 const handleTagFilterShow = useCallback(
-  () => {
+  (taggedWith) => {
     console.log('button clicked',taggedWith);
     setQuery('tag:'+taggedWith);
     setShow(true);
   },
-  [],
+  [taggedWith],
 )
 const [queryTimeout, setQueryTimeout] = useState(0);
 const handleFiltersQueryChange = useCallback(
@@ -274,7 +274,6 @@ const handleFiltersClearAll = useCallback(() => {
       queryValue={queryValue}
       filters={filters}
       appliedFilters={appliedFilters}
-      // onQueryBlur={handleFiltersQueryChange}
       onQueryChange={handleFiltersQueryChange}
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
@@ -306,14 +305,12 @@ const handleFiltersClearAll = useCallback(() => {
 const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
 if (loading) return <div>loading...</div>
 if (error) {
-  console.log(error);
   if (error.message=='GraphQL error: Throttled') {
-    console.log('Throttled');
+    console.log(error.message);
     setTimeout(() => {
       refetch();
     }, 7000);
     return <Spinner accessibilityLabel="Throttled Error Spinner"/>
-    // return <div>Loading..</div>
   }
   return <div>{error.message}</div>
 }
