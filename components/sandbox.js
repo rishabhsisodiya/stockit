@@ -142,12 +142,10 @@ const [queryTimeout, setQueryTimeout] = useState(0);
 const handleFiltersQueryChange = useCallback(
   
    (value) => {
-     console.log(queryTimeout);
     clearTimeout(queryTimeout)
-     setQueryValue(value);
-     setQueryTimeout(setTimeout(() => {
-       test()
-       setSort(value)
+    setQueryValue(value);
+    setQueryTimeout(setTimeout(() => {
+       setSort(value);
      }, 7000));
     },
     [],
@@ -308,13 +306,15 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{onError:(error)=>{console.log('handling')},errorPolicy:'all',variables:{numProducts:50,cursor,sort,reverse,query}});  
+const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
 if (loading) return <div>loading...</div>
 if (error) {
   console.log(error);
   if (error.message=='GraphQL error: Throttled') {
     console.log('Throttled');
-    refetch();
+    setTimeout(() => {
+      refetch();
+    }, 7000);
     return <div>Loading..</div>
   }
   return <div>{error.message}</div>
