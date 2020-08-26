@@ -104,38 +104,50 @@ const [availability, setAvailability] = useState(null);
 const [productType, setProductType] = useState(null);
 const [taggedWith, setTaggedWith] = useState(null);
 const [queryValue, setQueryValue] = useState(null);
+const [queryTimeout, setQueryTimeout] = useState(0);
 const handleAvailabilityChange = useCallback(
     (value) => {
-      console.log('query search:',value)
-      setQuery(value);
+      console.log('query availabilty:',value)
+      clearTimeout(queryTimeout);
       setAvailability(value)
+      setTimeout(() => {
+        value.map(val => setQuery('published_status:'+val))
+      }, 3000);
     },
     [],
 );
 const handleProductTypeChange = useCallback(
     (value) => {
       console.log('product type search:',value)
-      // setQuery(value);
-      setProductType(value)},
+      clearTimeout(queryTimeout);
+      setProductType(value)
+      setQueryTimeout(setTimeout(() => {
+        value.map(val => setQuery('product_type:'+val))
+      }, 3000));
+    },
     [],
 );
 const handleTaggedWithChange = useCallback(
     (value) =>{
       console.log('tagged search:',value)
+      clearTimeout(queryTimeout);
       setTaggedWith(value)
+      setQueryTimeout(setTimeout(() => {
+        setQuery('tag:'+val)
+      }, 3000));
     } ,
     [],
 );
-const [show, setShow] = useState(false)
-const handleTagFilterShow = useCallback(
-  (taggedWith) => {
-    console.log('button clicked',taggedWith);
-    setQuery('tag:'+taggedWith);
-    setShow(true);
-  },
-  [taggedWith],
-)
-const [queryTimeout, setQueryTimeout] = useState(0);
+// const [show, setShow] = useState(false)
+// const handleTagFilterShow = useCallback(
+//   () => {
+//     console.log('button clicked',taggedWith);
+//     setQuery('tag:'+taggedWith);
+//     setShow(true);
+//   },
+//   [],
+// )
+
 const handleFiltersQueryChange = useCallback(
   
    (value) => {
@@ -143,7 +155,7 @@ const handleFiltersQueryChange = useCallback(
     setQueryValue(value);
     setQueryTimeout(setTimeout(() => {
        setQuery(value);
-     }, 7000));
+     }, 3000));
     },
     [],
 );
@@ -197,7 +209,6 @@ const handleFiltersClearAll = useCallback(() => {
           choices={[
             {label: 'Online Store', value: 'Online Store'},
             {label: 'Point of Sale', value: 'Point of Sale'},
-            {label: 'Buy Button', value: 'Buy Button'},
           ]}
           selected={availability || []}
           onChange={handleAvailabilityChange}
@@ -235,7 +246,6 @@ const handleFiltersClearAll = useCallback(() => {
           onChange={handleTaggedWithChange}
           labelHidden
           />
-          <Button onClick={handleTagFilterShow}>Save</Button>
         </div>
       ),
     },
@@ -259,8 +269,7 @@ const handleFiltersClearAll = useCallback(() => {
       onRemove: handleProductTypeRemove,
     });
   }
-  if (!isEmpty(taggedWith)&&show) {
-    console.log('push');
+  if (!isEmpty(taggedWith)) {
     const key = 'taggedWith';
     appliedFilters.push({
       key,
