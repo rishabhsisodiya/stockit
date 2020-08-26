@@ -133,7 +133,7 @@ const handleTaggedWithChange = useCallback(
       clearTimeout(queryTimeout);
       setTaggedWith(value)
       setQueryTimeout(setTimeout(() => {
-        setQuery('tag:'+val)
+        setQuery('tag:'+value)
       }, 3000));
     } ,
     [],
@@ -227,7 +227,7 @@ const handleFiltersClearAll = useCallback(() => {
           choices={[
             {label: 'T-Shirt', value: 'T-Shirt'},
             {label: 'Accessory', value: 'Accessory'},
-            {label: 'Gift card', value: 'Gift card'},
+            {label: 'Suit Set', value: 'Suit-Set'},
           ]}
           selected={productType || []}
           onChange={handleProductTypeChange}
