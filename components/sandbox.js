@@ -388,9 +388,6 @@ const resourceName = {
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
-            if (data.products.pageInfo.hasPreviousPage) {
-              setPrevCursor(data.products.edges[0].cursor)
-            }
             setCursor(data.products.edges[19].cursor);
             refetch();
           }}
