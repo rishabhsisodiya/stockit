@@ -92,7 +92,7 @@ const Sandbox = () => {
   const [reverse, setReverse] = useState(false);
   //filter
   const [query, setQuery] = useState(" ");
-  console.log("query:", query);
+  console.log("Active query:", query);
   //-----------GraphQl query state variable--------------END------------
 
   //Sorting Resource List options
@@ -167,7 +167,8 @@ const Sandbox = () => {
     );
   }, []);
   const handleTaggedWithChange = useCallback((value) => {
-    console.log("tagged search:", query ,value);
+    console.log("query in tagged:", query);
+    console.log("tagged search:", value);
     clearTimeout(queryTimeout);
     setTaggedWith(value);
     setQueryTimeout(
@@ -180,25 +181,28 @@ const Sandbox = () => {
   }, []);
 
   const handleFiltersQueryChange = useCallback((value) => {
-    clearTimeout(queryTimeout);
+    // clearTimeout(queryTimeout);
     setQueryValue(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query + " AND " + value;
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
+    let qStr = query + " AND " + value;
+    console.log(qStr);
+    setQuery(qStr);
+    // setQueryTimeout(
+    //   setTimeout(() => {
+    //     let qStr = query + " AND " + value;
+    //     //console.log(qStr);
+    //     setQuery(qStr);
+    //   }, 3000)
+    // );
   }, []);
 
   // Filter remove methods
   const handleAvailabilityRemove = useCallback(() => {
     let queryStr = query
-    .split("AND")
-    .filter((str) => !str.includes("published_status"))
-    .join("AND");
-  //console.log(queryStr);
-  setQuery(queryStr);
+      .split("AND")
+      .filter((str) => !str.includes("published_status"))
+      .join("AND");
+    //console.log(queryStr);
+    setQuery(queryStr);
     setAvailability(null);
   }, []);
   const handleProductTypeRemove = useCallback(() => {
@@ -320,6 +324,9 @@ const Sandbox = () => {
       label: disambiguateLabel(key, taggedWith),
       onRemove: handleTaggedWithRemove,
     });
+    // let qStr = query + " AND " + "tag:" + value;
+    // console.log(qStr);
+    // setQuery(qStr);
   }
 
   const filterControl = (
