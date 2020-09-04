@@ -365,8 +365,8 @@ const resourceName = {
         selectedItems={selectedItems}
         onSelectionChange={setSelectedItems}
         selectable
-        promotedBulkActions={promotedBulkActions}
-        bulkActions={bulkActions}
+        // promotedBulkActions={promotedBulkActions}
+        // bulkActions={bulkActions}
         sortValue={sortValue}
         sortOptions={sortOptions}
         onSortChange={(selected) => {
