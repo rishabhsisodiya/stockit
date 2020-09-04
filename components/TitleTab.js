@@ -4,6 +4,7 @@ import ProductList from './ProductList';
 import TestProductList from './TestList';
 import Sandbox from './sandbox';
 import Products from './Products';
+
 const TitleTab = () => {
 
   const [selected, setSelected] = useState(0);
@@ -34,9 +35,8 @@ const TitleTab = () => {
         },   
     ];
 
-    let tabSelected=null;
+    let tabSelected;
 if (selected==0) {
-  // tabSelected=<ProductList/>
   tabSelected=<Sandbox/>
 }
 if (selected==1) {
@@ -44,7 +44,6 @@ if (selected==1) {
 }
 if (selected==2) {
   tabSelected=<ProductList/>
-  // tabSelected=<Sandbox/>
 }
 console.log('tab renderig..');
 return (
