@@ -53,12 +53,11 @@ console.log('Sandbox rendering..');
 //-----------GraphQl query state variable-------------START------------- 
 // pagination
 const [cursor,setCursor] = useState(null);
-const [prevCursor,setPrevCursor] = useState(null);
 //sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
 //filter
-const [query, setQuery] = useState("")
+const [query, setQuery] = useState(" ");
 //-----------GraphQl query state variable--------------END------------ 
 
 //Sorting Resource List options
@@ -383,7 +382,7 @@ const resourceName = {
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
-            setCursor(prevCursor);
+            setCursor(data.products.edges[0].cursor);
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
@@ -470,7 +469,7 @@ const resourceName = {
             <p>{inventoryQuantity}</p>
           </div>
           <div>
-            <EditQuantity inventoryId={inventoryItemId} callback={toggleActive}/>
+            <EditQuantity key={variantId} inventoryId={inventoryItemId} callback={toggleActive}/>
           </div>
         </div>
       </ResourceItem>  
