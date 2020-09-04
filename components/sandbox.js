@@ -337,7 +337,7 @@ const handleFiltersClearAll = useCallback(() => {
     },
   ];
 
-const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:50,cursor,sort,reverse,query}});  
+const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:20,cursor,sort,reverse,query}});  
 if (loading) return <div>loading...</div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
@@ -392,7 +392,7 @@ const resourceName = {
             if (data.products.pageInfo.hasPreviousPage) {
               setPrevCursor(data.products.edges[0].cursor)
             }
-            setCursor(data.products.edges[49].cursor);
+            setCursor(data.products.edges[19].cursor);
             refetch();
           }}
         />
@@ -452,7 +452,6 @@ const resourceName = {
         media={media}
         accessibilityLabel={`View details for ${item.node.title}`}
       >
-        {/* thumbnail done , product title with product link, SKU , quantity  */}
         <div style={style}>
           <div style={{display:"grid",gridTemplateRows:"50% 50%"}}>
             <div>
@@ -465,7 +464,7 @@ const resourceName = {
             </div>
           </div>
           <div>
-            <p>${sku}</p>
+            <p>{sku}</p>
           </div>
           <div> 
             <p>{inventoryQuantity}</p>
