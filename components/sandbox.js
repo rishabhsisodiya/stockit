@@ -54,6 +54,7 @@ console.log('Sandbox rendering..');
 // pagination
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState([]);
+console.log(prevCursor);
 //sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
