@@ -146,7 +146,7 @@ const Sandbox = () => {
         value.map((val) => {
           qStr = qStr + " AND " + "published_status:" + val;
         });
-        console.log(qStr);
+        //console.log(qStr);
         setQuery(qStr);
       }, 3000)
     );
@@ -161,19 +161,19 @@ const Sandbox = () => {
         value.map((val) => {
           qStr = qStr + " AND " + "product_type:" + val;
         });
-        console.log(qStr);
+        //console.log(qStr);
         setQuery(qStr);
       }, 3000)
     );
   }, []);
   const handleTaggedWithChange = useCallback((value) => {
-    console.log("tagged search:", value);
+    console.log("tagged search:", query ,value);
     clearTimeout(queryTimeout);
     setTaggedWith(value);
     setQueryTimeout(
       setTimeout(() => {
         let qStr = query + " AND " + "tag:" + value;
-        console.log(qStr);
+        //console.log(qStr);
         setQuery(qStr);
       }, 3000)
     );
@@ -185,7 +185,7 @@ const Sandbox = () => {
     setQueryTimeout(
       setTimeout(() => {
         let qStr = query + " AND " + value;
-        console.log(qStr);
+        //console.log(qStr);
         setQuery(qStr);
       }, 3000)
     );
@@ -197,7 +197,7 @@ const Sandbox = () => {
     .split("AND")
     .filter((str) => !str.includes("published_status"))
     .join("AND");
-  console.log(queryStr);
+  //console.log(queryStr);
   setQuery(queryStr);
     setAvailability(null);
   }, []);
@@ -206,7 +206,7 @@ const Sandbox = () => {
       .split("AND")
       .filter((str) => !str.includes("product_type"))
       .join("AND");
-    console.log(queryStr);
+    //console.log(queryStr);
     setQuery(queryStr);
     setProductType(null);
   }, []);
@@ -215,7 +215,7 @@ const Sandbox = () => {
       .split("AND")
       .filter((str) => !str.includes("tag"))
       .join("AND");
-    console.log(queryStr);
+    //console.log(queryStr);
     setQuery(queryStr);
     setTaggedWith(null);
   }, []);
@@ -225,7 +225,7 @@ const Sandbox = () => {
       .split("AND")
       .filter((str) => str.includes(":"))
       .join("AND");
-    console.log(queryStr);
+    //console.log(queryStr);
     setQuery(queryStr);
     setQueryValue("");
   }, []);
