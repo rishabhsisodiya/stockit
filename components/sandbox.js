@@ -53,11 +53,12 @@ console.log('Sandbox rendering..');
 //-----------GraphQl query state variable-------------START------------- 
 // pagination
 const [cursor,setCursor] = useState(null);
+const [prevCursor,setPrevCursor] = useState([]);
 //sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
 //filter
-const [query, setQuery] = useState(" ");
+const [query, setQuery] = useState("")
 //-----------GraphQl query state variable--------------END------------ 
 
 //Sorting Resource List options
@@ -382,12 +383,15 @@ const resourceName = {
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
             console.log('Previous');
-            setCursor(data.products.edges[0].cursor);
+            setCursor(prevCursor.pop());
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
             console.log('Next');
+            if (data.products.pageInfo.hasPreviousPage) {
+              setPrevCursor([...cursor,data.products.edges[0].cursor])
+            }
             setCursor(data.products.edges[19].cursor);
             refetch();
           }}
