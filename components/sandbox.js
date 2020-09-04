@@ -54,7 +54,7 @@ console.log('Sandbox rendering..');
 // pagination
 const [cursor,setCursor] = useState(null);
 const [prevCursor,setPrevCursor] = useState([]);
-console.log(prevCursor);
+// console.log(prevCursor);
 //sort graphql query
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
@@ -339,7 +339,7 @@ const handleFiltersClearAll = useCallback(() => {
   ];
 
 const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:20,cursor,sort,reverse,query}});  
-if (loading) return <div>loading...</div>
+if (loading) return <div style={{justifyContent:"center"}}><Spinner accessibilityLabel="loading"/></div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
     console.log(error.message);
@@ -383,17 +383,19 @@ const resourceName = {
         <Pagination
           hasPrevious={data.products.pageInfo.hasPreviousPage}
           onPrevious={() => {
-            console.log('Previous');
+            // console.log('Previous');
             setCursor(prevCursor.pop());
             refetch();
           }}
           hasNext={data.products.pageInfo.hasNextPage}
           onNext={() => {
-            console.log('Next');
+            // console.log('Next');
+            let lastCursor = data.products.edges[19].cursor;
+
             if (data.products.pageInfo.hasPreviousPage) {
-              setPrevCursor([...prevCursor,data.products.edges[0].cursor])
+              setPrevCursor([...prevCursor,lastCursor])
             }
-            setCursor(data.products.edges[19].cursor);
+            setCursor(lastCursor);
             refetch();
           }}
         />
