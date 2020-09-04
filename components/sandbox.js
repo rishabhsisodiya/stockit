@@ -59,7 +59,7 @@ const [prevCursor,setPrevCursor] = useState([]);
 const [sort, setSort] = useState('INVENTORY_TOTAL');
 const [reverse, setReverse] = useState(false);
 //filter
-const [query, setQuery] = useState("")
+const [query, setQuery] = useState(" ")
 //-----------GraphQl query state variable--------------END------------ 
 
 //Sorting Resource List options
@@ -116,7 +116,7 @@ const handleAvailabilityChange = useCallback(
           let qStr=query;
           value.map(val => 
             {
-              qStr=qStr+' OR '+'published_status:'+val;
+              qStr=qStr+' AND '+'published_status:'+val;
             })
             console.log(qStr);
           setQuery(qStr);
@@ -135,7 +135,7 @@ const handleProductTypeChange = useCallback(
           let qStr=query;
           value.map(val => 
             {
-              qStr=qStr+' OR '+'product_type:'+val;
+              qStr=qStr+' AND '+'product_type:'+val;
             })
             console.log(qStr);
           setQuery(qStr);
@@ -151,7 +151,7 @@ const handleTaggedWithChange = useCallback(
       setTaggedWith(value);
       setQueryTimeout(
         setTimeout(() => {
-          let qStr=query+' OR '+'tag:'+value;
+          let qStr=query+' AND '+'tag:'+value;
             console.log(qStr);
           setQuery(qStr);
         }, 3000)
@@ -164,7 +164,7 @@ const handleFiltersQueryChange = useCallback(
     clearTimeout(queryTimeout);
     setQueryValue(value);
     setQueryTimeout(setTimeout(() => {
-      let qStr=query+' OR '+value;
+      let qStr=query+' AND '+value;
       console.log(qStr);
        setQuery(qStr);
      }, 3000));
@@ -176,7 +176,7 @@ const handleFiltersQueryChange = useCallback(
 const handleAvailabilityRemove = useCallback(
   () => { 
     let str=query;
-    let splittedOR = str.split("OR");
+    let splittedOR = str.split("AND");
     let qStr= splittedOR.filter(str=> !str.includes("published_status"));
     console.log(qStr);
     setQuery(qStr);
@@ -185,7 +185,7 @@ const handleAvailabilityRemove = useCallback(
   , []);
 const handleProductTypeRemove = useCallback(() => {
     let str=query;
-    let splittedOR = str.split("OR");
+    let splittedOR = str.split("AND");
     let qStr= splittedOR.filter(str=> !str.includes("product_type"));
     console.log(qStr);
     setQuery(qStr);
@@ -195,7 +195,7 @@ const handleProductTypeRemove = useCallback(() => {
 const handleTaggedWithRemove = useCallback(
   () => {
     let str=query;
-    let splittedOR = str.split("OR");
+    let splittedOR = str.split("AND");
     let qStr= splittedOR.filter(str=> !str.includes("tag"));
     console.log(qStr);
     setQuery(qStr);
@@ -205,11 +205,11 @@ const handleTaggedWithRemove = useCallback(
 const handleQueryValueRemove = useCallback(
   () => {
     let str=query;
-    let splittedOR = str.split("OR");
+    let splittedOR = str.split("AND");
     let qStr= splittedOR.filter(str=> str.includes(":"));
     console.log(qStr);
     setQuery(qStr);
-    setQueryValue(null)
+    setQueryValue("")
   }
   , []);
 const handleFiltersClearAll = useCallback(() => {
@@ -339,7 +339,7 @@ const handleFiltersClearAll = useCallback(() => {
   ];
 
 const { loading, error, data,refetch} = useQuery(GET_All_PRODUCTS,{variables:{numProducts:20,cursor,sort,reverse,query}});  
-if (loading) return <div style={{justifyContent:"center"}}><Spinner accessibilityLabel="loading"/></div>
+if (loading) return <div style={{display:"flex",justifyContent:"center"}}><Spinner accessibilityLabel="loading"/></div>
 if (error) {
   if (error.message=='GraphQL error: Throttled') {
     console.log(error.message);
