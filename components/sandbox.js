@@ -391,7 +391,7 @@ const resourceName = {
           onNext={() => {
             console.log('Next');
             if (data.products.pageInfo.hasPreviousPage) {
-              setPrevCursor([...cursor,data.products.edges[0].cursor])
+              setPrevCursor([...prevCursor,data.products.edges[0].cursor])
             }
             setCursor(data.products.edges[19].cursor);
             refetch();
