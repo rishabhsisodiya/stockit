@@ -85,15 +85,16 @@ if (loading)
     return <div>{"Reload the App, press f5" + error.message}</div>;
   }
   console.log(data);
+  const tabs= [...renderTabs(data.productSavedSearches.edges)];
 return (
   <Card>
-    <Tabs tabs={renderTabs} selected={selected} onSelect={handleTabChange}>
+    <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
       <Sandbox />
     </Tabs>
   </Card>
 ); 
 
-function renderTabs(data) {
+function renderTabs(nodes) {
   const tabs = [
     {
     id: 'Dev',
@@ -102,18 +103,19 @@ function renderTabs(data) {
     panelID: 'Dev',  
     }  
 ];
-let savedtabs;
-console.log('edges:',data.productSavedSearches);
-// data.productSavedSearches.edges.map(
-//   (tab) =>   savedtabs.push({
-//     id:tab.node.id,
-//     content:tab.node.name,
-//     accessibilityLabel:tab.node.name,
-//     panelID:tab.node.name,
-//   })
-// )
+let savedtabs=[];
+// console.log(nodes);
+// savedtabs.push({
+//   id:tab.node.id,
+//   content:tab.node.name,
+//   accessibilityLabel:tab.node.name,
+//   panelID:tab.node.name,
+// })
+nodes.map(
+  (node) => console.log(node) 
+)
   tabs = [...tabs,...savedtabs]
-  console.log(tabs);
+  // console.log(tabs);
   return tabs;
 }
 
