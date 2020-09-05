@@ -268,7 +268,6 @@ const Sandbox = (props) => {
           <Button onClick={handleAvailabilityValue} plain disabled={!availability.length}>Done</Button>
         </div>
       ),
-      shortcut: true,
     },
     {
       key: "productType",
