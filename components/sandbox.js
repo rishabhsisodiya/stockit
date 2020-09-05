@@ -131,9 +131,9 @@ const Sandbox = () => {
   ) : null;
 
   //------------Filters----------------------------------
-  const [availability, setAvailability] = useState(null);
-  const [productType, setProductType] = useState(null);
-  const [taggedWith, setTaggedWith] = useState(null);
+  const [availability, setAvailability] = useState([]);
+  const [productType, setProductType] = useState([]);
+  const [taggedWith, setTaggedWith] = useState('');
   const [queryValue, setQueryValue] = useState("");
   const [queryTimeout, setQueryTimeout] = useState(0);
 
