@@ -136,61 +136,73 @@ const Sandbox = () => {
   const [taggedWith, setTaggedWith] = useState(null);
   const [queryValue, setQueryValue] = useState("");
   const [queryTimeout, setQueryTimeout] = useState(0);
-  const handleAvailabilityChange = useCallback((value) => {
-    // console.log('query availabilty:',value)
-    clearTimeout(queryTimeout);
-    setAvailability(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query;
-        value.map((val) => {
-          qStr = qStr + " AND " + "published_status:" + val;
-        });
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
-  const handleProductTypeChange = useCallback((value) => {
-    // console.log('product type search:',value)
-    clearTimeout(queryTimeout);
-    setProductType(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query;
-        value.map((val) => {
-          qStr = qStr + " AND " + "product_type:" + val;
-        });
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
-  const handleTaggedWithChange = useCallback((value) => {
-    console.log("query in tagged:", query);
-    console.log("tagged search:", value);
-    clearTimeout(queryTimeout);
-    setTaggedWith(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query + " AND " + "tag:" + value;
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
+  const handleAvailabilityChange = useCallback(
+    (value) => {
+      // console.log('query availabilty:',value)
+      // clearTimeout(queryTimeout);
+      setAvailability(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query;
+      //     value.map((val) => {
+      //       qStr = qStr + " AND " + "published_status:" + val;
+      //     });
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    []
+  );
+  const handleProductTypeChange = useCallback(
+    (value) => {
+      // console.log('product type search:',value)
+      // clearTimeout(queryTimeout);
+      setProductType(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query;
+      //     value.map((val) => {
+      //       qStr = qStr + " AND " + "product_type:" + val;
+      //     });
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    []
+  );
+  const handleTaggedWithChange = useCallback(
+    (value) => {
+      // console.log("query in tagged:", query);
+      // console.log("tagged search:", value);
+      // clearTimeout(queryTimeout);
+      setTaggedWith(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query + " AND " + "tag:" + value;
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    []
+  );
 
-  const handleFiltersQueryChange = useCallback((value) => {
-    // clearTimeout(queryTimeout);
-    setQueryValue(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query + " AND " + value;
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
+  const handleFiltersQueryChange = useCallback(
+    (value) => {
+      // clearTimeout(queryTimeout);
+      setQueryValue(value);
+      setQueryTimeout(
+        setTimeout(() => {
+          let qStr = query + " AND " + value;
+          //console.log(qStr);
+          setQuery(qStr);
+        }, 3000)
+      );
+    },
+    [query, queryTimeout]
+  );
 
   // Filter remove methods
   const handleAvailabilityRemove = useCallback(() => {
@@ -242,12 +254,48 @@ const Sandbox = () => {
     handleTaggedWithRemove,
   ]);
 
+  const handleAvailabilityValue= useCallback(
+    () => {
+      let qStr = query;
+      availability.map((val) => {
+        qStr = qStr + " AND " + "published_status:" + val;
+      });
+      //console.log(qStr);
+      setQuery(qStr);
+    },
+    [query, availability],
+  )
+
+  const handleProductTypeValue= useCallback(
+    () => {
+      let qStr = query;
+      productType.map((val) => {
+        qStr = qStr + " AND " + "product_type:" + val;
+      });
+      //console.log(qStr);
+      setQuery(qStr);
+    },
+    [query, productType],
+  )
+
+  const handleTaggedValue= useCallback(
+    () => {
+      let qStr = query + " AND " + "tag:" + taggedWith;
+      //console.log(qStr);
+      setQuery(qStr);
+    },
+    [query,taggedWith],
+  )
+ 
+
+
   //DEfine all filters
   const filters = [
     {
       key: "availability",
       label: "Availability",
       filter: (
+        <div>
         <ChoiceList
           title="Availability"
           titleHidden
@@ -259,6 +307,8 @@ const Sandbox = () => {
           onChange={handleAvailabilityChange}
           allowMultiple
         />
+        <Button onClick={handleAvailabilityValue}>Done</Button>
+        </div>
       ),
       shortcut: true,
     },
@@ -266,18 +316,21 @@ const Sandbox = () => {
       key: "productType",
       label: "Product type",
       filter: (
-        <ChoiceList
-          title="Product type"
-          titleHidden
-          choices={[
-            { label: "T-Shirt", value: "T-Shirt" },
-            { label: "Accessory", value: "Accessory" },
-            { label: "Suit Set", value: "Suit-Set" },
-          ]}
-          selected={productType || []}
-          onChange={handleProductTypeChange}
-          allowMultiple
-        />
+        <div>
+          <ChoiceList
+            title="Product type"
+            titleHidden
+            choices={[
+              { label: "T-Shirt", value: "T-Shirt" },
+              { label: "Accessory", value: "Accessory" },
+              { label: "Suit Set", value: "Suit-Set" },
+            ]}
+            selected={productType || []}
+            onChange={handleProductTypeChange}
+            allowMultiple
+          />
+          <Button onClick={handleProductTypeValue}>Done</Button>
+        </div>
       ),
     },
     {
@@ -291,6 +344,7 @@ const Sandbox = () => {
             onChange={handleTaggedWithChange}
             labelHidden
           />
+          <Button onClick={handleTaggedValue}>Done</Button>
         </div>
       ),
     },
