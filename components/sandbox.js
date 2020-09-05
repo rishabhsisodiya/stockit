@@ -171,7 +171,7 @@ const Sandbox = () => {
       .join("AND");
     //console.log(queryStr);
     setQuery(queryStr);
-    setAvailability(null);
+    setAvailability([]);
   }, [query]);
   const handleProductTypeRemove = useCallback(() => {
     let queryStr = query
@@ -180,7 +180,7 @@ const Sandbox = () => {
       .join("AND");
     //console.log(queryStr);
     setQuery(queryStr);
-    setProductType(null);
+    setProductType([]);
   }, [query]);
   const handleTaggedWithRemove = useCallback(() => {
     let queryStr = query
@@ -189,7 +189,7 @@ const Sandbox = () => {
       .join("AND");
     //console.log(queryStr);
     setQuery(queryStr);
-    setTaggedWith(null);
+    setTaggedWith('');
   }, [query]);
   const handleQueryValueRemove = useCallback(() => {
     //get query , split it , separate all quey value and
