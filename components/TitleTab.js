@@ -35,17 +35,39 @@ const TitleTab = () => {
         },   
     ];
 
+    const customSearchHandler = useCallback(
+      () => {
+        tabs.push({  
+          id: 'CustomSearch',  
+          content: 'CustomSearch', 
+          accessibilityLabel: 'CustomSearch', 
+          panelID: 'CustomSearch',  
+          })
+         let newTabIndex = tabs.length-1;
+         setSelected(newTabIndex); 
+      },
+      [tabs],
+    )
+    const removeCustomSearch =useCallback(
+      () => {
+        tabs.pop()
+      },
+      [tabs],
+    )
+
     let tabSelected;
 if (selected==0) {
-  tabSelected=<Sandbox/>
+  tabSelected=<Sandbox customSearch={customSearchHandler} removeCustomSearch={removeCustomSearch}/>
 }
 if (selected==1) {
   tabSelected=<TestProductList/>
 }
 if (selected==2) {
   tabSelected=<ProductList/>
+}else{
+  tabSelected=<Sandbox customSearch={customSearchHandler} removeCustomSearch={removeCustomSearch}/>
 }
-console.log('tab renderig..');
+console.log('tab rendering..');
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>

@@ -80,7 +80,7 @@ const GET_All_PRODUCTS = gql`
   }
 `;
 
-const Sandbox = () => {
+const Sandbox = (props) => {
   console.log("Sandbox rendering..");
   //-----------GraphQl query state variable-------------START-------------
   // pagination
@@ -139,20 +139,24 @@ const Sandbox = () => {
 
   const handleAvailabilityChange = useCallback((value) => {
     setAvailability(value);
+    props.customSearch()
   }, []);
 
   const handleProductTypeChange = useCallback((value) => {
      setProductType(value);
+     props.customSearch()
   }, []);
 
   const handleTaggedWithChange = useCallback((value) => {
     setTaggedWith(value);
+    props.customSearch()
   }, []);
 
   const handleFiltersQueryChange = useCallback(
     (value) => {
       clearTimeout(queryTimeout);
       setQueryValue(value);
+      props.customSearch()
       setQueryTimeout(
         setTimeout(() => {
           let qStr = query + " AND " + value;
@@ -172,6 +176,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setAvailability([]);
+    // props.removeCustomSearch();
   }, [query]);
   const handleProductTypeRemove = useCallback(() => {
     let queryStr = query
