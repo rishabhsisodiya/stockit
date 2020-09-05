@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-// import {useQuery,gql} from '@apollo/client';
 import React, { useCallback, useState } from "react";
 import {
   Avatar,
@@ -25,20 +24,6 @@ import {
   Loading,
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
-
-const savedSearch = gql`
-mutation savedSearchCreate($input: SavedSearchCreateInput!) {
-  savedSearchCreate(input: $input) {
-    savedSearch {
-      id
-    }
-    userErrors {
-      field
-      message
-    }
-  }
-}
-`;
 
 const GET_All_PRODUCTS = gql`
   query getAllProducts(
@@ -360,7 +345,7 @@ const Sandbox = (props) => {
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
     >
-    <Button onClick={saveFilterHandler} disabled={!query}>Save Filter</Button>
+    <Button onClick={saveFilterHandler} disabled={query.length<2}>Save Filter</Button>
     </Filters>
   );
 
