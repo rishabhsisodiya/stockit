@@ -14,7 +14,7 @@ const TitleTab = () => {
       [selected],
     );
       
-    const tabs = [
+    let tabs = [
         {
         id: 'Dev',
         content: 'Dev',  
@@ -34,7 +34,7 @@ const TitleTab = () => {
         panelID: 'Prod',  
         },   
     ];
-
+console.log(tabs);
     const customSearchHandler = useCallback(
       () => {
         tabs.push({  
@@ -44,6 +44,7 @@ const TitleTab = () => {
           panelID: 'CustomSearch',  
           })
          let newTabIndex = tabs.length-1;
+         console.log(tabs);
          setSelected(newTabIndex); 
       },
       [tabs],
