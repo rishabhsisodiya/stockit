@@ -94,8 +94,8 @@ return (
   </Card>
 ); 
 
-function renderTabs(nodes) {
-  const tabs = [
+function renderTabs(items) {
+  let tabs = [
     {
     id: 'Dev',
     content: 'Dev',  
@@ -111,8 +111,13 @@ let savedtabs=[];
 //   accessibilityLabel:tab.node.name,
 //   panelID:tab.node.name,
 // })
-nodes.map(
-  (node) => console.log(node) 
+items.map(
+  (item) => savedtabs.push({
+      id:item.node.id,
+      content:item.node.name,
+      accessibilityLabel:item.node.name,
+      panelID:item.node.name,
+    }) 
 )
   tabs = [...tabs,...savedtabs]
   // console.log(tabs);
