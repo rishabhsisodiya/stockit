@@ -344,7 +344,7 @@ const Sandbox = () => {
             onChange={handleTaggedWithChange}
             labelHidden
           />
-          <Button onClick={handleTaggedValue}>Done</Button>
+          {/* <Button onClick={handleTaggedValue}>Done</Button> */}
         </div>
       ),
     },
@@ -374,10 +374,8 @@ const Sandbox = () => {
       key,
       label: disambiguateLabel(key, taggedWith),
       onRemove: handleTaggedWithRemove,
+      onAction: handleTaggedValue,
     });
-    // let qStr = query + " AND " + "tag:" + value;
-    // console.log(qStr);
-    // setQuery(qStr);
   }
 
   const filterControl = (
