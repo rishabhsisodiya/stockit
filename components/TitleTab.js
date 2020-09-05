@@ -103,7 +103,7 @@ function renderTabs(data) {
     }  
 ];
 let savedtabs;
-console.log('edges:',data.productSavedSearches.edges);
+console.log('edges:',data.productSavedSearches);
 // data.productSavedSearches.edges.map(
 //   (tab) =>   savedtabs.push({
 //     id:tab.node.id,
