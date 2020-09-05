@@ -26,6 +26,20 @@ import {
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
 
+const savedSearch = gql`
+mutation savedSearchCreate($input: SavedSearchCreateInput!) {
+  savedSearchCreate(input: $input) {
+    savedSearch {
+      id
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}
+`;
+
 const GET_All_PRODUCTS = gql`
   query getAllProducts(
     $numProducts: Int!
@@ -91,7 +105,7 @@ const Sandbox = (props) => {
   const [sort, setSort] = useState("INVENTORY_TOTAL");
   const [reverse, setReverse] = useState(false);
   //filter
-  const [query, setQuery] = useState(" ");
+  const [query, setQuery] = useState("");
   console.log("Active query:", query);
   //-----------GraphQl query state variable--------------END------------
 
@@ -139,24 +153,20 @@ const Sandbox = (props) => {
 
   const handleAvailabilityChange = useCallback((value) => {
     setAvailability(value);
-    props.customSearch()
   }, []);
 
   const handleProductTypeChange = useCallback((value) => {
      setProductType(value);
-     props.customSearch()
   }, []);
 
   const handleTaggedWithChange = useCallback((value) => {
     setTaggedWith(value);
-    props.customSearch()
   }, []);
 
   const handleFiltersQueryChange = useCallback(
     (value) => {
       clearTimeout(queryTimeout);
       setQueryValue(value);
-      props.customSearch()
       setQueryTimeout(
         setTimeout(() => {
           let qStr = query + " AND " + value;
@@ -176,7 +186,6 @@ const Sandbox = (props) => {
     //console.log(queryStr);
     setQuery(queryStr);
     setAvailability([]);
-    // props.removeCustomSearch();
   }, [query]);
   const handleProductTypeRemove = useCallback(() => {
     let queryStr = query
@@ -247,6 +256,13 @@ const Sandbox = (props) => {
     }
   }, [query, taggedWith]);
 
+  const saveFilterHandler = useCallback(
+    () => {
+      console.log('Save Search ');
+    },
+    [],
+  )
+
   //DEfine all filters
   const filters = [
     {
@@ -268,6 +284,7 @@ const Sandbox = (props) => {
           <Button onClick={handleAvailabilityValue} plain disabled={!availability.length}>Done</Button>
         </div>
       ),
+      shortcut: true,
     },
     {
       key: "productType",
@@ -342,7 +359,9 @@ const Sandbox = (props) => {
       onQueryChange={handleFiltersQueryChange}
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
-    />
+    >
+    <Button onClick={saveFilterHandler} disabled={!query}>Save Filter</Button>
+    </Filters>
   );
 
   const promotedBulkActions = [
