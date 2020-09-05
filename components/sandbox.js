@@ -150,7 +150,7 @@ const Sandbox = () => {
         setQuery(qStr);
       }, 3000)
     );
-  }, []);
+  }, [query,queryTimeout]);
   const handleProductTypeChange = useCallback((value) => {
     // console.log('product type search:',value)
     clearTimeout(queryTimeout);
@@ -165,7 +165,7 @@ const Sandbox = () => {
         setQuery(qStr);
       }, 3000)
     );
-  }, []);
+  }, [query,queryTimeout]);
   const handleTaggedWithChange = useCallback((value) => {
     console.log("query in tagged:", query);
     console.log("tagged search:", value);
@@ -178,22 +178,19 @@ const Sandbox = () => {
         setQuery(qStr);
       }, 3000)
     );
-  }, []);
+  }, [query,queryTimeout]);
 
   const handleFiltersQueryChange = useCallback((value) => {
     // clearTimeout(queryTimeout);
     setQueryValue(value);
-    let qStr = query + " AND " + value;
-    console.log(qStr);
-    setQuery(qStr);
-    // setQueryTimeout(
-    //   setTimeout(() => {
-    //     let qStr = query + " AND " + value;
-    //     //console.log(qStr);
-    //     setQuery(qStr);
-    //   }, 3000)
-    // );
-  }, []);
+    setQueryTimeout(
+      setTimeout(() => {
+        let qStr = query + " AND " + value;
+        //console.log(qStr);
+        setQuery(qStr);
+      }, 3000)
+    );
+  }, [query,queryTimeout]);
 
   // Filter remove methods
   const handleAvailabilityRemove = useCallback(() => {
@@ -204,7 +201,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setAvailability(null);
-  }, []);
+  }, [query,queryTimeout]);
   const handleProductTypeRemove = useCallback(() => {
     let queryStr = query
       .split("AND")
@@ -213,7 +210,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setProductType(null);
-  }, []);
+  }, [query,queryTimeout]);
   const handleTaggedWithRemove = useCallback(() => {
     let queryStr = query
       .split("AND")
@@ -222,7 +219,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setTaggedWith(null);
-  }, []);
+  }, [query,queryTimeout]);
   const handleQueryValueRemove = useCallback(() => {
     //get query , split it , separate all quey value and remove the condition one and join it again.
     let queryStr = query
@@ -232,7 +229,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setQueryValue("");
-  }, []);
+  }, [query,queryTimeout]);
   const handleFiltersClearAll = useCallback(() => {
     handleAvailabilityRemove();
     handleProductTypeRemove();
