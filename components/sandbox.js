@@ -136,67 +136,26 @@ const Sandbox = () => {
   const [taggedWith, setTaggedWith] = useState(null);
   const [queryValue, setQueryValue] = useState("");
   const [queryTimeout, setQueryTimeout] = useState(0);
-  const handleAvailabilityChange = useCallback(
-    (value) => {
-      // console.log('query availabilty:',value)
-      // clearTimeout(queryTimeout);
-      setAvailability(value);
-      // setQueryTimeout(
-      //   setTimeout(() => {
-      //     let qStr = query;
-      //     value.map((val) => {
-      //       qStr = qStr + " AND " + "published_status:" + val;
-      //     });
-      //     //console.log(qStr);
-      //     setQuery(qStr);
-      //   }, 3000)
-      // );
-    },
-    []
-  );
-  const handleProductTypeChange = useCallback(
-    (value) => {
-      // console.log('product type search:',value)
-      // clearTimeout(queryTimeout);
-      setProductType(value);
-      // setQueryTimeout(
-      //   setTimeout(() => {
-      //     let qStr = query;
-      //     value.map((val) => {
-      //       qStr = qStr + " AND " + "product_type:" + val;
-      //     });
-      //     //console.log(qStr);
-      //     setQuery(qStr);
-      //   }, 3000)
-      // );
-    },
-    []
-  );
-  const handleTaggedWithChange = useCallback(
-    (value) => {
-      // console.log("query in tagged:", query);
-      // console.log("tagged search:", value);
-      // clearTimeout(queryTimeout);
-      setTaggedWith(value);
-      // setQueryTimeout(
-      //   setTimeout(() => {
-      //     let qStr = query + " AND " + "tag:" + value;
-      //     //console.log(qStr);
-      //     setQuery(qStr);
-      //   }, 3000)
-      // );
-    },
-    []
-  );
+
+  const handleAvailabilityChange = useCallback((value) => {
+    setAvailability(value);
+  }, []);
+
+  const handleProductTypeChange = useCallback((value) => {
+     setProductType(value);
+  }, []);
+
+  const handleTaggedWithChange = useCallback((value) => {
+    setTaggedWith(value);
+  }, []);
 
   const handleFiltersQueryChange = useCallback(
     (value) => {
-      // clearTimeout(queryTimeout);
+      clearTimeout(queryTimeout);
       setQueryValue(value);
       setQueryTimeout(
         setTimeout(() => {
           let qStr = query + " AND " + value;
-          //console.log(qStr);
           setQuery(qStr);
         }, 3000)
       );
@@ -233,7 +192,8 @@ const Sandbox = () => {
     setTaggedWith(null);
   }, [query]);
   const handleQueryValueRemove = useCallback(() => {
-    //get query , split it , separate all quey value and remove the condition one and join it again.
+    //get query , split it , separate all quey value and
+    // remove the condition one and join it again.
     let queryStr = query
       .split("AND")
       .filter((str) => str.includes(":"))
@@ -254,40 +214,32 @@ const Sandbox = () => {
     handleTaggedWithRemove,
   ]);
 
-  const handleAvailabilityValue= useCallback(
-    () => {
+  const handleAvailabilityValue = useCallback(() => {
+    if (availability.length > 0) {
       let qStr = query;
       availability.map((val) => {
         qStr = qStr + " AND " + "published_status:" + val;
       });
-      //console.log(qStr);
       setQuery(qStr);
-    },
-    [query, availability],
-  )
+    }
+  }, [query, availability]);
 
-  const handleProductTypeValue= useCallback(
-    () => {
+  const handleProductTypeValue = useCallback(() => {
+    if (productType.length > 0) {
       let qStr = query;
       productType.map((val) => {
         qStr = qStr + " AND " + "product_type:" + val;
       });
-      //console.log(qStr);
       setQuery(qStr);
-    },
-    [query, productType],
-  )
+    }
+  }, [query, productType]);
 
-  const handleTaggedValue= useCallback(
-    () => {
+  const handleTaggedValue = useCallback(() => {
+    if (taggedWith) {
       let qStr = query + " AND " + "tag:" + taggedWith;
-      //console.log(qStr);
       setQuery(qStr);
-    },
-    [query,taggedWith],
-  )
- 
-
+    }
+  }, [query, taggedWith]);
 
   //DEfine all filters
   const filters = [
@@ -296,18 +248,18 @@ const Sandbox = () => {
       label: "Availability",
       filter: (
         <div>
-        <ChoiceList
-          title="Availability"
-          titleHidden
-          choices={[
-            { label: "Online Store", value: "Online Store" },
-            { label: "Point of Sale", value: "Point of Sale" },
-          ]}
-          selected={availability || []}
-          onChange={handleAvailabilityChange}
-          allowMultiple
-        />
-        <Button onClick={handleAvailabilityValue}>Done</Button>
+          <ChoiceList
+            title="Availability"
+            titleHidden
+            choices={[
+              { label: "Online Store", value: "Online Store" },
+              { label: "Point of Sale", value: "Point of Sale" },
+            ]}
+            selected={availability || []}
+            onChange={handleAvailabilityChange}
+            allowMultiple
+          />
+          <Button onClick={handleAvailabilityValue} plain disabled={!availability}>Done</Button>
         </div>
       ),
       shortcut: true,
@@ -329,7 +281,7 @@ const Sandbox = () => {
             onChange={handleProductTypeChange}
             allowMultiple
           />
-          <Button onClick={handleProductTypeValue}>Done</Button>
+          <Button onClick={handleProductTypeValue} plain disabled={!productType}>Done</Button>
         </div>
       ),
     },
@@ -344,7 +296,7 @@ const Sandbox = () => {
             onChange={handleTaggedWithChange}
             labelHidden
           />
-          {/* <Button onClick={handleTaggedValue}>Done</Button> */}
+          <Button onClick={handleTaggedValue} plain disabled={!taggedWith}>Done</Button>
         </div>
       ),
     },
@@ -374,7 +326,6 @@ const Sandbox = () => {
       key,
       label: disambiguateLabel(key, taggedWith),
       onRemove: handleTaggedWithRemove,
-      onAction: handleTaggedValue,
     });
   }
 
