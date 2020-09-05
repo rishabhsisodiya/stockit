@@ -207,6 +207,7 @@ const Sandbox = () => {
     handleProductTypeRemove();
     handleTaggedWithRemove();
     handleQueryValueRemove();
+    setQuery('');
   }, [
     handleAvailabilityRemove,
     handleQueryValueRemove,
@@ -222,7 +223,7 @@ const Sandbox = () => {
       });
       setQuery(qStr);
     }
-  }, [query, availability]);
+  }, [query, availability,handleAvailabilityRemove]);
 
   const handleProductTypeValue = useCallback(() => {
     if (productType.length > 0) {
@@ -259,7 +260,7 @@ const Sandbox = () => {
             onChange={handleAvailabilityChange}
             allowMultiple
           />
-          <Button onClick={handleAvailabilityValue} plain disabled={!availability}>Done</Button>
+          <Button onClick={handleAvailabilityValue} plain disabled={!availability.length}>Done</Button>
         </div>
       ),
       shortcut: true,
@@ -281,7 +282,7 @@ const Sandbox = () => {
             onChange={handleProductTypeChange}
             allowMultiple
           />
-          <Button onClick={handleProductTypeValue} plain disabled={!productType}>Done</Button>
+          <Button onClick={handleProductTypeValue} plain disabled={!productType.length}>Done</Button>
         </div>
       ),
     },
