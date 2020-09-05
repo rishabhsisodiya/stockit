@@ -3,8 +3,8 @@ import {Card, Tabs, DataTable,Link} from '@shopify/polaris';
 import ProductList from './ProductList';
 import TestProductList from './TestList';
 import Sandbox from './sandbox';
-import Products from './Products';
 import gql from "graphql-tag";
+import { useQuery } from '@apollo/react-hooks';
 
 const savedSearch = gql`
 query{
