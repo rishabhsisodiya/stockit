@@ -103,14 +103,15 @@ function renderTabs(data) {
     }  
 ];
 let savedtabs;
-data.productSavedSearches.edges.map(
-  (tab) =>   savedtabs.push({
-    id:tab.node.id,
-    content:tab.node.name,
-    accessibilityLabel:tab.node.name,
-    panelID:tab.node.name,
-  })
-)
+console.log('edges:',data.productSavedSearches.edges);
+// data.productSavedSearches.edges.map(
+//   (tab) =>   savedtabs.push({
+//     id:tab.node.id,
+//     content:tab.node.name,
+//     accessibilityLabel:tab.node.name,
+//     panelID:tab.node.name,
+//   })
+// )
   tabs = [...tabs,...savedtabs]
   console.log(tabs);
   return tabs;
