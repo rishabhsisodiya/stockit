@@ -136,61 +136,73 @@ const Sandbox = () => {
   const [taggedWith, setTaggedWith] = useState(null);
   const [queryValue, setQueryValue] = useState("");
   const [queryTimeout, setQueryTimeout] = useState(0);
-  const handleAvailabilityChange = useCallback((value) => {
-    // console.log('query availabilty:',value)
-    clearTimeout(queryTimeout);
-    setAvailability(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query;
-        value.map((val) => {
-          qStr = qStr + " AND " + "published_status:" + val;
-        });
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
-  const handleProductTypeChange = useCallback((value) => {
-    // console.log('product type search:',value)
-    clearTimeout(queryTimeout);
-    setProductType(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query;
-        value.map((val) => {
-          qStr = qStr + " AND " + "product_type:" + val;
-        });
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
-  const handleTaggedWithChange = useCallback((value) => {
-    console.log("query in tagged:", query);
-    console.log("tagged search:", value);
-    clearTimeout(queryTimeout);
-    setTaggedWith(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query + " AND " + "tag:" + value;
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
+  const handleAvailabilityChange = useCallback(
+    (value) => {
+      // console.log('query availabilty:',value)
+      // clearTimeout(queryTimeout);
+      setAvailability(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query;
+      //     value.map((val) => {
+      //       qStr = qStr + " AND " + "published_status:" + val;
+      //     });
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    [query, queryTimeout]
+  );
+  const handleProductTypeChange = useCallback(
+    (value) => {
+      // console.log('product type search:',value)
+      // clearTimeout(queryTimeout);
+      setProductType(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query;
+      //     value.map((val) => {
+      //       qStr = qStr + " AND " + "product_type:" + val;
+      //     });
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    [query, queryTimeout]
+  );
+  const handleTaggedWithChange = useCallback(
+    (value) => {
+      // console.log("query in tagged:", query);
+      // console.log("tagged search:", value);
+      // clearTimeout(queryTimeout);
+      setTaggedWith(value);
+      // setQueryTimeout(
+      //   setTimeout(() => {
+      //     let qStr = query + " AND " + "tag:" + value;
+      //     //console.log(qStr);
+      //     setQuery(qStr);
+      //   }, 3000)
+      // );
+    },
+    []
+  );
 
-  const handleFiltersQueryChange = useCallback((value) => {
-    // clearTimeout(queryTimeout);
-    setQueryValue(value);
-    setQueryTimeout(
-      setTimeout(() => {
-        let qStr = query + " AND " + value;
-        //console.log(qStr);
-        setQuery(qStr);
-      }, 3000)
-    );
-  }, [query,queryTimeout]);
+  const handleFiltersQueryChange = useCallback(
+    (value) => {
+      // clearTimeout(queryTimeout);
+      setQueryValue(value);
+      setQueryTimeout(
+        setTimeout(() => {
+          let qStr = query + " AND " + value;
+          //console.log(qStr);
+          setQuery(qStr);
+        }, 3000)
+      );
+    },
+    [query, queryTimeout]
+  );
 
   // Filter remove methods
   const handleAvailabilityRemove = useCallback(() => {
@@ -201,7 +213,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setAvailability(null);
-  }, [query,queryTimeout]);
+  }, [query]);
   const handleProductTypeRemove = useCallback(() => {
     let queryStr = query
       .split("AND")
@@ -210,7 +222,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setProductType(null);
-  }, [query,queryTimeout]);
+  }, [query]);
   const handleTaggedWithRemove = useCallback(() => {
     let queryStr = query
       .split("AND")
@@ -219,7 +231,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setTaggedWith(null);
-  }, [query,queryTimeout]);
+  }, [query]);
   const handleQueryValueRemove = useCallback(() => {
     //get query , split it , separate all quey value and remove the condition one and join it again.
     let queryStr = query
@@ -229,7 +241,7 @@ const Sandbox = () => {
     //console.log(queryStr);
     setQuery(queryStr);
     setQueryValue("");
-  }, [query,queryTimeout]);
+  }, [query]);
   const handleFiltersClearAll = useCallback(() => {
     handleAvailabilityRemove();
     handleProductTypeRemove();
@@ -305,6 +317,11 @@ const Sandbox = () => {
       label: disambiguateLabel(key, availability),
       onRemove: handleAvailabilityRemove,
     });
+    let qStr = query;
+    availability.map((val) => {
+      qStr = qStr + " AND " + "published_status:" + val;
+    });
+    setQuery(qStr);
   }
   if (!isEmpty(productType)) {
     const key = "productType";
@@ -313,6 +330,11 @@ const Sandbox = () => {
       label: disambiguateLabel(key, productType),
       onRemove: handleProductTypeRemove,
     });
+    let qStr = query;
+    productType.map((val) => {
+      qStr = qStr + " AND " + "product_type:" + val;
+    });
+    setQuery(qStr);
   }
   if (!isEmpty(taggedWith)) {
     const key = "taggedWith";
@@ -321,9 +343,9 @@ const Sandbox = () => {
       label: disambiguateLabel(key, taggedWith),
       onRemove: handleTaggedWithRemove,
     });
-    // let qStr = query + " AND " + "tag:" + value;
-    // console.log(qStr);
-    // setQuery(qStr);
+    let qStr = query + " AND " + "tag:" + taggedWith;
+    console.log(qStr);
+    setQuery(qStr);
   }
 
   const filterControl = (
