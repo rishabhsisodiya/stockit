@@ -78,8 +78,7 @@ if (loading)
     return <div>{"Reload the App, press f5" + error.message}</div>;
   }
   console.log(data);
-  const tabs= [...renderTabs(data.productSavedSearches.edges)];
-  console.log('tabs:',tabs);
+  const {tabs,queryData}= [...renderTabs(data.productSavedSearches.edges)];
 
   let tabSelected;
   if (selected==0) {
@@ -87,7 +86,7 @@ if (loading)
   }
   else{
     // tabSelected=<TestProductList/>
-    tabSelected=<SandboxF filterQuery={filter[selected].query}/>
+    tabSelected=<SandboxF filterQuery={queryData[selected].query}/>
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
@@ -122,9 +121,8 @@ items.map(
   }
 )
   tabs = [...tabs,...savedtabs]
-  setFilter(queryData)
   // console.log(tabs);
-  return tabs;
+  return {tabs,queryData};
 }
 
 }
