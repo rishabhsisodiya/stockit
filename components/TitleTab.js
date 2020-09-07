@@ -31,7 +31,7 @@ const TitleTab = () => {
 
   const [selected, setSelected] = useState(0);
   const { loading, error, data } = useQuery(savedSearch);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState([]);
    
     const handleTabChange = useCallback(
       (selectedTabIndex) => setSelected(selectedTabIndex),
@@ -87,7 +87,7 @@ if (loading)
   }
   else{
     // tabSelected=<TestProductList/>
-    tabSelected=<SandboxF filterQuery={tabs[selected].url}/>
+    tabSelected=<SandboxF filterQuery={filter[selected].query}/>
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
@@ -110,16 +110,19 @@ function renderTabs(items) {
     }  
 ];
 let savedtabs=[];
+let queryData=[];
 items.map(
-  (item) => savedtabs.push({
+  (item,id) => {savedtabs.push({
       id:item.node.id,
       content:item.node.name,
       accessibilityLabel:item.node.name,
       panelID:item.node.id,
-      url:item.node.query,
     }) 
+    queryData.push({query:item.node.query})
+  }
 )
   tabs = [...tabs,...savedtabs]
+  setFilter(queryData)
   // console.log(tabs);
   return tabs;
 }
