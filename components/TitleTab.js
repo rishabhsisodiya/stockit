@@ -79,6 +79,8 @@ if (loading)
   }
   console.log(data);
   const {tabs,queryData}= renderTabs(data.productSavedSearches.edges);
+  console.log('tabs',tabs);
+  console.log('queryData:',queryData);
 
   let tabSelected;
   if (selected==0) {
