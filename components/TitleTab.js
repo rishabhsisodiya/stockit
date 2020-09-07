@@ -87,7 +87,7 @@ if (loading)
   }
   else{
     // tabSelected=<TestProductList/>
-    tabSelected=<SandboxF filterQuery={tabs[selected].content}/>
+    tabSelected=<SandboxF filterQuery={tabs[selected].url}/>
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
@@ -113,9 +113,10 @@ let savedtabs=[];
 items.map(
   (item) => savedtabs.push({
       id:item.node.id,
-      content:item.node.query,
+      content:item.node.name,
       accessibilityLabel:item.node.name,
-      panelID:item.node.name,
+      panelID:item.node.id,
+      url:item.node.query,
     }) 
 )
   tabs = [...tabs,...savedtabs]
