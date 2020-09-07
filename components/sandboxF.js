@@ -124,8 +124,8 @@ const GET_All_PRODUCTS = gql`
   }
 `;
 
-const Sandbox = (props) => {
-  console.log("Sandbox rendering..");
+const SandboxF = (props) => {
+  console.log("SandboxFilter rendering..");
   const [ createSavedSearch, {cLoading,cError,cData} ] = useMutation(SAVED_SEARCH_CREATE);
   const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
   const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
@@ -159,7 +159,7 @@ const Sandbox = (props) => {
   const [sort, setSort] = useState("INVENTORY_TOTAL");
   const [reverse, setReverse] = useState(false);
   //filter
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(props.filterQuery);
   console.log("Active query:", query);
   //-----------GraphQl query state variable--------------END------------
 
@@ -313,6 +313,9 @@ const Sandbox = (props) => {
   const saveFilterHandler = useCallback(
     () => {
       console.log('Save Search ');
+      // popover for save , update
+      //call save method
+      // call update method
     },
     [],
   )
@@ -631,4 +634,4 @@ const Sandbox = (props) => {
   }
 };
 
-export default Sandbox;
+export default SandboxF;

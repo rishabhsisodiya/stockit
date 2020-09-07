@@ -5,6 +5,7 @@ import TestProductList from './TestList';
 import Sandbox from './sandbox';
 import gql from "graphql-tag";
 import { useQuery } from '@apollo/react-hooks';
+import SandboxF from './sandboxF';
 
 const savedSearch = gql`
 query{
@@ -30,6 +31,7 @@ const TitleTab = () => {
 
   const [selected, setSelected] = useState(0);
   const { loading, error, data } = useQuery(savedSearch);
+  const [filter, setFilter] = useState('');
    
     const handleTabChange = useCallback(
       (selectedTabIndex) => setSelected(selectedTabIndex),
@@ -57,16 +59,7 @@ const TitleTab = () => {
     //     },   
     // ];
 
-    let tabSelected;
-if (selected==0) {
-  tabSelected=<Sandbox/>
-}
-if (selected==1) {
-  tabSelected=<TestProductList/>
-}
-if (selected==2) {
-  tabSelected=<ProductList/>
-}
+ 
 console.log('tab rendering..');
 if (loading)
     return (
@@ -86,10 +79,23 @@ if (loading)
   }
   console.log(data);
   const tabs= [...renderTabs(data.productSavedSearches.edges)];
+  console.log('tabs:',tabs);
+
+  let tabSelected;
+  if (selected==0) {
+    tabSelected=<Sandbox/>
+  }
+  else{
+    // tabSelected=<TestProductList/>
+    tabSelected=<SandboxF filterQuery={tabs[selected].content}/>
+  }
+  // if (selected==2) {
+  //   tabSelected=<ProductList/>
+  // }
 return (
   <Card>
     <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
-      <Sandbox />
+      {tabSelected}
     </Tabs>
   </Card>
 ); 
@@ -97,24 +103,17 @@ return (
 function renderTabs(items) {
   let tabs = [
     {
-    id: 'Dev',
-    content: 'Dev',  
-    accessibilityLabel: 'Dev',  
-    panelID: 'Dev',  
+    id: 'ALL',
+    content: 'ALL',  
+    accessibilityLabel: 'ALL',  
+    panelID: 'ALL',  
     }  
 ];
 let savedtabs=[];
-// console.log(nodes);
-// savedtabs.push({
-//   id:tab.node.id,
-//   content:tab.node.name,
-//   accessibilityLabel:tab.node.name,
-//   panelID:tab.node.name,
-// })
 items.map(
   (item) => savedtabs.push({
       id:item.node.id,
-      content:item.node.name,
+      content:item.node.query,
       accessibilityLabel:item.node.name,
       panelID:item.node.name,
     }) 
