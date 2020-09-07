@@ -78,7 +78,7 @@ if (loading)
     return <div>{"Reload the App, press f5" + error.message}</div>;
   }
   console.log(data);
-  const {tabs,queryData}= [...renderTabs(data.productSavedSearches.edges)];
+  const {tabs,queryData}= renderTabs(data.productSavedSearches.edges);
 
   let tabSelected;
   if (selected==0) {
@@ -86,7 +86,7 @@ if (loading)
   }
   else{
     // tabSelected=<TestProductList/>
-    tabSelected=<SandboxF filterQuery={queryData[selected].query}/>
+    tabSelected=<SandboxF filterQuery={queryData[selected-1].query}/>
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
