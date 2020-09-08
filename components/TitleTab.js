@@ -84,7 +84,7 @@ const TitleTab = () => {
 
   let tabSelected;
   if (selected == 0) {
-    tabSelected = <Sandbox />;
+    tabSelected = <Sandbox callback={refetch}/>;
   } else {
     // tabSelected=<TestProductList/>
     tabSelected = <SandboxF filterData={queryData[selected - 1]} callback={refetch}/>;

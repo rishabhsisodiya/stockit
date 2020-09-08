@@ -318,6 +318,7 @@ const SandboxF = (props) => {
             id:props.filterData.id,
           } 
         } });
+        props.callback();
     },
     [props],
   )
