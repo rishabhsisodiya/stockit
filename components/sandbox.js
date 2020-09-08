@@ -320,7 +320,7 @@ console.log("Data in saved Search", cData);
         input: {
           resourceType:"Product",
           name: "Custom Filter",
-          query: query,
+          query: "TEST",
         } 
       } });
       props.callback();

@@ -312,7 +312,6 @@ const SandboxF = (props) => {
 
   const deleteFilterHandler = useCallback(
     () => {
-      console.log('delete Search ');
       deleteSavedSearch({ variables: { 
           input: {
             id:props.filterData.id,

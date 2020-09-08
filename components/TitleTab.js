@@ -81,7 +81,7 @@ const TitleTab = () => {
   //   });
   //   tabs = [...tabs, ...savedtabs];
   // }, [data])
-
+console.log('Tab Selected',selected);
   let tabSelected;
   if (selected == 0) {
     tabSelected = <Sandbox callback={refetch}/>;
