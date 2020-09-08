@@ -129,6 +129,7 @@ const Sandbox = (props) => {
   const [ createSavedSearch, {cLoading,cError,cData} ] = useMutation(SAVED_SEARCH_CREATE);
   const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
   const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
+  const [filterName, setFilterName] = useState('Custom Filter');
 
   // createSavedSearch({ variables: { 
   //   input: {
@@ -313,8 +314,16 @@ const Sandbox = (props) => {
   const saveFilterHandler = useCallback(
     () => {
       console.log('Save Search ');
+      // Popover for Name
+      createSavedSearch({ variables: { 
+        input: {
+          resourceType:"Product",
+          name: filterName,
+          query: query,
+        } 
+      } });
     },
-    [],
+    [query, filterName],
   )
 
   //DEfine all filters

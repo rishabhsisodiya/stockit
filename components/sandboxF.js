@@ -159,7 +159,7 @@ const SandboxF = (props) => {
   const [sort, setSort] = useState("INVENTORY_TOTAL");
   const [reverse, setReverse] = useState(false);
   //filter
-  const [query, setQuery] = useState(props.filterQuery);
+  const [query, setQuery] = useState(props.filterData.query);
   console.log("Active query:", query);
   //-----------GraphQl query state variable--------------END------------
 
@@ -310,14 +310,16 @@ const SandboxF = (props) => {
     }
   }, [query, taggedWith]);
 
-  const saveFilterHandler = useCallback(
+  const deleteFilterHandler = useCallback(
     () => {
-      console.log('Save Search ');
-      // popover for save , update
-      //call save method
-      // call update method
+      console.log('delete Search ');
+      deleteSavedSearch({ variables: { 
+          input: {
+            id:props.filterData.id,
+          } 
+        } });
     },
-    [],
+    [props],
   )
 
   //DEfine all filters
@@ -417,7 +419,7 @@ const SandboxF = (props) => {
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
     >
-    <Button onClick={saveFilterHandler} disabled={query.length<2}>Save Filter</Button>
+    <Button onClick={deleteFilterHandler} destructive>Delete</Button>
     </Filters>
   );
 
