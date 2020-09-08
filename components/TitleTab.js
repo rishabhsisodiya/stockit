@@ -39,7 +39,6 @@ const TitleTab = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
         }}
       >
         <Spinner accessibilityLabel="loading" />

@@ -132,7 +132,7 @@ const Sandbox = (props) => {
       // Popover for Name
       createSavedSearch({ variables: { 
         input: {
-          resourceType:"Product",
+          resourceType:"PRODUCT",
           name: "Custom Filter",
           query: "TEST",
         } 
