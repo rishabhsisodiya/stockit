@@ -138,6 +138,8 @@ const Sandbox = (props) => {
         },
       },
     });
+    togglePopoverActive();
+    handleFiltersClearAll();
     props.callback();
   };
 
@@ -149,7 +151,10 @@ const Sandbox = (props) => {
     []
   );
 
-  const handleFilterValueChange = useCallback((value) => setFilterValue(value), []);
+  const handleFilterValueChange = useCallback(
+    (value) => setFilterValue(value),
+    []
+  );
 
   const activator = (
     <Button onClick={togglePopoverActive} disclosure>
@@ -470,8 +475,14 @@ const Sandbox = (props) => {
               value={filterValue}
               onChange={handleFilterValueChange}
             />
-            <Button size="slim" onClick={togglePopoverActive}>Cancel</Button>
-            <Button size="slim" onClick={saveFilterHandler}>Save</Button>
+            <div style={{display:flex, justifyContent:"space-between"}}>
+              <Button size="slim" onClick={togglePopoverActive}>
+                Cancel
+              </Button>
+              <Button size="slim" onClick={saveFilterHandler}>
+                Save
+              </Button>
+            </div>
           </FormLayout>
         </Popover>
       </div>
