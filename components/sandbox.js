@@ -318,12 +318,12 @@ const Sandbox = (props) => {
       createSavedSearch({ variables: { 
         input: {
           resourceType:"Product",
-          name: filterName,
+          name: "Custom Filter",
           query: query,
         } 
       } });
     },
-    [query, filterName],
+    [query],
   )
 
   //DEfine all filters

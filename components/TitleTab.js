@@ -27,7 +27,7 @@ const savedSearch = gql`
 
 const TitleTab = () => {
   const [selected, setSelected] = useState(0);
-  const { loading, error, data } = useQuery(savedSearch);
+  const { loading, error, data,refetch } = useQuery(savedSearch);
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = useCallback(
@@ -87,7 +87,7 @@ const TitleTab = () => {
     tabSelected = <Sandbox />;
   } else {
     // tabSelected=<TestProductList/>
-    tabSelected = <SandboxF filterData={queryData[selected - 1]} />;
+    tabSelected = <SandboxF filterData={queryData[selected - 1]} callback={refetch}/>;
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
