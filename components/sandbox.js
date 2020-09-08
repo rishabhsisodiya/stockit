@@ -475,7 +475,7 @@ const Sandbox = (props) => {
               value={filterValue}
               onChange={handleFilterValueChange}
             />
-            <div style={{display:flex, justifyContent:"space-between"}}>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
               <Button size="slim" onClick={togglePopoverActive}>
                 Cancel
               </Button>
