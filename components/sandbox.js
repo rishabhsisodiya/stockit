@@ -25,50 +25,48 @@ import {
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
 
-
 const SAVED_SEARCH_CREATE = gql`
-mutation savedSearchCreate($input: SavedSearchCreateInput!) {
-  savedSearchCreate(input: $input) {
-    savedSearch {
-      id
-    }
-    userErrors {
-      field
-      message
+  mutation savedSearchCreate($input: SavedSearchCreateInput!) {
+    savedSearchCreate(input: $input) {
+      savedSearch {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
     }
   }
-}
 `;
 
 const SAVED_SEARCH_DELETE = gql`
-mutation savedSearchDelete($input: SavedSearchDeleteInput!) {
-  savedSearchDelete(input: $input) {
-    deletedSavedSearchId
-    shop {
-      id
-    }
-    userErrors {
-      field
-      message
+  mutation savedSearchDelete($input: SavedSearchDeleteInput!) {
+    savedSearchDelete(input: $input) {
+      deletedSavedSearchId
+      shop {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
     }
   }
-}
 `;
 
 const SAVED_SEARCH_UPDATE = gql`
-mutation savedSearchUpdate($input: SavedSearchUpdateInput!) {
-  savedSearchUpdate(input: $input) {
-    savedSearch {
-      id
-    }
-    userErrors {
-      field
-      message
+  mutation savedSearchUpdate($input: SavedSearchUpdateInput!) {
+    savedSearchUpdate(input: $input) {
+      savedSearch {
+        id
+      }
+      userErrors {
+        field
+        message
+      }
     }
   }
-}
 `;
-
 
 const GET_All_PRODUCTS = gql`
   query getAllProducts(
@@ -126,45 +124,65 @@ const GET_All_PRODUCTS = gql`
 
 const Sandbox = (props) => {
   console.log("Sandbox rendering..");
-  
+
   const saveFilterHandler = () => {
-      console.log('Save Search ',query);
-      // Popover for Name
-      createSavedSearch({ variables: { 
+    console.log("Save Search ", query);
+    // Popover for Name
+    createSavedSearch({
+      variables: {
         input: {
-          resourceType:"PRODUCT",
-          name: "Custom Filter",
-          query: "TEST",
-        } 
-      } });
-      console.log('Saved');
-      props.callback();
-    }
-  const [ createSavedSearch, {cLoading,cError,cData} ] = useMutation(SAVED_SEARCH_CREATE);
+          resourceType: "PRODUCT",
+          name: filterValue,
+          query: query,
+        },
+      },
+    });
+    props.callback();
+  };
+
+  const [popoverActive, setPopoverActive] = useState(false);
+  const [filterValue, setFilterValue] = useState("");
+
+  const togglePopoverActive = useCallback(
+    () => setPopoverActive((popoverActive) => !popoverActive),
+    []
+  );
+
+  const handleFilterValueChange = useCallback((value) => setFilterValue(value), []);
+
+  const activator = (
+    <Button onClick={togglePopoverActive} disclosure>
+      Save Filter
+    </Button>
+  );
+
+  const [createSavedSearch, { cLoading, cError, cData }] = useMutation(
+    SAVED_SEARCH_CREATE
+  );
   // const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
   // const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
   // const [filterName, setFilterName] = useState('Custom Filter');
-console.log("Error in saved Search", cError);
-console.log("Data in saved Search", cData);
-  // createSavedSearch({ variables: { 
+  console.log("Error in saved Search", cError);
+  console.log("Data in saved Search", cData);
+  // createSavedSearch({ variables: {
   //   input: {
   //     resourceType:"Product",
   //     name: "saved search name",
   //     query: "query",
-  //   } 
+  //   }
   // } });
-  // deleteSavedSearch({ variables: { 
+  // deleteSavedSearch({ variables: {
   //   input: {
   //     id:"search id",
-  //   } 
+  //   }
   // } });
-  // updateSavedSearch({ variables: { 
+  // updateSavedSearch({ variables: {
   //   input: {
   //     id:"search id",
   //     resourceType:"Product",
   //     name: "saved search name",
   //     query: "query",
-  //   } 
+  //   }
   // } });
   //-----------GraphQl query state variable-------------START-------------
   // pagination
@@ -217,7 +235,7 @@ console.log("Data in saved Search", cData);
   //------------Filters----------------------------------
   const [availability, setAvailability] = useState([]);
   const [productType, setProductType] = useState([]);
-  const [taggedWith, setTaggedWith] = useState('');
+  const [taggedWith, setTaggedWith] = useState("");
   const [queryValue, setQueryValue] = useState("");
   const [queryTimeout, setQueryTimeout] = useState(0);
 
@@ -226,7 +244,7 @@ console.log("Data in saved Search", cData);
   }, []);
 
   const handleProductTypeChange = useCallback((value) => {
-     setProductType(value);
+    setProductType(value);
   }, []);
 
   const handleTaggedWithChange = useCallback((value) => {
@@ -273,7 +291,7 @@ console.log("Data in saved Search", cData);
       .join("AND");
     //console.log(queryStr);
     setQuery(queryStr);
-    setTaggedWith('');
+    setTaggedWith("");
   }, [query]);
   const handleQueryValueRemove = useCallback(() => {
     //get query , split it , separate all quey value and
@@ -291,7 +309,7 @@ console.log("Data in saved Search", cData);
     handleProductTypeRemove();
     handleTaggedWithRemove();
     handleQueryValueRemove();
-    setQuery('');
+    setQuery("");
   }, [
     handleAvailabilityRemove,
     handleQueryValueRemove,
@@ -307,7 +325,7 @@ console.log("Data in saved Search", cData);
       });
       setQuery(qStr);
     }
-  }, [query, availability,handleAvailabilityRemove]);
+  }, [query, availability, handleAvailabilityRemove]);
 
   const handleProductTypeValue = useCallback(() => {
     if (productType.length > 0) {
@@ -325,7 +343,6 @@ console.log("Data in saved Search", cData);
       setQuery(qStr);
     }
   }, [query, taggedWith]);
-
 
   //DEfine all filters
   const filters = [
@@ -345,7 +362,13 @@ console.log("Data in saved Search", cData);
             onChange={handleAvailabilityChange}
             allowMultiple
           />
-          <Button onClick={handleAvailabilityValue} plain disabled={!availability.length}>Done</Button>
+          <Button
+            onClick={handleAvailabilityValue}
+            plain
+            disabled={!availability.length}
+          >
+            Done
+          </Button>
         </div>
       ),
       shortcut: true,
@@ -367,7 +390,13 @@ console.log("Data in saved Search", cData);
             onChange={handleProductTypeChange}
             allowMultiple
           />
-          <Button onClick={handleProductTypeValue} plain disabled={!productType.length}>Done</Button>
+          <Button
+            onClick={handleProductTypeValue}
+            plain
+            disabled={!productType.length}
+          >
+            Done
+          </Button>
         </div>
       ),
     },
@@ -382,7 +411,9 @@ console.log("Data in saved Search", cData);
             onChange={handleTaggedWithChange}
             labelHidden
           />
-          <Button onClick={handleTaggedValue} plain disabled={!taggedWith}>Done</Button>
+          <Button onClick={handleTaggedValue} plain disabled={!taggedWith}>
+            Done
+          </Button>
         </div>
       ),
     },
@@ -424,7 +455,25 @@ console.log("Data in saved Search", cData);
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
     >
-    <Button onClick={saveFilterHandler} disabled={query.length<2}>Save Filter</Button>
+      <div style={{ height: "280px" }}>
+        <Popover
+          active={popoverActive}
+          activator={activator}
+          onClose={togglePopoverActive}
+          ariaHaspopup={false}
+          sectioned
+        >
+          <FormLayout>
+            <TextField
+              label="Save as"
+              value={filterValue}
+              onChange={handleFilterValueChange}
+            />
+            <Button size="slim" onClick={togglePopoverActive}>Cancel</Button>
+            <Button size="slim" onClick={saveFilterHandler}>Save</Button>
+          </FormLayout>
+        </Popover>
+      </div>
     </Filters>
   );
 
