@@ -27,18 +27,21 @@ const savedSearch = gql`
 
 const TitleTab = () => {
   const [selected, setSelected] = useState(0);
-  const { loading, error, data,refetch } = useQuery(savedSearch);
+  const { loading, error, data, refetch } = useQuery(savedSearch);
   const [filter, setFilter] = useState([]);
 
-  const handleTabChange = useCallback(
-    (selectedTabIndex) => setSelected(selectedTabIndex),
-    [selected]
-  );
+  const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
   console.log("tab rendering..");
   if (loading)
     return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems:"center" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Spinner accessibilityLabel="loading" />
       </div>
     );
@@ -49,7 +52,13 @@ const TitleTab = () => {
         refetch();
       }, 7000);
       return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems:"center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Spinner accessibilityLabel="loading" />
         </div>
       );
@@ -58,7 +67,7 @@ const TitleTab = () => {
   }
   console.log(data);
   const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
-  
+
   // useEffect(() => {
   //   let tabs = [
   //     {
@@ -81,13 +90,15 @@ const TitleTab = () => {
   //   });
   //   tabs = [...tabs, ...savedtabs];
   // }, [data])
-console.log('Tab Selected',selected);
+  console.log("Tab Selected", selected);
   let tabSelected;
   if (selected == 0) {
-    tabSelected = <Sandbox callback={refetch}/>;
+    tabSelected = <Sandbox callback={refetch} />;
   } else {
     // tabSelected=<TestProductList/>
-    tabSelected = <SandboxF filterData={queryData[selected - 1]} callback={refetch}/>;
+    tabSelected = (
+      <SandboxF filterData={queryData[selected - 1]} callback={refetch} />
+    );
   }
   // if (selected==2) {
   //   tabSelected=<ProductList/>
@@ -119,7 +130,11 @@ console.log('Tab Selected',selected);
         accessibilityLabel: item.node.name,
         panelID: item.node.id,
       });
-      queryData.push({ id:item.node.id,name:item.node.name,query: item.node.query });
+      queryData.push({
+        id: item.node.id,
+        name: item.node.name,
+        query: item.node.query,
+      });
     });
     tabs = [...tabs, ...savedtabs];
     // console.log(tabs);

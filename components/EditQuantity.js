@@ -40,7 +40,7 @@ const EditQuantity = (props) => {
         (newValue) => {
             setvalue(newValue);
         },
-        [],
+        [value],
     )
     const updateHandler = () => {
       addQuantity({ variables: { 

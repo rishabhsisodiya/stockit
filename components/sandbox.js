@@ -126,10 +126,26 @@ const GET_All_PRODUCTS = gql`
 
 const Sandbox = (props) => {
   console.log("Sandbox rendering..");
+  
+  const saveFilterHandler = useCallback(
+    () => {
+      console.log('Save Search ',query);
+      // Popover for Name
+      createSavedSearch({ variables: { 
+        input: {
+          resourceType:"Product",
+          name: "Custom Filter",
+          query: "TEST",
+        } 
+      } });
+      props.callback();
+    },
+    [query],
+  )
   const [ createSavedSearch, {cLoading,cError,cData} ] = useMutation(SAVED_SEARCH_CREATE);
-  const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
-  const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
-  const [filterName, setFilterName] = useState('Custom Filter');
+  // const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
+  // const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
+  // const [filterName, setFilterName] = useState('Custom Filter');
 console.log("Error in saved Search", cError);
 console.log("Data in saved Search", cData);
   // createSavedSearch({ variables: { 
@@ -312,21 +328,6 @@ console.log("Data in saved Search", cData);
     }
   }, [query, taggedWith]);
 
-  const saveFilterHandler = useCallback(
-    () => {
-      console.log('Save Search ',query);
-      // Popover for Name
-      createSavedSearch({ variables: { 
-        input: {
-          resourceType:"Product",
-          name: "Custom Filter",
-          query: "TEST",
-        } 
-      } });
-      props.callback();
-    },
-    [query],
-  )
 
   //DEfine all filters
   const filters = [
