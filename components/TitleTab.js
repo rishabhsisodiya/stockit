@@ -128,7 +128,6 @@ const TitleTab = () => {
         content: item.node.name,
         accessibilityLabel: item.node.name,
         panelID: item.node.id,
-        url:item.node.id
       });
       queryData.push({
         id: item.node.id,

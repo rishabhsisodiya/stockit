@@ -456,7 +456,7 @@ const Sandbox = (props) => {
       onQueryClear={handleQueryValueRemove}
       onClearAll={handleFiltersClearAll}
     >
-      <div style={{ height: "280px" }}>
+      <div>
         <Popover
           active={popoverActive}
           activator={activator}
