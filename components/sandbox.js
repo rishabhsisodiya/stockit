@@ -22,6 +22,7 @@ import {
   ActionList,
   Spinner,
   Loading,
+  FormLayout,
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
 
