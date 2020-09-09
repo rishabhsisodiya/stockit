@@ -538,21 +538,6 @@ const Sandbox = (props) => {
   };
 
 
-// Send Alert mail
-useEffect(() => {
-  const target= {
-    name:"Rishabh",
-    message:"Hello from Shopify"
-  };
-  // emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
-  //     .then((result) => {
-  //         console.log(result.text);
-  //     }, (error) => {
-  //         console.log(error.text);
-  //     });
-  console.log('mail sent',target.message);
-}, [])
-
 
 
   return (
@@ -719,6 +704,22 @@ useEffect(() => {
       return value === "" || value == null;
     }
   }
+
+  // Send Alert mail
+useEffect(() => {
+  const target= {
+    name:"Rishabh",
+    message:"Hello from Shopify"
+  };
+  // emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
+  //     .then((result) => {
+  //         console.log(result.text);
+  //     }, (error) => {
+  //         console.log(error.text);
+  //     });
+  console.log('mail sent',target.message);
+}, [])
+
 };
 
 export default Sandbox;
