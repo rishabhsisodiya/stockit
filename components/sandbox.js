@@ -512,6 +512,7 @@ const Sandbox = (props) => {
 
   const { loading, error, data, refetch } = useQuery(GET_All_PRODUCTS, {
     variables: { numProducts: 20, cursor, sort, reverse, query },
+    pollInterval: 5000,
   });
   if (loading)
     return (
@@ -699,21 +700,7 @@ const Sandbox = (props) => {
       return value === "" || value == null;
     }
   }
-
-  // Send Alert mail
-  useEffect(() => {
-    const target = {
-      name: "Rishabh",
-      message: "Hello from Shopify",
-    };
-    // emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
-    //     .then((result) => {
-    //         console.log(result.text);
-    //     }, (error) => {
-    //         console.log(error.text);
-    //     });
-    console.log("mail sent", target.message);
-  }, []);
+  
 };
 
 export default Sandbox;
