@@ -189,10 +189,7 @@ const Sandbox = (props) => {
   //     query: "query",
   //   }
   // } });
-  const { loading, error, data, refetch } = useQuery(GET_All_PRODUCTS, {
-    variables: { numProducts: 20, cursor, sort, reverse, query },
-    pollInterval: 5000,
-  });
+  
   //-----------GraphQl query state variable-------------START-------------
   // pagination
   const [cursor, setCursor] = useState(null);
@@ -205,7 +202,10 @@ const Sandbox = (props) => {
   const [query, setQuery] = useState("");
   console.log("Active query:", query);
   //-----------GraphQl query state variable--------------END------------
-
+  const { loading, error, data, refetch } = useQuery(GET_All_PRODUCTS, {
+    variables: { numProducts: 20, cursor, sort, reverse, query },
+    pollInterval: 5000,
+  });
   //Sorting Resource List options
   const [sortValue, setSortValue] = useState("INVENTORY_TOTAL-ASC");
   const sortOptions = [
