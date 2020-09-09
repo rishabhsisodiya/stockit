@@ -32,7 +32,10 @@ const TitleTab = () => {
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
-
+  useEffect(() => {
+    console.log('UseEffect',data);
+    
+  }, [])
  
   if (loading)
     return (
@@ -68,6 +71,7 @@ const TitleTab = () => {
   // console.log(data);
   const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
 
+  
   // useEffect(() => {
   //   let tabs = [
   //     {
@@ -90,10 +94,7 @@ const TitleTab = () => {
   //   });
   //   tabs = [...tabs, ...savedtabs];
   // }, [data])
-  useEffect(() => {
-    console.log('UseEffect',data);
-    
-  }, [data])
+ 
   
   let tabSelected;
   if (selected == 0) {
