@@ -2,7 +2,7 @@ import {Page, Layout, Frame} from '@shopify/polaris';
 import TitleTab from '../components/TitleTab';
 
 class Index extends React.Component {
-// Frame for displaying toast
+// Frame used for displaying toast
   render() {
     console.log('index rendering');
     return (

@@ -25,7 +25,7 @@ import {
   FormLayout,
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 
 const SAVED_SEARCH_CREATE = gql`
   mutation savedSearchCreate($input: SavedSearchCreateInput!) {
@@ -128,8 +128,6 @@ const Sandbox = (props) => {
   console.log("Sandbox rendering..");
 
   const saveFilterHandler = () => {
-    console.log("Save Search ", query);
-    // Popover for Name
     createSavedSearch({
       variables: {
         input: {
@@ -476,7 +474,7 @@ const Sandbox = (props) => {
               value={filterValue}
               onChange={handleFilterValueChange}
             />
-            <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button size="slim" onClick={togglePopoverActive}>
                 Cancel
               </Button>
@@ -536,9 +534,6 @@ const Sandbox = (props) => {
     singular: "product",
     plural: "products",
   };
-
-
-
 
   return (
     <Card>
@@ -706,20 +701,19 @@ const Sandbox = (props) => {
   }
 
   // Send Alert mail
-useEffect(() => {
-  const target= {
-    name:"Rishabh",
-    message:"Hello from Shopify"
-  };
-  // emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
-  //     .then((result) => {
-  //         console.log(result.text);
-  //     }, (error) => {
-  //         console.log(error.text);
-  //     });
-  console.log('mail sent',target.message);
-}, [])
-
+  useEffect(() => {
+    const target = {
+      name: "Rishabh",
+      message: "Hello from Shopify",
+    };
+    // emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
+    //     .then((result) => {
+    //         console.log(result.text);
+    //     }, (error) => {
+    //         console.log(error.text);
+    //     });
+    console.log("mail sent", target.message);
+  }, []);
 };
 
 export default Sandbox;

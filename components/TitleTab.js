@@ -4,6 +4,7 @@ import Sandbox from "./sandbox";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import SandboxF from "./sandboxF";
+import './TitleTab.css';
 
 const savedSearch = gql`
   query {
@@ -26,13 +27,14 @@ const savedSearch = gql`
 `;
 
 const TitleTab = () => {
+  console.log("tab rendering..");
   const [selected, setSelected] = useState(0);
-  const { loading, error, data, refetch } = useQuery(savedSearch);
+  const { loading, error, data, refetch } = useQuery(savedSearch,{pollInterval:1000});
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
-  console.log("tab rendering..");
+ 
   if (loading)
     return (
       <div
