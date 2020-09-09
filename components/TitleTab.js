@@ -119,6 +119,9 @@ const TitleTab = () => {
   console.log('Tabs:',tabs);
   console.log('Filter:',filter);
   // const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
+  if (selected>=tabs.length) {
+    setSelected(0);
+  }
   let tabSelected;
   if (selected == 0) {
     tabSelected = <Sandbox callback={refetch} />;
