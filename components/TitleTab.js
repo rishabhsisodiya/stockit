@@ -52,11 +52,10 @@ const TitleTab = () => {
   useEffect(() => {
     console.log("UseEffect", data);
     if (data) {
-      data.productSavedSearches.edges.map((item) => {
-        let savedtabs = [];
+      let savedtabs = [];
         let queryData = [];
 
-        items.map((item, id) => {
+      data.productSavedSearches.edges.map((item) => {
           savedtabs.push({
             id: item.node.id,
             content: item.node.name,
@@ -71,7 +70,6 @@ const TitleTab = () => {
         });
         setTabs([...tabs,...savedtabs]);
         setFilter([...filter,...queryData]);
-      });
     }
     console.log("Data:", filter, tabs);
   }, [data]);
