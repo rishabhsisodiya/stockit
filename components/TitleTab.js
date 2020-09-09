@@ -50,36 +50,50 @@ const TitleTab = () => {
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
   useEffect(() => {
-    console.log("UseEffect", data);
     if (data) {
-      let savedtabs = [];
-        let queryData = [];
+      let savedtabs = [
+        {
+          id: "ALL",
+          content: "ALL",
+          accessibilityLabel: "ALL",
+          panelID: "ALL",
+        },
+      ];
+      let queryData = [
+        {
+          id: "All",
+          name: "All",
+          query: "",
+        },
+      ];
 
       data.productSavedSearches.edges.map((item) => {
-          savedtabs.push({
-            id: item.node.id,
-            content: item.node.name,
-            accessibilityLabel: item.node.name,
-            panelID: item.node.id,
-          });
-          queryData.push({
-            id: item.node.id,
-            name: item.node.name,
-            query: item.node.query,
-          });
+        savedtabs.push({
+          id: item.node.id,
+          content: item.node.name,
+          accessibilityLabel: item.node.name,
+          panelID: item.node.id,
         });
-        setTabs([...tabs,...savedtabs]);
-        setFilter([...filter,...queryData]);
+        queryData.push({
+          id: item.node.id,
+          name: item.node.name,
+          query: item.node.query,
+        });
+      });
+      setTabs(savedtabs);
+      setFilter(queryData);
     }
-    console.log("Data:", filter, tabs);
   }, [data]);
 
+  // Loading
   if (loading)
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Spinner accessibilityLabel="loading" />
       </div>
     );
+
+  // Error
   if (error) {
     if (error.message == "GraphQL error: Throttled") {
       console.log("Reached GraphQl Limit, Wait for some seconds");
@@ -101,7 +115,9 @@ const TitleTab = () => {
       </div>
     );
   }
-  // console.log(data);
+  console.log(data);
+  console.log('Tabs:',tabs);
+  console.log('Filter:',filter);
   // const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
   let tabSelected;
   if (selected == 0) {
