@@ -527,7 +527,7 @@ const Sandbox = (props) => {
           const varTitle =
             varItem.node.title !== "Default Title" ? varItem.node.title : "";
 
-          const completeTitle = prodTitle + varTitle;
+          const completeTitle = prodTitle +' '+ varTitle;
           if (availableQuantity <= alert) {
             outOfStock.push({
               title: completeTitle,
@@ -541,12 +541,12 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
-      // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_USER_ID')
-      // .then((result) => {
-      //     console.log(result.text);
-      // }, (error) => {
-      //     console.log(error.text);
-      // });
+      emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:outOfStock}, 'user_vBk9y4XIaEL5tzwT88IuZ')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
       console.log("Email sent:", outOfStock);
     }
   }, [data]);
