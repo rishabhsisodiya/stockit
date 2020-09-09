@@ -189,6 +189,10 @@ const Sandbox = (props) => {
   //     query: "query",
   //   }
   // } });
+  const { loading, error, data, refetch } = useQuery(GET_All_PRODUCTS, {
+    variables: { numProducts: 20, cursor, sort, reverse, query },
+    pollInterval: 5000,
+  });
   //-----------GraphQl query state variable-------------START-------------
   // pagination
   const [cursor, setCursor] = useState(null);
@@ -510,10 +514,10 @@ const Sandbox = (props) => {
     },
   ];
 
-  const { loading, error, data, refetch } = useQuery(GET_All_PRODUCTS, {
-    variables: { numProducts: 20, cursor, sort, reverse, query },
-    pollInterval: 5000,
-  });
+  useEffect(() => {
+    console.log('useEffect:',data);
+  }, [data])
+
   if (loading)
     return (
       <div style={{ display: "flex", justifyContent: "center" }}>
