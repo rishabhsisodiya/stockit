@@ -540,7 +540,11 @@ const Sandbox = (props) => {
 
 // Send Alert mail
 useEffect(() => {
-  emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:"Hello from Shopify"}, 'user_vBk9y4XIaEL5tzwT88IuZ')
+  const target= {
+    name:"Rishabh",
+    message:"Hello from Shopify"
+  };
+  emailjs.sendForm('service_Rish123', 'template_3tyh07s', target, 'user_vBk9y4XIaEL5tzwT88IuZ')
       .then((result) => {
           console.log(result.text);
       }, (error) => {
