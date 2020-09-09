@@ -189,7 +189,7 @@ const Sandbox = (props) => {
   //     query: "query",
   //   }
   // } });
-  
+
   //-----------GraphQl query state variable-------------START-------------
   // pagination
   const [cursor, setCursor] = useState(null);
@@ -515,25 +515,29 @@ const Sandbox = (props) => {
   ];
 
   useEffect(() => {
-    console.log('useEffect:',data);
+    console.log("useEffect:", data);
     let alert = 5;
-    let outOfStock=[];
-    if(data){
-      data.products.edges.map( (item) => {
-      const inventoryQuantity = item.node.variants.edges[variantKey].node.inventoryQuantity;
-      const productTitle=item.node.title;
-      const variantTitle =
-        item.node.variants.edges[variantKey].node.title !== "Default Title"
-          ? item.node.variants.edges[variantKey].node.title
-          : "";
-      const completeTitle=productTitle+variantTitle;
-      if (inventoryQuantity<=alert) {
-        outOfStock.push({
-          title:completeTitle,
-          quantity:inventoryQuantity,
-        })
-      }
-      })
+    let outOfStock = [];
+    if (data) {
+      data.products.edges.map((item) => {
+        const prodTitle = item.node.title;
+
+        item.node.variants.edges.map((varItem) => {
+          const availableQuantity = varItem.node.inventoryQuantity;
+          const varTitle =
+            varItem.node.title !== "Default Title" ? varItem.node.title : "";
+
+          const completeTitle = prodTitle + varTitle;
+          if (availableQuantity <= alert) {
+            outOfStock.push({
+              title: completeTitle,
+              quantity: inventoryQuantity,
+            });
+          }
+          
+        });
+
+      });
     }
 
     if (outOfStock.length) {
@@ -543,11 +547,9 @@ const Sandbox = (props) => {
       // }, (error) => {
       //     console.log(error.text);
       // });
-      console.log('Email sent:',outOfStock);
+      console.log("Email sent:", outOfStock);
     }
-    
-    
-  }, [data])
+  }, [data]);
 
   if (loading)
     return (
@@ -735,7 +737,6 @@ const Sandbox = (props) => {
       return value === "" || value == null;
     }
   }
-  
 };
 
 export default Sandbox;
