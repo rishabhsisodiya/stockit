@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import {
   Avatar,
   Button,
@@ -25,6 +25,7 @@ import {
   FormLayout,
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
+import emailjs from 'emailjs-com';
 
 const SAVED_SEARCH_CREATE = gql`
   mutation savedSearchCreate($input: SavedSearchCreateInput!) {
@@ -168,8 +169,8 @@ const Sandbox = (props) => {
   // const [ deleteSavedSearch, {dLoading,dError,dData} ] = useMutation(SAVED_SEARCH_DELETE);
   // const [ updateSavedSearch, {uLoading,uError,uData} ] = useMutation(SAVED_SEARCH_UPDATE);
   // const [filterName, setFilterName] = useState('Custom Filter');
-  console.log("Error in saved Search", cError);
-  console.log("Data in saved Search", cData);
+  // console.log("Error in saved Search", cError);
+  // console.log("Data in saved Search", cData);
   // createSavedSearch({ variables: {
   //   input: {
   //     resourceType:"Product",
@@ -535,6 +536,19 @@ const Sandbox = (props) => {
     singular: "product",
     plural: "products",
   };
+
+
+// Send Alert mail
+useEffect(() => {
+  emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:"Hello from Shopify"}, 'user_vBk9y4XIaEL5tzwT88IuZ')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+}, [])
+
+
 
   return (
     <Card>
