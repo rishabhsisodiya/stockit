@@ -4,7 +4,7 @@ import Sandbox from "./sandbox";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import SandboxF from "./sandboxF";
-// import './TitleTab.css';
+import classes from "./style";
 
 const savedSearch = gql`
   query {
@@ -29,20 +29,16 @@ const savedSearch = gql`
 const TitleTab = () => {
   console.log("tab rendering..");
   const [selected, setSelected] = useState(0);
-  const { loading, error, data, refetch } = useQuery(savedSearch,{pollInterval:1000});
+  const { loading, error, data, refetch } = useQuery(savedSearch, {
+    pollInterval: 1000,
+  });
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
- 
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <div className={classes.Spinner}>
         <Spinner accessibilityLabel="loading" />
       </div>
     );
@@ -51,15 +47,9 @@ const TitleTab = () => {
       console.log("Reached GraphQl Limit, Wait for some seconds");
       setTimeout(() => {
         refetch();
-      }, 7000);
+      }, 3000);
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className={classes.Spinner}>
           <Spinner accessibilityLabel="loading" />
         </div>
       );
@@ -91,7 +81,7 @@ const TitleTab = () => {
   //   });
   //   tabs = [...tabs, ...savedtabs];
   // }, [data])
-  console.log("Tab Selected", selected);
+  
   let tabSelected;
   if (selected == 0) {
     tabSelected = <Sandbox callback={refetch} />;
@@ -101,9 +91,7 @@ const TitleTab = () => {
       <SandboxF filterData={queryData[selected - 1]} callback={refetch} />
     );
   }
-  // if (selected==2) {
-  //   tabSelected=<ProductList/>
-  // }
+ 
   return (
     <Card>
       <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
