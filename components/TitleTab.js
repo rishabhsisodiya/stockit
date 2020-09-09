@@ -4,7 +4,7 @@ import Sandbox from "./sandbox";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import SandboxF from "./sandboxF";
-import './TitleTab.css';
+// import './TitleTab.css';
 
 const savedSearch = gql`
   query {
