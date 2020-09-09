@@ -53,23 +53,24 @@ const TitleTab = () => {
     console.log("UseEffect", data);
     if (data) {
       data.productSavedSearches.edges.map((item) => {
-        setTabs([
-          ...tabs,
-          {
+        let savedtabs = [];
+        let queryData = [];
+
+        items.map((item, id) => {
+          savedtabs.push({
             id: item.node.id,
             content: item.node.name,
             accessibilityLabel: item.node.name,
             panelID: item.node.id,
-          },
-        ]);
-        setFilter([
-          ...filter,
-          {
+          });
+          queryData.push({
             id: item.node.id,
             name: item.node.name,
             query: item.node.query,
-          },
-        ]);
+          });
+        });
+        setTabs([...tabs,...savedtabs]);
+        setFilter([...filter,...queryData]);
       });
     }
     console.log("Data:", filter, tabs);
