@@ -531,10 +531,10 @@ const Sandbox = (props) => {
           if (availableQuantity <= alert) {
             outOfStock.push({
               title: completeTitle,
-              quantity: inventoryQuantity,
+              quantity: availableQuantity,
             });
           }
-          
+
         });
 
       });
