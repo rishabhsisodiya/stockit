@@ -4,7 +4,6 @@ import Sandbox from "./sandbox";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import SandboxF from "./sandboxF";
-import classes from "./style";
 
 const savedSearch = gql`
   query {
@@ -29,16 +28,20 @@ const savedSearch = gql`
 const TitleTab = () => {
   console.log("tab rendering..");
   const [selected, setSelected] = useState(0);
-  const { loading, error, data, refetch } = useQuery(savedSearch, {
-    pollInterval: 1000,
-  });
+  const { loading, error, data, refetch } = useQuery(savedSearch,{pollInterval:1000});
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
+ 
   if (loading)
     return (
-      <div className={classes.Spinner}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Spinner accessibilityLabel="loading" />
       </div>
     );
@@ -47,16 +50,22 @@ const TitleTab = () => {
       console.log("Reached GraphQl Limit, Wait for some seconds");
       setTimeout(() => {
         refetch();
-      }, 3000);
+      }, 7000);
       return (
-        <div className={classes.Spinner}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Spinner accessibilityLabel="loading" />
         </div>
       );
     }
     return <div>{"Reload the App, press f5" + error.message}</div>;
   }
-  console.log(data);
+  // console.log(data);
   const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
 
   // useEffect(() => {
@@ -81,6 +90,10 @@ const TitleTab = () => {
   //   });
   //   tabs = [...tabs, ...savedtabs];
   // }, [data])
+  useEffect(() => {
+    console.log('UseEffect',data);
+    
+  }, [data])
   
   let tabSelected;
   if (selected == 0) {
@@ -92,6 +105,7 @@ const TitleTab = () => {
     );
   }
  
+
   return (
     <Card>
       <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
