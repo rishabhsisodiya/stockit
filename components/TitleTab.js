@@ -28,23 +28,47 @@ const savedSearch = gql`
 const TitleTab = () => {
   console.log("tab rendering..");
   const [selected, setSelected] = useState(0);
-  const { loading, error, data, refetch } = useQuery(savedSearch,{pollInterval:1000});
+  const { loading, error, data, refetch } = useQuery(savedSearch, {
+    pollInterval: 5000,
+  });
+  const [tabs, setTabs] = useState([
+    {
+      id: "ALL",
+      content: "ALL",
+      accessibilityLabel: "ALL",
+      panelID: "ALL",
+    },
+  ]);
   const [filter, setFilter] = useState([]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
   useEffect(() => {
-    console.log('UseEffect',data);
-    
-  }, [data])
- 
+    console.log("UseEffect", data);
+    data.productSavedSearches.edges.map((item) => {
+      setTabs([
+        ...tabs,
+        {
+          id: item.node.id,
+          content: item.node.name,
+          accessibilityLabel: item.node.name,
+          panelID: item.node.id,
+        },
+      ]);
+      setFilter([
+        ...filter,
+        {
+          id: item.node.id,
+          name: item.node.name,
+          query: item.node.query,
+        },
+      ]);
+    });
+    console.log("Data:", filter, tabs);
+  }, [data, tabs, filter]);
+
   if (loading)
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
+      <div style={{display:"flex",justifyContent:"center"}}>
         <Spinner accessibilityLabel="loading" />
       </div>
     );
@@ -53,59 +77,31 @@ const TitleTab = () => {
       console.log("Reached GraphQl Limit, Wait for some seconds");
       setTimeout(() => {
         refetch();
-      }, 7000);
+      }, 5000);
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div style={{display:"flex",justifyContent:"center"}}>
           <Spinner accessibilityLabel="loading" />
         </div>
       );
     }
-    return <div>{"Reload the App, press f5" + error.message}</div>;
+    return (
+    <div>
+      <p style={{color:"red"}}>Unexpected Error uncountered Please Report</p>
+      {error.message}
+    </div>
+    );
   }
   // console.log(data);
-  const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
-
-  
-  // useEffect(() => {
-  //   let tabs = [
-  //     {
-  //       id: "ALL",
-  //       content: "ALL",
-  //       accessibilityLabel: "ALL",
-  //       panelID: "ALL",
-  //     },
-  //   ];
-  //   let savedtabs = [];
-  //   let queryData = [];
-  //   items.map((item, id) => {
-  //     savedtabs.push({
-  //       id: item.node.id,
-  //       content: item.node.name,
-  //       accessibilityLabel: item.node.name,
-  //       panelID: item.node.id,
-  //     });
-  //     queryData.push({ query: item.node.query });
-  //   });
-  //   tabs = [...tabs, ...savedtabs];
-  // }, [data])
- 
-  
+  // const { tabs, queryData } = renderTabs(data.productSavedSearches.edges);
   let tabSelected;
   if (selected == 0) {
     tabSelected = <Sandbox callback={refetch} />;
   } else {
     // tabSelected=<TestProductList/>
     tabSelected = (
-      <SandboxF filterData={queryData[selected - 1]} callback={refetch} />
+      <SandboxF filterData={filter[selected - 1]} callback={refetch} />
     );
   }
- 
 
   return (
     <Card>
