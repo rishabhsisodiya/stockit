@@ -39,36 +39,45 @@ const TitleTab = () => {
       panelID: "ALL",
     },
   ]);
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState([
+    {
+      id: "All",
+      name: "All",
+      query: "",
+    },
+  ]);
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
+
   useEffect(() => {
     console.log("UseEffect", data);
-    data.productSavedSearches.edges.map((item) => {
-      setTabs([
-        ...tabs,
-        {
-          id: item.node.id,
-          content: item.node.name,
-          accessibilityLabel: item.node.name,
-          panelID: item.node.id,
-        },
-      ]);
-      setFilter([
-        ...filter,
-        {
-          id: item.node.id,
-          name: item.node.name,
-          query: item.node.query,
-        },
-      ]);
-    });
+    if (data) {
+      data.productSavedSearches.edges.map((item) => {
+        setTabs([
+          ...tabs,
+          {
+            id: item.node.id,
+            content: item.node.name,
+            accessibilityLabel: item.node.name,
+            panelID: item.node.id,
+          },
+        ]);
+        setFilter([
+          ...filter,
+          {
+            id: item.node.id,
+            name: item.node.name,
+            query: item.node.query,
+          },
+        ]);
+      });
+    }
     console.log("Data:", filter, tabs);
   }, [data, tabs, filter]);
 
   if (loading)
     return (
-      <div style={{display:"flex",justifyContent:"center"}}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Spinner accessibilityLabel="loading" />
       </div>
     );
@@ -79,16 +88,18 @@ const TitleTab = () => {
         refetch();
       }, 5000);
       return (
-        <div style={{display:"flex",justifyContent:"center"}}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Spinner accessibilityLabel="loading" />
         </div>
       );
     }
     return (
-    <div>
-      <p style={{color:"red"}}>Unexpected Error uncountered Please Report</p>
-      {error.message}
-    </div>
+      <div>
+        <p style={{ color: "red" }}>
+          Unexpected Error uncountered Please Report
+        </p>
+        {error.message}
+      </div>
     );
   }
   // console.log(data);
@@ -98,11 +109,10 @@ const TitleTab = () => {
     tabSelected = <Sandbox callback={refetch} />;
   } else {
     // tabSelected=<TestProductList/>
-    tabSelected = (
-      <SandboxF filterData={filter[selected - 1]} callback={refetch} />
-    );
+    tabSelected = <SandboxF filterData={filter[selected]} callback={refetch} />;
   }
-
+  console.log("tabs:", tabs);
+  console.log("FilterData:", filter);
   return (
     <Card>
       <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
