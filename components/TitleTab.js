@@ -49,31 +49,31 @@ const TitleTab = () => {
 
   const handleTabChange = (selectedTabIndex) => setSelected(selectedTabIndex);
 
-  useEffect(() => {
-    console.log("UseEffect", data);
-    if (data) {
-      data.productSavedSearches.edges.map((item) => {
-        setTabs([
-          ...tabs,
-          {
-            id: item.node.id,
-            content: item.node.name,
-            accessibilityLabel: item.node.name,
-            panelID: item.node.id,
-          },
-        ]);
-        setFilter([
-          ...filter,
-          {
-            id: item.node.id,
-            name: item.node.name,
-            query: item.node.query,
-          },
-        ]);
-      });
-    }
-    console.log("Data:", filter, tabs);
-  }, [data, tabs, filter]);
+  // useEffect(() => {
+  //   console.log("UseEffect", data);
+  //   if (data) {
+  //     data.productSavedSearches.edges.map((item) => {
+  //       setTabs([
+  //         ...tabs,
+  //         {
+  //           id: item.node.id,
+  //           content: item.node.name,
+  //           accessibilityLabel: item.node.name,
+  //           panelID: item.node.id,
+  //         },
+  //       ]);
+  //       setFilter([
+  //         ...filter,
+  //         {
+  //           id: item.node.id,
+  //           name: item.node.name,
+  //           query: item.node.query,
+  //         },
+  //       ]);
+  //     });
+  //   }
+  //   console.log("Data:", filter, tabs);
+  // }, [data, tabs, filter]);
 
   if (loading)
     return (
