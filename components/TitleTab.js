@@ -35,7 +35,7 @@ const TitleTab = () => {
   useEffect(() => {
     console.log('UseEffect',data);
     
-  }, [])
+  }, [data])
  
   if (loading)
     return (
