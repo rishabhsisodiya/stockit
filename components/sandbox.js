@@ -516,6 +516,37 @@ const Sandbox = (props) => {
 
   useEffect(() => {
     console.log('useEffect:',data);
+    let alert = 5;
+    let outOfStock=[];
+    if(data){
+      data.products.edges.map( (item) => {
+      const inventoryQuantity = item.node.variants.edges[variantKey].node.inventoryQuantity;
+      const productTitle=item.node.title;
+      const variantTitle =
+        item.node.variants.edges[variantKey].node.title !== "Default Title"
+          ? item.node.variants.edges[variantKey].node.title
+          : "";
+      const completeTitle=productTitle+variantTitle;
+      if (inventoryQuantity<=alert) {
+        outOfStock.push({
+          title:completeTitle,
+          quantity:inventoryQuantity,
+        })
+      }
+      })
+    }
+
+    if (outOfStock.length) {
+      // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_USER_ID')
+      // .then((result) => {
+      //     console.log(result.text);
+      // }, (error) => {
+      //     console.log(error.text);
+      // });
+      console.log('Email sent:',outOfStock);
+    }
+    
+    
   }, [data])
 
   if (loading)
