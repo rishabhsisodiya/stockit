@@ -541,7 +541,6 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
-      axio
       axios({
         method: "POST",
         url: "shopifystockit.herokuapp.com/send",
