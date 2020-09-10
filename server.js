@@ -16,7 +16,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
+console.log('server.js');
 const {
   SHOPIFY_API_SECRET_KEY,
   SHOPIFY_API_KEY,
@@ -39,6 +39,7 @@ transporter.verify((error, success) => {
     console.log("All works fine, congratz!");
   }
 });
+app.use(ko)
 app.prepare().then(() => {
   const server = new Koa();
   const router = Router();
@@ -95,7 +96,6 @@ app.prepare().then(() => {
       },
     })
   );
-console.log('working');
   server.use(graphQLProxy({ version: ApiVersion.October19 }));
   server.use(verifyRequest());
   server.use(async (ctx) => {
