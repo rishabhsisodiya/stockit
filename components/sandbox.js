@@ -541,10 +541,10 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
-      console.log('inside ');
+      axio
       axios({
         method: "POST",
-        url: "/send",
+        url: "shopifystockit.herokuapp.com/send",
         data: {
           name: 'Rishabh',
           email: 'whatspptest1@gmail.com',
