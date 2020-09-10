@@ -544,7 +544,7 @@ const Sandbox = (props) => {
       axios.post('/api/send',{
           name: 'Rishabh',
           email: 'sisodiya.bunty@yahoo.com',
-          messageHtml: 'Sample Mail',
+          messageHtml: 'Below Item getting out of stock. Please look into it\n:'+outOfStock,
       }).then( (response) =>{
         console.log('Email Sent from axios', response);
       }).catch((error) =>{

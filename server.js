@@ -71,15 +71,16 @@ router.post("/api/send", koaBody(), async (ctx) => {
 
     transporter.sendMail(mail, (err, data) => {
       if (err) {
-        // res.json({ msg: "fail" });
-        console.log('FAiled in nodemail',err);
+        ctx.res.statusMessage=err;
+        console.log('Failed in nodemail',err);
       } else {
-        // res.json({ msg: "success" });
+        ctx.res.statusCode = 200;
+        ctx.res.statusMessage="Mail Sent Successfully"
         console.log('Email Sent Successfully!!!');
       }
     });
   } catch (error) {
-    console.log('Error in post',error);
+    console.log('Error in router post',error);
   }
 });
 
