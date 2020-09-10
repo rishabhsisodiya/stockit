@@ -64,6 +64,7 @@ app.prepare().then(() => {
         });
         ctx.redirect("/");
         //  await getSubscriptionUrl(ctx, accessToken, shop);
+        console.log('Start');
         router.post("/send", (req, res, next) => {
           console.log('POst: ',req, res);
           const name = req.body.name;
@@ -86,7 +87,7 @@ app.prepare().then(() => {
 
           )
         });// End router post
-        
+
       },
     })
   );

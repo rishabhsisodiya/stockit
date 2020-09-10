@@ -541,19 +541,20 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
+      console.log('inside ');
       axios({
         method: "POST",
         url: "/send",
         data: {
           name: 'Rishabh',
           email: 'rishabh.sisodiya4@gmail.com',
-          messageHtml: outOfStock,
+          messageHtml: 'Sample Mail',
         },
       }).then((response) => {
         if (response.data.msg === "success") {
-          alert("Email sent, awesome!");
+          console.info("Email sent, awesome!");
         } else if (response.data.msg === "fail") {
-          alert("Oops, something went wrong. Try again");
+          console.error("Oops, something went wrong. Try again");
         }
       });
       // emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:outOfStock}, 'user_vBk9y4XIaEL5tzwT88IuZ')
