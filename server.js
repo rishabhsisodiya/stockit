@@ -25,9 +25,8 @@ const {
   USER,
   PASS,
 } = process.env;
-console.log("User:" + USER + "," + PASS);
 const transport = {
-  host: "smtp.gmail.com",
+  host: "smtp.mail.yahoo.com",
   auth: {
     user: USER,
     pass: PASS,
