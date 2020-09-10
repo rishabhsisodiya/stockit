@@ -541,7 +541,7 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
-      axios.post('https://shopifystockit.herokuapp.com/send',{
+      axios.post('/api/send',{
           name: 'Rishabh',
           email: 'whatspptest1@gmail.com',
           messageHtml: 'Sample Mail',

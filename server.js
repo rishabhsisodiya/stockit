@@ -1,7 +1,8 @@
 require("isomorphic-fetch");
 const dotenv = require("dotenv");
 const Koa = require("koa");
-const Router = require("koa-router");
+const KoaRouter = require("koa-router");
+const koaBody = require("koa-body");
 const nodemailer = require("nodemailer");
 const next = require("next");
 const { default: createShopifyAuth } = require("@shopify/koa-shopify-auth");
@@ -16,7 +17,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-console.log('server.js');
+console.log("server.js");
 const {
   SHOPIFY_API_SECRET_KEY,
   SHOPIFY_API_KEY,
@@ -39,11 +40,36 @@ transporter.verify((error, success) => {
     console.log("All works fine, congratz!");
   }
 });
+const server = new Koa();
+const router = new KoaRouter();
 // app.use(ko)
-console.log('Hello from server');
+router.get("/api/send", async (ctx) => {
+  try {
+    ctx.body = {
+      status: "success",
+      data: 'Testing',
+    };
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/api/send", koaBody(), async (ctx) => {
+  try {
+    const body = ctx.request.body;
+    console.log('Email Sent:',body);
+    // await products.push(body);
+    ctx.body = "Item Added";
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Router Middleware
+server.use(router.allowedMethods());
+server.use(router.routes());
+
 app.prepare().then(() => {
-  const server = new Koa();
-  const router = Router();
   server.use(session({ secure: true, sameSite: "none" }, server));
   server.keys = [SHOPIFY_API_SECRET_KEY];
 
@@ -64,15 +90,15 @@ app.prepare().then(() => {
           secure: true,
           sameSite: "none",
         });
-        console.log('Before /');
+        console.log("Before /");
         ctx.redirect("/");
         //  await getSubscriptionUrl(ctx, accessToken, shop);
-        console.log('Start');
-        router.get('/send',(req, res, next)=>{
-          console.log('get');
-        })
+        console.log("Start");
+        router.get("/send", (req, res, next) => {
+          console.log("get");
+        });
         router.post("/send", (req, res, next) => {
-          console.log('POst: ',req, res);
+          console.log("POst: ", req, res);
           const name = req.body.name;
           const email = req.body.email;
           const message = req.body.messageHtml;
@@ -83,17 +109,14 @@ app.prepare().then(() => {
             html: message,
           };
 
-          transporter.sendMail(mail, (err, data) =>{
+          transporter.sendMail(mail, (err, data) => {
             if (err) {
-              res.json({msg:'fail'})
+              res.json({ msg: "fail" });
             } else {
-              res.json({msg:'success'})
+              res.json({ msg: "success" });
             }
-          }
-
-          )
-        });// End router post
-
+          });
+        }); // End router post
       },
     })
   );
