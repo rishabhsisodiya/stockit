@@ -58,12 +58,12 @@ router.get("/api/send", async (ctx) => {
 router.post("/api/send", koaBody(), async (ctx) => {
   try {
     const body = ctx.request.body;
-    console.log('Body:',body);
+    // console.log('Body:',body);
     const name = body.name;
     const email = body.email;
     const message = body.messageHtml;
     var mail = {
-      from: name,
+      from: USER,
       to: email,
       subject: "STOCKIT ALERT!",
       html: message,

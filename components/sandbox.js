@@ -543,7 +543,7 @@ const Sandbox = (props) => {
     if (outOfStock.length) {
       axios.post('/api/send',{
           name: 'Rishabh',
-          email: 'whatspptest1@gmail.com',
+          email: 'sisodiya.bunty@yahoo.com',
           messageHtml: 'Sample Mail',
       }).then( (response) =>{
         console.log('Email Sent from axios', response);
