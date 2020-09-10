@@ -17,7 +17,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-console.log("server.js");
+
 const {
   SHOPIFY_API_SECRET_KEY,
   SHOPIFY_API_KEY,
@@ -25,6 +25,7 @@ const {
   USER,
   PASS,
 } = process.env;
+console.log("User:" + USER + "," + PASS);
 const transport = {
   host: "smtp.gmail.com",
   auth: {
@@ -47,7 +48,7 @@ router.get("/api/send", async (ctx) => {
   try {
     ctx.body = {
       status: "success",
-      data: 'Testing',
+      data: "Testing",
     };
   } catch (error) {
     console.log(error);
@@ -57,11 +58,28 @@ router.get("/api/send", async (ctx) => {
 router.post("/api/send", koaBody(), async (ctx) => {
   try {
     const body = ctx.request.body;
-    console.log('Email Sent:',body);
-    // await products.push(body);
-    ctx.body = "Item Added";
+    console.log('Body:',body);
+    const name = body.name;
+    const email = body.email;
+    const message = body.messageHtml;
+    var mail = {
+      from: name,
+      to: email,
+      subject: "STOCKIT ALERT!",
+      html: message,
+    };
+
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        // res.json({ msg: "fail" });
+        console.log('FAiled in nodemail',err);
+      } else {
+        // res.json({ msg: "success" });
+        console.log('Email Sent Successfully!!!');
+      }
+    });
   } catch (error) {
-    console.log(error);
+    console.log('Error in post',error);
   }
 });
 
@@ -90,33 +108,31 @@ app.prepare().then(() => {
           secure: true,
           sameSite: "none",
         });
-        console.log("Before /");
         ctx.redirect("/");
         //  await getSubscriptionUrl(ctx, accessToken, shop);
-        console.log("Start");
-        router.get("/send", (req, res, next) => {
-          console.log("get");
-        });
-        router.post("/send", (req, res, next) => {
-          console.log("POst: ", req, res);
-          const name = req.body.name;
-          const email = req.body.email;
-          const message = req.body.messageHtml;
-          var mail = {
-            from: name,
-            to: email,
-            subject: "STOCKIT ALERT!",
-            html: message,
-          };
+        // router.get("/send", (req, res, next) => {
+        //   console.log("get");
+        // });
+        // router.post("/send", (req, res, next) => {
+        // console.log("POst: ", req, res);
+        // const name = req.body.name;
+        // const email = req.body.email;
+        // const message = req.body.messageHtml;
+        // var mail = {
+        //   from: name,
+        //   to: email,
+        //   subject: "STOCKIT ALERT!",
+        //   html: message,
+        // };
 
-          transporter.sendMail(mail, (err, data) => {
-            if (err) {
-              res.json({ msg: "fail" });
-            } else {
-              res.json({ msg: "success" });
-            }
-          });
-        }); // End router post
+        // transporter.sendMail(mail, (err, data) => {
+        //   if (err) {
+        //     res.json({ msg: "fail" });
+        //   } else {
+        //     res.json({ msg: "success" });
+        //   }
+        // });
+        // }); // End router post
       },
     })
   );

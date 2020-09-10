@@ -546,7 +546,7 @@ const Sandbox = (props) => {
           email: 'whatspptest1@gmail.com',
           messageHtml: 'Sample Mail',
       }).then( (response) =>{
-        console.log('axios response:', response);
+        console.log('Email Sent from axios', response);
       }).catch((error) =>{
         console.log('Error in axios:',error);
       })
