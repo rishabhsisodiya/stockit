@@ -26,6 +26,7 @@ import {
 } from "@shopify/polaris";
 import EditQuantity from "./EditQuantity";
 import emailjs from "emailjs-com";
+import axios from "axios";
 
 const SAVED_SEARCH_CREATE = gql`
   mutation savedSearchCreate($input: SavedSearchCreateInput!) {
@@ -518,6 +519,7 @@ const Sandbox = (props) => {
     console.log("useEffect:", data);
     let alert = 5;
     let outOfStock = [];
+    // let shop=data.shop.url;
     if (data) {
       data.products.edges.map((item) => {
         const prodTitle = item.node.title;
@@ -527,20 +529,33 @@ const Sandbox = (props) => {
           const varTitle =
             varItem.node.title !== "Default Title" ? varItem.node.title : "";
 
-          const completeTitle = prodTitle +' '+ varTitle;
+          const completeTitle = prodTitle + " " + varTitle;
           if (availableQuantity <= alert) {
             outOfStock.push({
               title: completeTitle,
               quantity: availableQuantity,
             });
           }
-
         });
-
       });
     }
 
     if (outOfStock.length) {
+      axios({
+        method: "POST",
+        url: "/send",
+        data: {
+          name: 'Rishabh',
+          email: 'rishabh.sisodiya4@gmail.com',
+          messageHtml: outOfStock,
+        },
+      }).then((response) => {
+        if (response.data.msg === "success") {
+          alert("Email sent, awesome!");
+        } else if (response.data.msg === "fail") {
+          alert("Oops, something went wrong. Try again");
+        }
+      });
       // emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:outOfStock}, 'user_vBk9y4XIaEL5tzwT88IuZ')
       // .then((result) => {
       //     console.log(result.text);
