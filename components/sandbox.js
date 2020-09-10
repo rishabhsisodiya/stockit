@@ -547,7 +547,9 @@ const Sandbox = (props) => {
           messageHtml: 'Sample Mail',
       }).then( (response) =>{
         console.log('axios response:', response);
-      } )
+      }).catch((error) =>{
+        console.log('Error in axios:',error);
+      })
     //  axios({
     //     method: "POST",
     //     url: "https://shopifystockit.herokuapp.com/send",

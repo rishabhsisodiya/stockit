@@ -66,6 +66,9 @@ app.prepare().then(() => {
         ctx.redirect("/");
         //  await getSubscriptionUrl(ctx, accessToken, shop);
         console.log('Start');
+        router.get('/send',(req, res, next)=>{
+          console.log('get');
+        })
         router.post("/send", (req, res, next) => {
           console.log('POst: ',req, res);
           const name = req.body.name;
@@ -92,7 +95,7 @@ app.prepare().then(() => {
       },
     })
   );
-
+console.log('working');
   server.use(graphQLProxy({ version: ApiVersion.October19 }));
   server.use(verifyRequest());
   server.use(async (ctx) => {
