@@ -547,7 +547,7 @@ const Sandbox = (props) => {
         url: "/send",
         data: {
           name: 'Rishabh',
-          email: 'rishabh.sisodiya4@gmail.com',
+          email: 'whatspptest1@gmail.com',
           messageHtml: 'Sample Mail',
         },
       }).then((response) => {
