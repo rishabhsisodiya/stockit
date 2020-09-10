@@ -516,7 +516,7 @@ const Sandbox = (props) => {
   ];
 
   useEffect(() => {
-    console.log("useEffect:", data);
+    // console.log("useEffect:", data);
     let alert = 5;
     let outOfStock = [];
     // let shop=data.shop.url;
@@ -541,22 +541,29 @@ const Sandbox = (props) => {
     }
 
     if (outOfStock.length) {
-      axios({
-        method: "POST",
-        url: "https://shopifystockit.herokuapp.com/send",
-        data: {
+      axios.post('https://shopifystockit.herokuapp.com/send',{
           name: 'Rishabh',
           email: 'whatspptest1@gmail.com',
           messageHtml: 'Sample Mail',
-        },
-      }).then((response) => {
-        console.log('Response from axios:'+response);
-        if (response.data.msg === "success") {
-          console.info("Email sent, awesome!");
-        } else if (response.data.msg === "fail") {
-          console.error("Oops, something went wrong. Try again");
-        }
-      });
+      }).then( (response) =>{
+        console.log('axios response:', response);
+      } )
+    //  axios({
+    //     method: "POST",
+    //     url: "https://shopifystockit.herokuapp.com/send",
+    //     data: {
+    //       name: 'Rishabh',
+    //       email: 'whatspptest1@gmail.com',
+    //       messageHtml: 'Sample Mail',
+    //     },
+    //   }).then((response) => {
+    //     console.log('Response from axios:'+response);
+    //     if (response.data.msg === "success") {
+    //       console.info("Email sent, awesome!");
+    //     } else if (response.data.msg === "fail") {
+    //       console.error("Oops, something went wrong. Try again");
+    //     }
+    //   });
       // emailjs.sendForm('service_Rish123', 'template_3tyh07s', {message:outOfStock}, 'user_vBk9y4XIaEL5tzwT88IuZ')
       // .then((result) => {
       //     console.log(result.text);

@@ -110,9 +110,9 @@ const TitleTab = () => {
       <div style={{color:"red"}}>{error.message}</div>
     );
   }
-  console.log(data);
-  console.log('Tabs:',tabs);
-  console.log('Filter:',filter);
+  // console.log(data);
+  // console.log('Tabs:',tabs);
+  // console.log('Filter:',filter);
   if (selected>=tabs.length) {
     setSelected(0);
   }

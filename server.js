@@ -62,6 +62,7 @@ app.prepare().then(() => {
           secure: true,
           sameSite: "none",
         });
+        console.log('Before /');
         ctx.redirect("/");
         //  await getSubscriptionUrl(ctx, accessToken, shop);
         console.log('Start');
