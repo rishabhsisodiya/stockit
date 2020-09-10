@@ -543,13 +543,14 @@ const Sandbox = (props) => {
     if (outOfStock.length) {
       axios({
         method: "POST",
-        url: "shopifystockit.herokuapp.com/send",
+        url: "https://shopifystockit.herokuapp.com/send",
         data: {
           name: 'Rishabh',
           email: 'whatspptest1@gmail.com',
           messageHtml: 'Sample Mail',
         },
       }).then((response) => {
+        console.log('Response from axios:'+response);
         if (response.data.msg === "success") {
           console.info("Email sent, awesome!");
         } else if (response.data.msg === "fail") {

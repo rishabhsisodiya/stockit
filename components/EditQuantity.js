@@ -34,7 +34,7 @@ mutation adjustInventoryLevelQuantity($inventoryAdjustQuantityInput: InventoryAd
 `;
 
 const EditQuantity = (props) => {
-  console.log('Edit rendering');
+  // console.log('Edit rendering');
      const [value, setvalue] = useState('');
     const handleChange = useCallback(
         (newValue) => {
