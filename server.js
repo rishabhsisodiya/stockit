@@ -27,10 +27,11 @@ const {
 } = process.env;
 const transport = {
   host: "smtp.mail.yahoo.com",
+  port:587,
   auth: {
     user: USER,
-    pass: PASS,
-  },
+    pass: PASS
+},
 };
 let transporter = nodemailer.createTransport(transport);
 transporter.verify((error, success) => {
