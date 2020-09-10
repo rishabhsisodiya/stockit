@@ -39,7 +39,8 @@ transporter.verify((error, success) => {
     console.log("All works fine, congratz!");
   }
 });
-app.use(ko)
+// app.use(ko)
+console.log('Hello from server');
 app.prepare().then(() => {
   const server = new Koa();
   const router = Router();
